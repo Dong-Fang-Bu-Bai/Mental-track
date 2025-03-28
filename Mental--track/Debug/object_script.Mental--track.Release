@@ -1,0 +1,12 @@
+release/Help.o
+release/Login.o
+release/Register.o
+release/Start.o
+release/gamedefine.o
+release/gameobject.o
+release/main.o
+release/qrc_src.o
+release/moc_Help.o
+release/moc_Login.o
+release/moc_Register.o
+release/moc_Start.o

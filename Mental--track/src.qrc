@@ -1,0 +1,7 @@
+<RCC>
+    <qresource prefix="/img">
+        <file>Debug/image/Name.png</file>
+        <file>Debug/image/login.png</file>
+    </qresource>
+    <qresource prefix="/audio"/>
+</RCC>

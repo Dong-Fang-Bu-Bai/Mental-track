@@ -1,0 +1,12 @@
+debug/Help.o
+debug/Login.o
+debug/Register.o
+debug/Start.o
+debug/gamedefine.o
+debug/gameobject.o
+debug/main.o
+debug/qrc_src.o
+debug/moc_Help.o
+debug/moc_Login.o
+debug/moc_Register.o
+debug/moc_Start.o
