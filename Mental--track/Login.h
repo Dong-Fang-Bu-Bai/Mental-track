@@ -26,6 +26,10 @@ private slots:
 
     void on_pushButton_help_clicked();
 
+    void on_checkBox_stateChanged(int arg1);
+
+    void on_checkBox_clicked(bool checked);
+
 private:
     Ui::Login *ui;
 };

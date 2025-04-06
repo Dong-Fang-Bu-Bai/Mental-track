@@ -26,34 +26,46 @@ void Start::on_Btn_login_clicked()
 //    // 检查是否已存在实例
 //    static Login *w = nullptr;
 //    if (!w) {
-//        w = new Login(qApp); // 关键点
+//        w = new Login(); // 关键点
 //        w->setAttribute(Qt::WA_DeleteOnClose, true);
 //    }
-    Login *w=new Login();
+//    w->show();
+//    this->close();
 
-    w->show();
-    w->setAttribute(Qt::WA_DeleteOnClose, true);
+//    Login *w=new Login();
+
+//    w->show();
+//    w->setAttribute(Qt::WA_DeleteOnClose, true);
+//    this->hide();
+
     this->hide();
+    getGlobalLoginWindow()->show();
 }
 
 void Start::on_Btn_Register_clicked()
 {
-//    // 检查是否已存在实例
+//     //检查是否已存在实例
 //    static Register *w = nullptr;
 //    if (!w) {
 //        w = new Register(); // 关键点
 //        w->setAttribute(Qt::WA_DeleteOnClose, true);
 //    }
-    Register *w=new Register();
+//    w->show();
+//    this->close();
 
-    w->show();
-    w->setAttribute(Qt::WA_DeleteOnClose, true);
+//    Register *w=new Register();
+
+//    w->show();
+//    w->setAttribute(Qt::WA_DeleteOnClose, true);
+//    this->hide();
+
     this->hide();
+    getGlobalRegisterWindow()->show();
 }
 
 void Start::on_Btn_Exit_clicked()
 {
 
-    this->hide();
+    this->close();
 
 }

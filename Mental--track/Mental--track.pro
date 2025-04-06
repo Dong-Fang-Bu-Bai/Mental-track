@@ -16,26 +16,48 @@ DEFINES += QT_DEPRECATED_WARNINGS
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
 SOURCES += \
+    Displaygridscene.cpp \
+    Gameplay.cpp \
+    Gridscene.cpp \
     Help.cpp \
+    Hexagonbutton.cpp \
+    Interactivegridscene.cpp \
     Login.cpp \
+    Map.cpp \
+    Mode.cpp \
+    Pathcalculator.cpp \
     Register.cpp \
+    Setting.cpp \
     Start.cpp \
     gamedefine.cpp \
     gameobject.cpp \
     main.cpp
 
 HEADERS += \
+    Displaygridscene.h \
+    Gameplay.h \
+    Gridscene.h \
     Help.h \
+    Hexagonbutton.h \
+    Interactivegridscene.h \
     Login.h \
+    Map.h \
+    Mode.h \
+    Pathcalculator.h \
     Register.h \
+    Setting.h \
     Start.h \
     gamedefine.h \
     gameobject.h
 
 FORMS += \
+    Gameplay.ui \
     Help.ui \
     Login.ui \
+    Map.ui \
+    Mode.ui \
     Register.ui \
+    Setting.ui \
     Start.ui \
     Widget.ui
 

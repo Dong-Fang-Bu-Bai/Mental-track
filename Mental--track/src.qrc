@@ -2,6 +2,16 @@
     <qresource prefix="/img">
         <file>Debug/image/Name.png</file>
         <file>Debug/image/login.png</file>
+        <file>Debug/image/battleicon.fw.png</file>
+        <file>Debug/image/devine.fw.png</file>
+        <file>Debug/image/flame.fw.png</file>
+        <file>Debug/image/ice.fw.png</file>
+        <file>Debug/image/lightning.fw.png</file>
+        <file>Debug/image/nature.fw.png</file>
+        <file>Debug/image/shadow.fw.png</file>
+        <file>Debug/image/Diamond.fw.png</file>
+        <file>Debug/image/Mapbackground1.png</file>
+        <file>Debug/image/Modebackground.fw.png</file>
     </qresource>
     <qresource prefix="/audio"/>
 </RCC>

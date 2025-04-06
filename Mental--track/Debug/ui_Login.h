@@ -26,13 +26,13 @@ class Ui_Login
 public:
     QLabel *Label_loginbackground;
     QCheckBox *checkBox;
-    QWidget *widget;
+    QWidget *layoutWidget;
     QGridLayout *gridLayout;
     QLabel *label_user;
     QLineEdit *lineEdit_User;
     QLabel *label_pass;
     QLineEdit *lineEdit_Pass;
-    QWidget *widget1;
+    QWidget *layoutWidget1;
     QGridLayout *gridLayout_2;
     QPushButton *pushButton_play;
     QPushButton *pushButton_help;
@@ -56,13 +56,13 @@ public:
         font.setFamily(QString::fromUtf8("\345\276\256\350\275\257\351\233\205\351\273\221"));
         font.setPointSize(11);
         checkBox->setFont(font);
-        widget = new QWidget(Login);
-        widget->setObjectName(QString::fromUtf8("widget"));
-        widget->setGeometry(QRect(230, 270, 331, 111));
-        gridLayout = new QGridLayout(widget);
+        layoutWidget = new QWidget(Login);
+        layoutWidget->setObjectName(QString::fromUtf8("layoutWidget"));
+        layoutWidget->setGeometry(QRect(230, 270, 331, 111));
+        gridLayout = new QGridLayout(layoutWidget);
         gridLayout->setObjectName(QString::fromUtf8("gridLayout"));
         gridLayout->setContentsMargins(0, 0, 0, 0);
-        label_user = new QLabel(widget);
+        label_user = new QLabel(layoutWidget);
         label_user->setObjectName(QString::fromUtf8("label_user"));
         QFont font1;
         font1.setFamily(QString::fromUtf8("\351\273\221\344\275\223"));
@@ -76,12 +76,12 @@ public:
 
         gridLayout->addWidget(label_user, 0, 0, 1, 1);
 
-        lineEdit_User = new QLineEdit(widget);
+        lineEdit_User = new QLineEdit(layoutWidget);
         lineEdit_User->setObjectName(QString::fromUtf8("lineEdit_User"));
 
         gridLayout->addWidget(lineEdit_User, 0, 1, 1, 1);
 
-        label_pass = new QLabel(widget);
+        label_pass = new QLabel(layoutWidget);
         label_pass->setObjectName(QString::fromUtf8("label_pass"));
         label_pass->setFont(font1);
         label_pass->setStyleSheet(QString::fromUtf8("QLabel {\n"
@@ -92,18 +92,19 @@ public:
 
         gridLayout->addWidget(label_pass, 1, 0, 1, 1);
 
-        lineEdit_Pass = new QLineEdit(widget);
+        lineEdit_Pass = new QLineEdit(layoutWidget);
         lineEdit_Pass->setObjectName(QString::fromUtf8("lineEdit_Pass"));
+        lineEdit_Pass->setEchoMode(QLineEdit::Password);
 
         gridLayout->addWidget(lineEdit_Pass, 1, 1, 1, 1);
 
-        widget1 = new QWidget(Login);
-        widget1->setObjectName(QString::fromUtf8("widget1"));
-        widget1->setGeometry(QRect(190, 510, 431, 51));
-        gridLayout_2 = new QGridLayout(widget1);
+        layoutWidget1 = new QWidget(Login);
+        layoutWidget1->setObjectName(QString::fromUtf8("layoutWidget1"));
+        layoutWidget1->setGeometry(QRect(190, 510, 431, 51));
+        gridLayout_2 = new QGridLayout(layoutWidget1);
         gridLayout_2->setObjectName(QString::fromUtf8("gridLayout_2"));
         gridLayout_2->setContentsMargins(0, 0, 0, 0);
-        pushButton_play = new QPushButton(widget1);
+        pushButton_play = new QPushButton(layoutWidget1);
         pushButton_play->setObjectName(QString::fromUtf8("pushButton_play"));
         QFont font2;
         font2.setFamily(QString::fromUtf8("\345\215\216\346\226\207\350\241\214\346\245\267"));
@@ -122,7 +123,7 @@ public:
 
         gridLayout_2->addWidget(pushButton_play, 0, 0, 1, 1);
 
-        pushButton_help = new QPushButton(widget1);
+        pushButton_help = new QPushButton(layoutWidget1);
         pushButton_help->setObjectName(QString::fromUtf8("pushButton_help"));
         pushButton_help->setFont(font2);
         pushButton_help->setStyleSheet(QString::fromUtf8("/* \351\273\230\350\256\244\347\212\266\346\200\201 */\n"
@@ -138,7 +139,7 @@ public:
 
         gridLayout_2->addWidget(pushButton_help, 0, 4, 1, 1);
 
-        pushButton_back = new QPushButton(widget1);
+        pushButton_back = new QPushButton(layoutWidget1);
         pushButton_back->setObjectName(QString::fromUtf8("pushButton_back"));
         pushButton_back->setFont(font2);
         pushButton_back->setStyleSheet(QString::fromUtf8("/* \351\273\230\350\256\244\347\212\266\346\200\201 */\n"
