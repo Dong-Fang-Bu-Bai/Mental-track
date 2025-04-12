@@ -22,13 +22,17 @@ SOURCES += \
     Help.cpp \
     Hexagonbutton.cpp \
     Interactivegridscene.cpp \
+    LevelRecord.cpp \
     Login.cpp \
     Map.cpp \
+    MedalType.cpp \
     Mode.cpp \
     Pathcalculator.cpp \
     Register.cpp \
     Setting.cpp \
     Start.cpp \
+    User.cpp \
+    UserFileManager.cpp \
     gamedefine.cpp \
     gameobject.cpp \
     main.cpp
@@ -40,13 +44,17 @@ HEADERS += \
     Help.h \
     Hexagonbutton.h \
     Interactivegridscene.h \
+    LevelRecord.h \
     Login.h \
     Map.h \
+    MedalType.h \
     Mode.h \
     Pathcalculator.h \
     Register.h \
     Setting.h \
     Start.h \
+    User.h \
+    UserFileManager.h \
     gamedefine.h \
     gameobject.h
 

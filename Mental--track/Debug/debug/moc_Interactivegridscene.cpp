@@ -22,8 +22,8 @@ QT_BEGIN_MOC_NAMESPACE
 QT_WARNING_PUSH
 QT_WARNING_DISABLE_DEPRECATED
 struct qt_meta_stringdata_InteractiveGridScene_t {
-    QByteArrayData data[3];
-    char stringdata0[37];
+    QByteArrayData data[5];
+    char stringdata0[41];
 };
 #define QT_MOC_LITERAL(idx, ofs, len) \
     Q_STATIC_BYTE_ARRAY_DATA_HEADER_INITIALIZER_WITH_OFFSET(len, \
@@ -34,11 +34,13 @@ static const qt_meta_stringdata_InteractiveGridScene_t qt_meta_stringdata_Intera
     {
 QT_MOC_LITERAL(0, 0, 20), // "InteractiveGridScene"
 QT_MOC_LITERAL(1, 21, 14), // "pathPointAdded"
-QT_MOC_LITERAL(2, 36, 0) // ""
+QT_MOC_LITERAL(2, 36, 0), // ""
+QT_MOC_LITERAL(3, 37, 1), // "x"
+QT_MOC_LITERAL(4, 39, 1) // "y"
 
     },
     "InteractiveGridScene\0pathPointAdded\0"
-    ""
+    "\0x\0y"
 };
 #undef QT_MOC_LITERAL
 
@@ -59,7 +61,7 @@ static const uint qt_meta_data_InteractiveGridScene[] = {
        1,    2,   19,    2, 0x06 /* Public */,
 
  // signals: parameters
-    QMetaType::Void, QMetaType::Int, QMetaType::Int,    2,    2,
+    QMetaType::Void, QMetaType::Int, QMetaType::Int,    3,    4,
 
        0        // eod
 };

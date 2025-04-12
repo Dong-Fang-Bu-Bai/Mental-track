@@ -19,7 +19,7 @@ public:
 protected:
     int m_gridSize;      // 网格尺寸（10/15/20）
 
-    const int CELL_SIZE = 30; // 统一常量命名
+    const int CELL_SIZE = 68;// 统一常量命名
 
 
 

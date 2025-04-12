@@ -2,7 +2,6 @@
     <qresource prefix="/img">
         <file>Debug/image/Name.png</file>
         <file>Debug/image/login.png</file>
-        <file>Debug/image/battleicon.fw.png</file>
         <file>Debug/image/devine.fw.png</file>
         <file>Debug/image/flame.fw.png</file>
         <file>Debug/image/ice.fw.png</file>
@@ -14,4 +13,7 @@
         <file>Debug/image/Modebackground.fw.png</file>
     </qresource>
     <qresource prefix="/audio"/>
+    <qresource prefix="/leveldata">
+        <file>Debug/levels/level1/level1.txt</file>
+    </qresource>
 </RCC>

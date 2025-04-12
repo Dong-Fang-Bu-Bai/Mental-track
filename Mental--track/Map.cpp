@@ -158,7 +158,8 @@ connect(pushButton_backMode, &QPushButton::clicked, [=](){
   label_text->setFont(font);
 
   // 设置样式表（包含正常/悬浮/点击状态）
-  label_text->setStyleSheet(
+  label_text->setStyleSheet
+  (
       "QPushButton {"
       "     background-color: rgba(255,255, 255, 0%);"  // 蓝色背景，80% 透明
       "   color: Black;"               // 文字颜色
@@ -234,8 +235,7 @@ connect(pushButton_backMode, &QPushButton::clicked, [=](){
        {
            for(int j=0;j<i;j++)
            {
-               auto btn = getButton(3*i*i-3*i+1+j);
-               btn->setIcon(QIcon(":/img/Debug/image/flame.fw.png"));
+               getButton(3*i*i-3*i+1+j)->setIcon(QIcon(":/img/Debug/image/flame.fw.png"));
            }
        }
 
@@ -243,8 +243,8 @@ connect(pushButton_backMode, &QPushButton::clicked, [=](){
        {
            for(int j=0;j<i;j++)
            {
-               auto btn = getButton(3*i*i-3*i+1+j+i);
-               btn->setIcon(QIcon(":/img/Debug/image/lightning.fw.png"));
+
+               getButton(3*i*i-3*i+1+j+i)->setIcon(QIcon(":/img/Debug/image/lightning.fw.png"));
            }
        }
 
@@ -253,8 +253,7 @@ connect(pushButton_backMode, &QPushButton::clicked, [=](){
        {
            for(int j=0;j<i;j++)
            {
-               auto btn = getButton(3*i*i-3*i+1+j+2*i);
-               btn->setIcon(QIcon(":/img/Debug/image/shadow.fw.png"));
+               getButton(3*i*i-3*i+1+j+2*i)->setIcon(QIcon(":/img/Debug/image/shadow.fw.png"));
            }
        }
 
@@ -262,8 +261,7 @@ connect(pushButton_backMode, &QPushButton::clicked, [=](){
        {
            for(int j=0;j<i;j++)
            {
-               auto btn = getButton(3*i*i-3*i+1+j+3*i);
-               btn->setIcon(QIcon(":/img/Debug/image/ice.fw.png"));
+               getButton(3*i*i-3*i+1+j+3*i)->setIcon(QIcon(":/img/Debug/image/ice.fw.png"));
            }
        }
 
@@ -271,8 +269,7 @@ connect(pushButton_backMode, &QPushButton::clicked, [=](){
        {
            for(int j=0;j<i;j++)
            {
-               auto btn = getButton(3*i*i-3*i+1+j+4*i);
-               btn->setIcon(QIcon(":/img/Debug/image/nature.fw.png"));
+               getButton(3*i*i-3*i+1+j+4*i)->setIcon(QIcon(":/img/Debug/image/nature.fw.png"));
            }
        }
 
@@ -280,35 +277,108 @@ connect(pushButton_backMode, &QPushButton::clicked, [=](){
        {
            for(int j=0;j<i;j++)
            {
-               auto btn = getButton(3*i*i-3*i+1+j+5*i);
-               btn->setIcon(QIcon(":/img/Debug/image/devine.fw.png"));
+               getButton(3*i*i-3*i+1+j+5*i)->setIcon(QIcon(":/img/Debug/image/devine.fw.png"));
            }
        }
 
 
+
+
+       // 为不同按钮指定不同关卡
+       QMap<int, QString> levelMap = {
+           {0, ":/leveldata/Debug/levels/level1/level1.txt"},
+           {1, ":/leveldata/Debug/levels/level1/level1.txt"},
+           {2, ":/leveldata/Debug/levels/level1/level1.txt"},
+           {3, ":/leveldata/Debug/levels/level1/level1.txt"},
+           {4, ":/leveldata/Debug/levels/level1/level1.txt"},
+           {5, ":/leveldata/Debug/levels/level1/level1.txt"},
+           {6, ":/leveldata/Debug/levels/level1/level1.txt"},
+           {7, ":/leveldata/Debug/levels/level1/level1.txt"},
+           {8, ":/leveldata/Debug/levels/level1/level1.txt"},
+           {9, ":/leveldata/Debug/levels/level1/level1.txt"},
+           {10, ":/leveldata/Debug/levels/level1/level1.txt"},
+           {11, ":/leveldata/Debug/levels/level1/level1.txt"},
+           {12, ":/leveldata/Debug/levels/level1/level1.txt"},
+           {13, ":/leveldata/Debug/levels/level1/level1.txt"},
+           {14, ":/leveldata/Debug/levels/level1/level1.txt"},
+           {15, ":/leveldata/Debug/levels/level1/level1.txt"},
+           {16, ":/leveldata/Debug/levels/level1/level1.txt"},
+           {17, ":/leveldata/Debug/levels/level1/level1.txt"},
+           {18, ":/leveldata/Debug/levels/level1/level1.txt"},
+           {19, ":/leveldata/Debug/levels/level1/level1.txt"},
+           {20, ":/leveldata/Debug/levels/level1/level1.txt"},
+           {21, ":/leveldata/Debug/levels/level1/level1.txt"},
+           {22, ":/leveldata/Debug/levels/level1/level1.txt"},
+           {23, ":/leveldata/Debug/levels/level1/level1.txt"},
+           {24, ":/leveldata/Debug/levels/level1/level1.txt"},
+           {25, ":/leveldata/Debug/levels/level1/level1.txt"},
+           {26, ":/leveldata/Debug/levels/level1/level1.txt"},
+           {27, ":/leveldata/Debug/levels/level1/level1.txt"},
+           {28, ":/leveldata/Debug/levels/level1/level1.txt"},
+           {29, ":/leveldata/Debug/levels/level1/level1.txt"},
+           {30, ":/leveldata/Debug/levels/level1/level1.txt"},
+           {31, ":/leveldata/Debug/levels/level1/level1.txt"},
+           {32, ":/leveldata/Debug/levels/level1/level1.txt"},
+           {33, ":/leveldata/Debug/levels/level1/level1.txt"},
+           {34, ":/leveldata/Debug/levels/level1/level1.txt"},
+           {35, ":/leveldata/Debug/levels/level1/level1.txt"},
+           {36, ":/leveldata/Debug/levels/level1/level1.txt"},
+           {37, ":/leveldata/Debug/levels/level1/level1.txt"},
+           {38, ":/leveldata/Debug/levels/level1/level1.txt"},
+           {39, ":/leveldata/Debug/levels/level1/level1.txt"},
+           {40, ":/leveldata/Debug/levels/level1/level1.txt"},
+           {41, ":/leveldata/Debug/levels/level1/level1.txt"},
+           {42, ":/leveldata/Debug/levels/level1/level1.txt"},
+           {43, ":/leveldata/Debug/levels/level1/level1.txt"},
+           {44, ":/leveldata/Debug/levels/level1/level1.txt"},
+           {45, ":/leveldata/Debug/levels/level1/level1.txt"},
+           {46, ":/leveldata/Debug/levels/level1/level1.txt"},
+           {47, ":/leveldata/Debug/levels/level1/level1.txt"},
+           {48, ":/leveldata/Debug/levels/level1/level1.txt"},
+           {49, ":/leveldata/Debug/levels/level1/level1.txt"},
+           {50, ":/leveldata/Debug/levels/level1/level1.txt"},
+           {51, ":/leveldata/Debug/levels/level1/level1.txt"},
+           {52, ":/leveldata/Debug/levels/level1/level1.txt"},
+           {53, ":/leveldata/Debug/levels/level1/level1.txt"},
+           {54, ":/leveldata/Debug/levels/level1/level1.txt"},
+           {55, ":/leveldata/Debug/levels/level1/level1.txt"},
+           {56, ":/leveldata/Debug/levels/level1/level1.txt"},
+           {57, ":/leveldata/Debug/levels/level1/level1.txt"},
+           {58, ":/leveldata/Debug/levels/level1/level1.txt"},
+           {59, ":/leveldata/Debug/levels/level1/level1.txt"},
+           {60, ":/leveldata/Debug/levels/level1/level1.txt"},
+
+
+       };
 
        //设置点击逻辑
 
        //连接带编号的信号槽
-         connect(m_buttons[0], &HexagonButton::clicked, [=]()
-         {
+       for(int i=0;i<61;i++)
+       {
+           connect(m_buttons[i], &HexagonButton::clicked, [=]()
+           {
+               if(levelMap.contains(i))
+               {
+                   Gameplay *gameplay = new Gameplay(levelMap[i]);
+                   gameplay->setAttribute(Qt::WA_DeleteOnClose, true);
+                   this->hide();
+                   gameplay->show();
+               }
+               else
+               {
+                   QMessageBox::critical(nullptr, "错误", "未找到映射！");
+               }
+           });
+       }
 
-             Gameplay *gameplay = new Gameplay();  // 关键：传递当前窗口指针
-             gameplay->setAttribute(Qt::WA_DeleteOnClose, true);
-             this->hide();
-             gameplay->show();
-         });
-
-//       connect(m_buttons[0], &HexagonButton::clicked, [=]()
-//       {
-//            qDebug()<<"点击";
-//       }
-//       );
 
 
 
 
 }
+
+
 
 Map::~Map()
 {

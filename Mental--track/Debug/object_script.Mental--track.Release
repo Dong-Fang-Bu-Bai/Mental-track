@@ -4,13 +4,17 @@ release/Gridscene.o
 release/Help.o
 release/Hexagonbutton.o
 release/Interactivegridscene.o
+release/LevelRecord.o
 release/Login.o
 release/Map.o
+release/MedalType.o
 release/Mode.o
 release/Pathcalculator.o
 release/Register.o
 release/Setting.o
 release/Start.o
+release/User.o
+release/UserFileManager.o
 release/gamedefine.o
 release/gameobject.o
 release/main.o

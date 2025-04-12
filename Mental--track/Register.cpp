@@ -1,6 +1,8 @@
 #include "gamedefine.h"
 #include "ui_Register.h"
 #include"Register.h"
+#include<User.h>
+#include<UserFileManager.h>
 #include <QFile>
 #include <QTextStream>
 #include <QMessageBox>
@@ -20,21 +22,24 @@ Register::Register(QWidget *parent) :
 
 }
 
-bool saveUserCredentials(const QString& username, const QString& password, const QString& filePath = "users.dat")
+// 替换原有的saveUserCredentials函数
+bool saveUserCredentials(const QString& username, const QString& password)
 {
-    QFile file(filePath);
+    std::vector<User> users;
+    UserFileManager::loadUsers(users, "users.dat"); // 尝试加载现有用户
 
-    // 以追加模式打开文件（不存在则创建）
-    if (!file.open(QIODevice::WriteOnly | QIODevice::Append | QIODevice::Text)) {
-        QMessageBox::critical(nullptr, "错误", "无法打开用户数据文件");
-        return false;
+    // 检查用户名是否已存在
+    for(const auto& user : users)
+    {
+        if(user.getUsername() == username.toStdString()) {
+            return false;
+        }
     }
 
-    QTextStream out(&file);
+    // 添加新用户
+    users.emplace_back(username.toStdString(), password.toStdString());
 
-    out << username<< "," << password << "\n";
-    file.close();
-    return true;
+    return UserFileManager::saveUsers(users, "users.dat");
 }
 
 Register::~Register()
@@ -58,25 +63,28 @@ void Register::on_pushButton_help_clicked()
 
 }
 
+// 修改on_pushButton_play_clicked函数
 void Register::on_pushButton_play_clicked()
 {
-    if(ui->lineEdit_User->text().trimmed().isEmpty()||ui->lineEdit_Pass->text().trimmed().isEmpty())
-    {
-        QMessageBox::warning(this, "失败", "用户名或密码为空！");
-        return;
-    }
-    if(ui->lineEdit_Pass->text()!=ui->lineEdit_passconfirm->text())
-    {
-        QMessageBox::critical(this, "失败", "请重新确认密码！");
+    QString username = ui->lineEdit_User->text().trimmed();
+    QString password = ui->lineEdit_Pass->text().trimmed();
+    QString confirm = ui->lineEdit_passconfirm->text().trimmed();
+
+    if(username.isEmpty() || password.isEmpty()) {
+        QMessageBox::warning(this, "警告", "用户名和密码不能为空");
         return;
     }
 
-    if(saveUserCredentials(ui->lineEdit_User->text(),ui->lineEdit_Pass->text()))
-    {
-        QMessageBox::information(this, "提示", "注册成功！");
+    if(password != confirm) {
+        QMessageBox::critical(this, "错误", "两次输入的密码不一致");
+        return;
+    }
+
+    if(saveUserCredentials(username, password)) {
+        QMessageBox::information(this, "成功", "注册成功！");
         this->hide();
         getGlobalModeWindow()->show();
+    } else {
+        QMessageBox::critical(this, "错误", "用户名已存在或注册失败");
     }
-
-
 }

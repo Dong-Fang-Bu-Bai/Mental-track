@@ -16,12 +16,7 @@ public:
         int gridSize);
 
 
-    // 随机生成路径
-    static bool generateRandomPaths(
-        int gridSize,
-        QVector<QPoint>& actualPath,
-        QVector<QPoint>& opponentPath,
-        QVector<QPoint>& relativePath);
+
 
 private:
     static bool calculateRelativePath(
@@ -30,13 +25,6 @@ private:
         QVector<QPoint>& relativePath,
         int gridSize);
 
-    static bool generateRandomPath(
-        int gridSize,
-        const QPoint& start,
-        const QPoint& end,
-        QVector<QPoint>& path);
-
-    static QPoint generateRandomStartPoint(int gridSize);
 
      static bool validatePath(const QVector<QPoint>& path, int gridSize);
 };

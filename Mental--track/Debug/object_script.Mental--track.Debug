@@ -4,13 +4,17 @@ debug/Gridscene.o
 debug/Help.o
 debug/Hexagonbutton.o
 debug/Interactivegridscene.o
+debug/LevelRecord.o
 debug/Login.o
 debug/Map.o
+debug/MedalType.o
 debug/Mode.o
 debug/Pathcalculator.o
 debug/Register.o
 debug/Setting.o
 debug/Start.o
+debug/User.o
+debug/UserFileManager.o
 debug/gamedefine.o
 debug/gameobject.o
 debug/main.o
