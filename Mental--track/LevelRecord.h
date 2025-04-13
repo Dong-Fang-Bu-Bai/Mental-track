@@ -6,21 +6,33 @@
 
 class LevelRecord
 {
-    public:
-    LevelRecord(int levelId = 0, float completionTime = 0.0f);
+ public:
+    // 构造函数添加passed参数
+    LevelRecord(int levelId = 0, float completionTime = 0.0f, bool passed = false);
 
-        // 序列化方法
-        void serialize(std::ostream& out) const;
-        void deserialize(std::istream& in);
+    // 更新完成时间
+    void updateCompletionTime(float newTime);
 
-        // 访问方法
-        int getLevelId() const;
-        float getCompletionTime() const;
-        void updateCompletionTime(float newTime);
+    // 设置/获取通关状态
+    void setPassed(bool passed);
+    bool isPassed() const;
+
+    // 访问方法
+    int getLevelId() const;
+    float getCompletionTime() const;
+
+
+    // 序列化方法
+    void serialize(std::ostream& out) const;
+    void deserialize(std::istream& in);
+
+
+
 
     private:
         int levelId;
         float completionTime; // 单位：秒
+        bool passed;          // 新增：表示关卡是否已通关
 };
 
 #endif // LEVELRECORD_H

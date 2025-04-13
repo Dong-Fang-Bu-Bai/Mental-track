@@ -32,3 +32,31 @@ bool UserFileManager::loadUsers(std::vector<User>& users, const std::string& fil
 
     return inFile.good();
 }
+
+
+bool UserFileManager::saveUser(const User& user, const std::string& filename) {
+    // 先加载所有用户
+    std::vector<User> users;
+    if (!loadUsers(users, filename)) {
+        // 如果文件不存在，创建新文件
+        users.clear();
+    }
+
+    // 查找并更新用户
+    bool found = false;
+    for (auto& u : users) {
+        if (u.getUsername() == user.getUsername()) {
+            u = user;  // 更新用户数据
+            found = true;
+            break;
+        }
+    }
+
+    // 如果没找到，添加新用户
+    if (!found) {
+        users.push_back(user);
+    }
+
+    // 保存所有用户
+    return saveUsers(users, filename);
+}

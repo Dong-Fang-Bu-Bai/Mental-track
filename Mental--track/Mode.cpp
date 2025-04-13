@@ -21,10 +21,24 @@ Mode::~Mode()
     delete ui;
 }
 
+void Mode::setCurrentUser(User* user)
+{
+    if(m_currentUser)
+    {
+           delete m_currentUser; // 释放之前的用户
+    }
+
+    m_currentUser = user;
+}
+
 void Mode::on_pushButton_Mainplay_clicked()
 {
     this->hide();
-    getGlobalMapWindow()->show();
+
+    Map* map = new Map(*m_currentUser);
+    map->setAttribute(Qt::WA_DeleteOnClose, true);
+    map->show();
+
 }
 
 void Mode::on_pushButton_CreateWork_clicked()

@@ -6,6 +6,7 @@
 #include <vector>
 #include <QCryptographicHash>
 
+
 class User
 {
 public:
@@ -18,13 +19,16 @@ public:
     // 账户验证
     bool verifyPassword(const std::string& input) const;
 
-    // 关卡记录管理
-    void addLevelRecord(int levelId, float completionTime);
-    const LevelRecord* getLevelRecord(int levelId) const;
+    // 关卡状态管理 (新增)
+    void setLevelPassed(int levelId, bool passed = true);
+    bool isLevelPassed(int levelId) const;
+    void setLevelCompletionTime(int levelId, float time);
+    float getLevelCompletionTime(int levelId) const;
 
-    // 勋章系统修改为枚举类型
-        void addMedal(MedalType medal);
-        bool hasMedal(MedalType medal) const;
+
+    // 勋章系统
+    void addMedal(MedalType medal);
+    bool hasMedal(MedalType medal) const;
 
     // 访问方法
     std::string getUsername() const;
@@ -34,8 +38,8 @@ public:
 private:
     std::string username;
     std::string passwordHash; //哈希值
-    std::unordered_map<int, LevelRecord> levelRecords;
-    std::vector<MedalType> medals; // 替换原来的std::vector<std::string>
+    std::unordered_map<int, LevelRecord> levelRecords;// 同时存储通关状态和时间
+    std::vector<MedalType> medals;
 
 
 };

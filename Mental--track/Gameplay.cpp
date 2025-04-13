@@ -11,20 +11,43 @@
 #include"gamedefine.h"
 
 
-Gameplay::Gameplay(const QString& levelPath, QWidget *parent) :
+
+Gameplay::Gameplay(const QString& levelPath, int levelId, User* currentUser, QWidget *parent) :
     QWidget(parent),
     ui(new Ui::Gameplay),
-    m_levelPath(levelPath)
+    m_levelPath(levelPath),
+    m_levelId(levelId),
+    m_currentUser(currentUser),
+    m_elapsedTime(0)
 {
     ui->setupUi(this);
 
     this->setWindowTitle("游戏界面");
     this->setFixedSize(2400,1300);
 
+    // 设置背景
     QLabel *Label_loginbackground=new QLabel(this);
     Label_loginbackground->setGeometry(0,0,2400,1300);
     Label_loginbackground->setPixmap(QPixmap(":/img/Debug/image/login.png"));
     Label_loginbackground->setScaledContents(true);  // 关键：启用自动缩放
+
+    // 创建并设置计时器标签
+       m_timeLabel = new QLabel(this);
+       m_timeLabel->setGeometry(2000, 20, 300, 50); // 右上角位置
+       m_timeLabel->setStyleSheet("QLabel {"
+                                  "font-size: 24px;"
+                                  "color: white;"
+                                  "background-color: rgba(0,0,0,50%);"
+                                  "border-radius: 10px;"
+                                  "padding: 5px;"
+                                  "}");
+       m_timeLabel->setText("时间: 00:00");
+       m_timeLabel->setAlignment(Qt::AlignCenter);
+
+       // 初始化计时器
+       m_timer = new QTimer(this);
+       connect(m_timer, &QTimer::timeout, this, &Gameplay::updateTimer);
+       m_timer->start(1000); // 每秒触发一次
 
 
 
@@ -69,18 +92,50 @@ Gameplay::Gameplay(const QString& levelPath, QWidget *parent) :
         view1->setGeometry(20, 70, 1160, 1160);
         view2->setGeometry(1220, 70, 1160, 1160);
 
-        QPushButton*btn=new QPushButton(this);
+        QPushButton*btn=new QPushButton("提交",this);
         btn->setGeometry(1150,1100,100,50);
 
 
         connect(btn,&QPushButton::clicked,[=]()
         {
+
+
             if( interactiveScene->verifyUserPath())
             {
-                qDebug()<<"成功！"<<endl;
+                // 在验证成功后添加
+                emit levelCompleted(m_levelId);
+
+                m_timer->stop(); // 停止计时器
+                // 计算用时(秒)
+                float completionTime = static_cast<float>(m_elapsedTime);
+
+                // 更新用户数据
+                if(m_currentUser)
+                {
+                    m_currentUser->setLevelPassed(m_levelId, true);
+                    m_currentUser->setLevelCompletionTime(m_levelId, completionTime);
+
+                    // 保存用户数据（使用新增的saveUser方法）
+                    if(!UserFileManager::saveUser(*m_currentUser))
+                    {
+                        QMessageBox::warning(this, "警告", "用户数据保存失败！");
+                    }
+                }
+
+                // 计算用时(分钟:秒),显示完成信息
+                 int seconds = m_elapsedTime % 60;
+                 int minutes = m_elapsedTime / 60;
+                 QString timeStr = QString("完成时间: %1:%2")
+                 .arg(minutes, 2, 10, QChar('0'))
+                 .arg(seconds, 2, 10, QChar('0'));
+
+                 QMessageBox::information(this, "成功", "路径验证成功！\n" + timeStr);
+
+                qDebug() << "成功！用时:" << m_elapsedTime << "秒";
             }
             else
             {
+                QMessageBox::warning(this, "失败", "路径验证失败！");
                 qDebug()<<"失败！"<<endl;
             }
 
@@ -95,10 +150,22 @@ Gameplay::Gameplay(const QString& levelPath, QWidget *parent) :
 
 
 
+  // 添加返回按钮
+     m_returnButton = new QPushButton("返回地图", this);
+     m_returnButton->setGeometry(2000, 1200, 100, 50); // 调整位置
+     connect(m_returnButton, &QPushButton::clicked, this, &Gameplay::onReturnButtonClicked);
 
-//    // 置顶显示
-//    view->raise();
+}
 
+void Gameplay::updateTimer() {
+    m_elapsedTime++;
+
+    // 更新显示 (格式: 分钟:秒)
+    int seconds = m_elapsedTime % 60;
+    int minutes = m_elapsedTime / 60;
+    m_timeLabel->setText(QString("时间: %1:%2")
+                        .arg(minutes, 2, 10, QChar('0'))
+                        .arg(seconds, 2, 10, QChar('0')));
 }
 
 bool Gameplay::loadLevel(const QString& filePath,
@@ -166,7 +233,15 @@ bool Gameplay::loadLevel(const QString& filePath,
        return !playerPath.isEmpty() && !enemyPath.isEmpty();
 }
 
+void Gameplay::onReturnButtonClicked()
+{
+    emit returnToMapRequested();// 先发射信号
+    this->close(); // 然后关闭窗口
+}
+
 Gameplay::~Gameplay()
 {
     delete ui;
+    delete m_timer;
+    delete m_timeLabel;
 }

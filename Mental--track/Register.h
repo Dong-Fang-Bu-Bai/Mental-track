@@ -2,6 +2,7 @@
 #define REGISTER_H
 
 #include <QWidget>
+#include "User.h"
 
 namespace Ui {
 class Register;
@@ -24,6 +25,10 @@ private slots:
 
 private:
     Ui::Register *ui;
+
+    // 新增私有方法
+    User* registerNewUser(const QString& username, const QString& password);
+    bool validateInput(const QString& username, const QString& password, const QString& confirm);
 };
 
 #endif // REGISTER_H

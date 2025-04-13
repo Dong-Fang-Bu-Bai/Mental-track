@@ -56,21 +56,34 @@ bool User::verifyPassword(const std::string& input) const {
     return inputHash.toStdString() == passwordHash;
 }
 
-// 关卡记录管理
-void User::addLevelRecord(int levelId, float completionTime) {
+// 新增关卡状态管理方法
+void User::setLevelPassed(int levelId, bool passed)
+{
     auto it = levelRecords.find(levelId);
     if (it != levelRecords.end()) {
-        if (completionTime < it->second.getCompletionTime()) {
-            it->second.updateCompletionTime(completionTime);
-        }
+        it->second.setPassed(passed);
     } else {
-        levelRecords.emplace(levelId, LevelRecord(levelId, completionTime));
+        levelRecords.emplace(levelId, LevelRecord(levelId, 0.0f, passed));
     }
 }
 
-const LevelRecord* User::getLevelRecord(int levelId) const {
+bool User::isLevelPassed(int levelId) const {
     auto it = levelRecords.find(levelId);
-    return it != levelRecords.end() ? &it->second : nullptr;
+    return it != levelRecords.end() ? it->second.isPassed() : false;
+}
+
+void User::setLevelCompletionTime(int levelId, float time) {
+    auto it = levelRecords.find(levelId);
+    if (it != levelRecords.end()) {
+        it->second.updateCompletionTime(time);
+    } else {
+        levelRecords.emplace(levelId, LevelRecord(levelId, time, true));
+    }
+}
+
+float User::getLevelCompletionTime(int levelId) const {
+    auto it = levelRecords.find(levelId);
+    return it != levelRecords.end() ? it->second.getCompletionTime() : 0.0f;
 }
 
 // 勋章系统

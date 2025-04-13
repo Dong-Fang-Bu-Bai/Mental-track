@@ -36,11 +36,6 @@ Mode* getGlobalModeWindow()
     return w;
 }
 
-Map* getGlobalMapWindow()
-{
-    static Map *w = nullptr;  // 全局唯一static
-    if (!w) w = new Map();
-    return w;
-}
+
 
 

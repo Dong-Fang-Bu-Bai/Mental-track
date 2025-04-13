@@ -1,7 +1,6 @@
 #include "gamedefine.h"
 #include "ui_Login.h"
 #include"Login.h"
-#include<User.h>
 #include<UserFileManager.h>
 #include <QFile>
 #include <QTextStream>
@@ -27,46 +26,33 @@ Login::~Login()
     delete ui;
 }
 
-// 替换原有的validateUserCredentials函数
-bool validateUserCredentials(const QString& username, const QString& password) {
-    std::vector<User> users;
-    if(!UserFileManager::loadUsers(users, "users.dat")) {
-        QMessageBox::critical(nullptr, "错误", "用户数据文件读取失败");
-        return false;
-    }
-
-    for(const auto& user : users) {
-        if(user.getUsername() == username.toStdString() &&
-           user.verifyPassword(password.toStdString())) {
-            return true;
-        }
-    }
-    return false;
-}
-
-
 
 void Login::on_pushButton_play_clicked()
 {
-//        QString username = ui->lineEdit_User->text();
-//        QString password = ui->lineEdit_Pass->text();
+        QString username = ui->lineEdit_User->text();
+        QString password = ui->lineEdit_Pass->text();
 
-//        if(username.isEmpty() || password.isEmpty()) {
-//            QMessageBox::warning(this, "警告", "用户名和密码不能为空");
-//            return;
-//        }
+        if(username.isEmpty() || password.isEmpty()) {
+            QMessageBox::warning(this, "警告", "用户名和密码不能为空");
+            return;
+        }
 
-//        if(validateUserCredentials(username, password))
-//        {
-//            QMessageBox::information(this, "提示", "登录成功！");
-//            this->hide();
-//            getGlobalModeWindow()->show();
-//        }
-//        else
-//        {
-//            QMessageBox::critical(this, "失败", "用户名或密码错误");
-//        }
-    QMessageBox::information(this, "提示", "登录成功！");
+        User* currentUser = getValidatedUser(username, password);
+        if(currentUser)
+        {
+            QMessageBox::information(this, "提示", "登录成功！");
+            // 将用户对象传递给Mode窗口
+            getGlobalModeWindow()->setCurrentUser(currentUser); // 需要添加此方法
+            this->hide();
+            getGlobalModeWindow()->show();
+        }
+        else
+        {
+            QMessageBox::critical(this, "失败", "用户名或密码错误");
+            return;
+        }
+
+
     this->hide();
     getGlobalModeWindow()->show();
 
@@ -105,6 +91,28 @@ void Login::on_checkBox_clicked(bool checked)
     {
         ui->lineEdit_Pass->setEchoMode(QLineEdit::Normal);
     }
+}
+
+//用户验证函数
+User* Login::getValidatedUser(const QString& username, const QString& password)
+{
+    std::vector<User> users;
+    if(!UserFileManager::loadUsers(users, "users.dat"))
+    {
+        QMessageBox::critical(nullptr, "错误", "用户数据文件读取失败");
+        return nullptr;
+    }
+
+    for(auto& user : users)
+    {
+        if(user.getUsername() == username.toStdString() &&
+           user.verifyPassword(password.toStdString()))
+        {
+            return new User(user); // 返回堆分配的副本
+        }
+    }
+
+    return nullptr;
 }
 
 

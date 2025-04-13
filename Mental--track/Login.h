@@ -2,8 +2,10 @@
 #define LOGIN_H
 
 #include <QWidget>
+#include<User.h>
 
-namespace Ui {
+namespace Ui
+{
 class Login;
 }
 
@@ -32,6 +34,7 @@ private slots:
 
 private:
     Ui::Login *ui;
+    User* getValidatedUser(const QString& username, const QString& password);
 };
 
 #endif // LOGIN_H

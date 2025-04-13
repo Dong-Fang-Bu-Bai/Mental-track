@@ -32,7 +32,7 @@ Register* getGlobalRegisterWindow();
 
 Mode* getGlobalModeWindow();
 
-Map* getGlobalMapWindow();
+
 
 
 

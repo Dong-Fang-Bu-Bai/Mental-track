@@ -194,17 +194,24 @@ compiler_rcc_clean:
 	-$(DEL_FILE) release\qrc_src.cpp
 release/qrc_src.cpp: ../src.qrc \
 		../../../../QT/5.14.2/mingw73_64/bin/rcc.exe \
-		image/login.png \
-		image/shadow.fw.png \
-		image/lightning.fw.png \
-		image/devine.fw.png \
-		image/Name.png \
-		image/flame.fw.png \
-		image/ice.fw.png \
 		image/Diamond.fw.png \
-		image/Mapbackground1.png \
-		image/nature.fw.png \
+		image/Name.png \
+		image/ice.fw.png \
+		image/devine_lock.fw.png \
+		image/nature_lock.fw.png \
+		image/lightning_lock.fw.png \
+		image/devine.fw.png \
+		image/login.png \
+		image/shadow_lock.fw.png \
 		image/Modebackground.fw.png \
+		image/shadow.fw.png \
+		image/flame.fw.png \
+		image/lightning.fw.png \
+		image/ice_lock.fw.png \
+		image/nature.fw.png \
+		image/flame_lock.fw.png \
+		image/Mapbackground1.png \
+		image/Diamond_lock.fw.png \
 		levels/level1/level1.txt
 	D:\QT\5.14.2\mingw73_64\bin\rcc.exe -name src ..\src.qrc -o release\qrc_src.cpp
 
@@ -324,6 +331,18 @@ release/moc_Gameplay.cpp: ../Gameplay.h \
 		../../../../../QT/5.14.2/mingw73_64/include/QtGui/qtouchdevice.h \
 		../../../../../QT/5.14.2/mingw73_64/include/QtCore/QVector \
 		../../../../../QT/5.14.2/mingw73_64/include/QtCore/QPoint \
+		../../../../../QT/5.14.2/mingw73_64/include/QtWidgets/QLabel \
+		../../../../../QT/5.14.2/mingw73_64/include/QtWidgets/qlabel.h \
+		../../../../../QT/5.14.2/mingw73_64/include/QtWidgets/qframe.h \
+		../../../../../QT/5.14.2/mingw73_64/include/QtCore/QTimer \
+		../../../../../QT/5.14.2/mingw73_64/include/QtCore/qtimer.h \
+		../../../../../QT/5.14.2/mingw73_64/include/QtCore/qbasictimer.h \
+		../User.h \
+		../MedalType.h \
+		../LevelRecord.h \
+		../../../../../QT/5.14.2/mingw73_64/include/QtCore/QCryptographicHash \
+		../../../../../QT/5.14.2/mingw73_64/include/QtCore/qcryptographichash.h \
+		../UserFileManager.h \
 		release/moc_predefs.h \
 		../../../../QT/5.14.2/mingw73_64/bin/moc.exe
 	D:\QT\5.14.2\mingw73_64\bin\moc.exe $(DEFINES) --include D:/QTprojects/Mental-track/Mental--track/Debug/release/moc_predefs.h -ID:/QT/5.14.2/mingw73_64/mkspecs/win32-g++ -ID:/QTprojects/Mental-track/Mental--track -ID:/QT/5.14.2/mingw73_64/include -ID:/QT/5.14.2/mingw73_64/include/QtMultimedia -ID:/QT/5.14.2/mingw73_64/include/QtWidgets -ID:/QT/5.14.2/mingw73_64/include/QtGui -ID:/QT/5.14.2/mingw73_64/include/QtANGLE -ID:/QT/5.14.2/mingw73_64/include/QtNetwork -ID:/QT/5.14.2/mingw73_64/include/QtCore -I. -ID:/QT/Tools/mingw730_64/lib/gcc/x86_64-w64-mingw32/7.3.0/include/c++ -ID:/QT/Tools/mingw730_64/lib/gcc/x86_64-w64-mingw32/7.3.0/include/c++/x86_64-w64-mingw32 -ID:/QT/Tools/mingw730_64/lib/gcc/x86_64-w64-mingw32/7.3.0/include/c++/backward -ID:/QT/Tools/mingw730_64/lib/gcc/x86_64-w64-mingw32/7.3.0/include -ID:/QT/Tools/mingw730_64/lib/gcc/x86_64-w64-mingw32/7.3.0/include-fixed -ID:/QT/Tools/mingw730_64/x86_64-w64-mingw32/include ..\Gameplay.h -o release\moc_Gameplay.cpp
@@ -857,6 +876,11 @@ release/moc_Map.cpp: ../Map.h \
 		../../../../../QT/5.14.2/mingw73_64/include/QtGui/qpainter.h \
 		../../../../../QT/5.14.2/mingw73_64/include/QtGui/qtextoption.h \
 		../../../../../QT/5.14.2/mingw73_64/include/QtGui/qpen.h \
+		../User.h \
+		../MedalType.h \
+		../LevelRecord.h \
+		../../../../../QT/5.14.2/mingw73_64/include/QtCore/QCryptographicHash \
+		../../../../../QT/5.14.2/mingw73_64/include/QtCore/qcryptographichash.h \
 		release/moc_predefs.h \
 		../../../../QT/5.14.2/mingw73_64/bin/moc.exe
 	D:\QT\5.14.2\mingw73_64\bin\moc.exe $(DEFINES) --include D:/QTprojects/Mental-track/Mental--track/Debug/release/moc_predefs.h -ID:/QT/5.14.2/mingw73_64/mkspecs/win32-g++ -ID:/QTprojects/Mental-track/Mental--track -ID:/QT/5.14.2/mingw73_64/include -ID:/QT/5.14.2/mingw73_64/include/QtMultimedia -ID:/QT/5.14.2/mingw73_64/include/QtWidgets -ID:/QT/5.14.2/mingw73_64/include/QtGui -ID:/QT/5.14.2/mingw73_64/include/QtANGLE -ID:/QT/5.14.2/mingw73_64/include/QtNetwork -ID:/QT/5.14.2/mingw73_64/include/QtCore -I. -ID:/QT/Tools/mingw730_64/lib/gcc/x86_64-w64-mingw32/7.3.0/include/c++ -ID:/QT/Tools/mingw730_64/lib/gcc/x86_64-w64-mingw32/7.3.0/include/c++/x86_64-w64-mingw32 -ID:/QT/Tools/mingw730_64/lib/gcc/x86_64-w64-mingw32/7.3.0/include/c++/backward -ID:/QT/Tools/mingw730_64/lib/gcc/x86_64-w64-mingw32/7.3.0/include -ID:/QT/Tools/mingw730_64/lib/gcc/x86_64-w64-mingw32/7.3.0/include-fixed -ID:/QT/Tools/mingw730_64/x86_64-w64-mingw32/include ..\Map.h -o release\moc_Map.cpp
@@ -1561,6 +1585,18 @@ release/Gameplay.o: ../Gameplay.cpp ../Gameplay.h \
 		../../../../../QT/5.14.2/mingw73_64/include/QtGui/qtouchdevice.h \
 		../../../../../QT/5.14.2/mingw73_64/include/QtCore/QVector \
 		../../../../../QT/5.14.2/mingw73_64/include/QtCore/QPoint \
+		../../../../../QT/5.14.2/mingw73_64/include/QtWidgets/QLabel \
+		../../../../../QT/5.14.2/mingw73_64/include/QtWidgets/qlabel.h \
+		../../../../../QT/5.14.2/mingw73_64/include/QtWidgets/qframe.h \
+		../../../../../QT/5.14.2/mingw73_64/include/QtCore/QTimer \
+		../../../../../QT/5.14.2/mingw73_64/include/QtCore/qtimer.h \
+		../../../../../QT/5.14.2/mingw73_64/include/QtCore/qbasictimer.h \
+		../User.h \
+		../MedalType.h \
+		../LevelRecord.h \
+		../../../../../QT/5.14.2/mingw73_64/include/QtCore/QCryptographicHash \
+		../../../../../QT/5.14.2/mingw73_64/include/QtCore/qcryptographichash.h \
+		../UserFileManager.h \
 		ui_Gameplay.h \
 		../../../../../QT/5.14.2/mingw73_64/include/QtCore/QVariant \
 		../../../../../QT/5.14.2/mingw73_64/include/QtWidgets/QApplication \
@@ -1591,7 +1627,6 @@ release/Gameplay.o: ../Gameplay.cpp ../Gameplay.h \
 		../../../../../QT/5.14.2/mingw73_64/include/QtGui/qtextoption.h \
 		../../../../../QT/5.14.2/mingw73_64/include/QtWidgets/qscrollarea.h \
 		../../../../../QT/5.14.2/mingw73_64/include/QtWidgets/qabstractscrollarea.h \
-		../../../../../QT/5.14.2/mingw73_64/include/QtWidgets/qframe.h \
 		../../../../../QT/5.14.2/mingw73_64/include/QtWidgets/QPushButton \
 		../../../../../QT/5.14.2/mingw73_64/include/QtWidgets/qpushbutton.h \
 		../../../../../QT/5.14.2/mingw73_64/include/QtWidgets/qabstractbutton.h \
@@ -1620,8 +1655,6 @@ release/Gameplay.o: ../Gameplay.cpp ../Gameplay.h \
 		../../../../../QT/5.14.2/mingw73_64/include/QtCore/qmetaobject.h \
 		../../../../../QT/5.14.2/mingw73_64/include/QtMultimedia/qaudio.h \
 		../../../../../QT/5.14.2/mingw73_64/include/QtNetwork/qnetworkconfiguration.h \
-		../../../../../QT/5.14.2/mingw73_64/include/QtWidgets/QLabel \
-		../../../../../QT/5.14.2/mingw73_64/include/QtWidgets/qlabel.h \
 		../Login.h \
 		../Register.h \
 		../Help.h \
@@ -1880,10 +1913,19 @@ release/Help.o: ../Help.cpp ../gamedefine.h \
 		../../../../../QT/5.14.2/mingw73_64/include/QtWidgets/qabstractbutton.h \
 		../../../../../QT/5.14.2/mingw73_64/include/QtGui/qicon.h \
 		../../../../../QT/5.14.2/mingw73_64/include/QtGui/QPainter \
+		../User.h \
+		../MedalType.h \
+		../LevelRecord.h \
+		../../../../../QT/5.14.2/mingw73_64/include/QtCore/QCryptographicHash \
+		../../../../../QT/5.14.2/mingw73_64/include/QtCore/qcryptographichash.h \
 		../Setting.h \
 		../Gameplay.h \
 		../../../../../QT/5.14.2/mingw73_64/include/QtCore/QVector \
 		../../../../../QT/5.14.2/mingw73_64/include/QtCore/QPoint \
+		../../../../../QT/5.14.2/mingw73_64/include/QtCore/QTimer \
+		../../../../../QT/5.14.2/mingw73_64/include/QtCore/qtimer.h \
+		../../../../../QT/5.14.2/mingw73_64/include/QtCore/qbasictimer.h \
+		../UserFileManager.h \
 		ui_Help.h \
 		../../../../../QT/5.14.2/mingw73_64/include/QtWidgets/QApplication \
 		../../../../../QT/5.14.2/mingw73_64/include/QtWidgets/qapplication.h \
@@ -2271,10 +2313,19 @@ release/Login.o: ../Login.cpp ../gamedefine.h \
 		../../../../../QT/5.14.2/mingw73_64/include/QtWidgets/qabstractbutton.h \
 		../../../../../QT/5.14.2/mingw73_64/include/QtGui/qicon.h \
 		../../../../../QT/5.14.2/mingw73_64/include/QtGui/QPainter \
+		../User.h \
+		../MedalType.h \
+		../LevelRecord.h \
+		../../../../../QT/5.14.2/mingw73_64/include/QtCore/QCryptographicHash \
+		../../../../../QT/5.14.2/mingw73_64/include/QtCore/qcryptographichash.h \
 		../Setting.h \
 		../Gameplay.h \
 		../../../../../QT/5.14.2/mingw73_64/include/QtCore/QVector \
 		../../../../../QT/5.14.2/mingw73_64/include/QtCore/QPoint \
+		../../../../../QT/5.14.2/mingw73_64/include/QtCore/QTimer \
+		../../../../../QT/5.14.2/mingw73_64/include/QtCore/qtimer.h \
+		../../../../../QT/5.14.2/mingw73_64/include/QtCore/qbasictimer.h \
+		../UserFileManager.h \
 		ui_Login.h \
 		../../../../../QT/5.14.2/mingw73_64/include/QtWidgets/QApplication \
 		../../../../../QT/5.14.2/mingw73_64/include/QtWidgets/qapplication.h \
@@ -2295,12 +2346,6 @@ release/Login.o: ../Login.cpp ../gamedefine.h \
 		../../../../../QT/5.14.2/mingw73_64/include/QtGui/qtextcursor.h \
 		../../../../../QT/5.14.2/mingw73_64/include/QtGui/qtextformat.h \
 		../../../../../QT/5.14.2/mingw73_64/include/QtWidgets/QSpacerItem \
-		../User.h \
-		../MedalType.h \
-		../LevelRecord.h \
-		../../../../../QT/5.14.2/mingw73_64/include/QtCore/QCryptographicHash \
-		../../../../../QT/5.14.2/mingw73_64/include/QtCore/qcryptographichash.h \
-		../UserFileManager.h \
 		../../../../../QT/5.14.2/mingw73_64/include/QtCore/QFile \
 		../../../../../QT/5.14.2/mingw73_64/include/QtCore/QTextStream \
 		../../../../../QT/5.14.2/mingw73_64/include/QtWidgets/QMessageBox \
@@ -2457,10 +2502,19 @@ release/Map.o: ../Map.cpp ../gamedefine.h \
 		../../../../../QT/5.14.2/mingw73_64/include/QtWidgets/qabstractbutton.h \
 		../../../../../QT/5.14.2/mingw73_64/include/QtGui/qicon.h \
 		../../../../../QT/5.14.2/mingw73_64/include/QtGui/QPainter \
+		../User.h \
+		../MedalType.h \
+		../LevelRecord.h \
+		../../../../../QT/5.14.2/mingw73_64/include/QtCore/QCryptographicHash \
+		../../../../../QT/5.14.2/mingw73_64/include/QtCore/qcryptographichash.h \
 		../Setting.h \
 		../Gameplay.h \
 		../../../../../QT/5.14.2/mingw73_64/include/QtCore/QVector \
 		../../../../../QT/5.14.2/mingw73_64/include/QtCore/QPoint \
+		../../../../../QT/5.14.2/mingw73_64/include/QtCore/QTimer \
+		../../../../../QT/5.14.2/mingw73_64/include/QtCore/qtimer.h \
+		../../../../../QT/5.14.2/mingw73_64/include/QtCore/qbasictimer.h \
+		../UserFileManager.h \
 		ui_Map.h \
 		../../../../../QT/5.14.2/mingw73_64/include/QtWidgets/QApplication \
 		../../../../../QT/5.14.2/mingw73_64/include/QtWidgets/qapplication.h \
@@ -2632,10 +2686,19 @@ release/Mode.o: ../Mode.cpp ../gamedefine.h \
 		../../../../../QT/5.14.2/mingw73_64/include/QtWidgets/qabstractbutton.h \
 		../../../../../QT/5.14.2/mingw73_64/include/QtGui/qicon.h \
 		../../../../../QT/5.14.2/mingw73_64/include/QtGui/QPainter \
+		../User.h \
+		../MedalType.h \
+		../LevelRecord.h \
+		../../../../../QT/5.14.2/mingw73_64/include/QtCore/QCryptographicHash \
+		../../../../../QT/5.14.2/mingw73_64/include/QtCore/qcryptographichash.h \
 		../Setting.h \
 		../Gameplay.h \
 		../../../../../QT/5.14.2/mingw73_64/include/QtCore/QVector \
 		../../../../../QT/5.14.2/mingw73_64/include/QtCore/QPoint \
+		../../../../../QT/5.14.2/mingw73_64/include/QtCore/QTimer \
+		../../../../../QT/5.14.2/mingw73_64/include/QtCore/qtimer.h \
+		../../../../../QT/5.14.2/mingw73_64/include/QtCore/qbasictimer.h \
+		../UserFileManager.h \
 		ui_Mode.h \
 		../../../../../QT/5.14.2/mingw73_64/include/QtWidgets/QApplication \
 		../../../../../QT/5.14.2/mingw73_64/include/QtWidgets/qapplication.h \
@@ -2868,10 +2931,19 @@ release/Register.o: ../Register.cpp ../gamedefine.h \
 		../../../../../QT/5.14.2/mingw73_64/include/QtWidgets/qabstractbutton.h \
 		../../../../../QT/5.14.2/mingw73_64/include/QtGui/qicon.h \
 		../../../../../QT/5.14.2/mingw73_64/include/QtGui/QPainter \
+		../User.h \
+		../MedalType.h \
+		../LevelRecord.h \
+		../../../../../QT/5.14.2/mingw73_64/include/QtCore/QCryptographicHash \
+		../../../../../QT/5.14.2/mingw73_64/include/QtCore/qcryptographichash.h \
 		../Setting.h \
 		../Gameplay.h \
 		../../../../../QT/5.14.2/mingw73_64/include/QtCore/QVector \
 		../../../../../QT/5.14.2/mingw73_64/include/QtCore/QPoint \
+		../../../../../QT/5.14.2/mingw73_64/include/QtCore/QTimer \
+		../../../../../QT/5.14.2/mingw73_64/include/QtCore/qtimer.h \
+		../../../../../QT/5.14.2/mingw73_64/include/QtCore/qbasictimer.h \
+		../UserFileManager.h \
 		ui_Register.h \
 		../../../../../QT/5.14.2/mingw73_64/include/QtWidgets/QApplication \
 		../../../../../QT/5.14.2/mingw73_64/include/QtWidgets/qapplication.h \
@@ -2890,12 +2962,6 @@ release/Register.o: ../Register.cpp ../gamedefine.h \
 		../../../../../QT/5.14.2/mingw73_64/include/QtGui/qtextcursor.h \
 		../../../../../QT/5.14.2/mingw73_64/include/QtGui/qtextformat.h \
 		../../../../../QT/5.14.2/mingw73_64/include/QtWidgets/QSpacerItem \
-		../User.h \
-		../MedalType.h \
-		../LevelRecord.h \
-		../../../../../QT/5.14.2/mingw73_64/include/QtCore/QCryptographicHash \
-		../../../../../QT/5.14.2/mingw73_64/include/QtCore/qcryptographichash.h \
-		../UserFileManager.h \
 		../../../../../QT/5.14.2/mingw73_64/include/QtCore/QFile \
 		../../../../../QT/5.14.2/mingw73_64/include/QtCore/QTextStream \
 		../../../../../QT/5.14.2/mingw73_64/include/QtWidgets/QMessageBox \
@@ -3052,10 +3118,19 @@ release/Setting.o: ../Setting.cpp ../gamedefine.h \
 		../../../../../QT/5.14.2/mingw73_64/include/QtWidgets/qabstractbutton.h \
 		../../../../../QT/5.14.2/mingw73_64/include/QtGui/qicon.h \
 		../../../../../QT/5.14.2/mingw73_64/include/QtGui/QPainter \
+		../User.h \
+		../MedalType.h \
+		../LevelRecord.h \
+		../../../../../QT/5.14.2/mingw73_64/include/QtCore/QCryptographicHash \
+		../../../../../QT/5.14.2/mingw73_64/include/QtCore/qcryptographichash.h \
 		../Setting.h \
 		../Gameplay.h \
 		../../../../../QT/5.14.2/mingw73_64/include/QtCore/QVector \
 		../../../../../QT/5.14.2/mingw73_64/include/QtCore/QPoint \
+		../../../../../QT/5.14.2/mingw73_64/include/QtCore/QTimer \
+		../../../../../QT/5.14.2/mingw73_64/include/QtCore/qtimer.h \
+		../../../../../QT/5.14.2/mingw73_64/include/QtCore/qbasictimer.h \
+		../UserFileManager.h \
 		ui_Setting.h \
 		../../../../../QT/5.14.2/mingw73_64/include/QtWidgets/QApplication \
 		../../../../../QT/5.14.2/mingw73_64/include/QtWidgets/qapplication.h \
@@ -3215,10 +3290,19 @@ release/Start.o: ../Start.cpp ../gamedefine.h \
 		../../../../../QT/5.14.2/mingw73_64/include/QtWidgets/qabstractbutton.h \
 		../../../../../QT/5.14.2/mingw73_64/include/QtGui/qicon.h \
 		../../../../../QT/5.14.2/mingw73_64/include/QtGui/QPainter \
+		../User.h \
+		../MedalType.h \
+		../LevelRecord.h \
+		../../../../../QT/5.14.2/mingw73_64/include/QtCore/QCryptographicHash \
+		../../../../../QT/5.14.2/mingw73_64/include/QtCore/qcryptographichash.h \
 		../Setting.h \
 		../Gameplay.h \
 		../../../../../QT/5.14.2/mingw73_64/include/QtCore/QVector \
 		../../../../../QT/5.14.2/mingw73_64/include/QtCore/QPoint \
+		../../../../../QT/5.14.2/mingw73_64/include/QtCore/QTimer \
+		../../../../../QT/5.14.2/mingw73_64/include/QtCore/qtimer.h \
+		../../../../../QT/5.14.2/mingw73_64/include/QtCore/qbasictimer.h \
+		../UserFileManager.h \
 		ui_Start.h \
 		../../../../../QT/5.14.2/mingw73_64/include/QtWidgets/QApplication \
 		../../../../../QT/5.14.2/mingw73_64/include/QtWidgets/qapplication.h \
@@ -3460,10 +3544,19 @@ release/gamedefine.o: ../gamedefine.cpp ../gamedefine.h \
 		../../../../../QT/5.14.2/mingw73_64/include/QtWidgets/qabstractbutton.h \
 		../../../../../QT/5.14.2/mingw73_64/include/QtGui/qicon.h \
 		../../../../../QT/5.14.2/mingw73_64/include/QtGui/QPainter \
+		../User.h \
+		../MedalType.h \
+		../LevelRecord.h \
+		../../../../../QT/5.14.2/mingw73_64/include/QtCore/QCryptographicHash \
+		../../../../../QT/5.14.2/mingw73_64/include/QtCore/qcryptographichash.h \
 		../Setting.h \
 		../Gameplay.h \
 		../../../../../QT/5.14.2/mingw73_64/include/QtCore/QVector \
-		../../../../../QT/5.14.2/mingw73_64/include/QtCore/QPoint
+		../../../../../QT/5.14.2/mingw73_64/include/QtCore/QPoint \
+		../../../../../QT/5.14.2/mingw73_64/include/QtCore/QTimer \
+		../../../../../QT/5.14.2/mingw73_64/include/QtCore/qtimer.h \
+		../../../../../QT/5.14.2/mingw73_64/include/QtCore/qbasictimer.h \
+		../UserFileManager.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o release\gamedefine.o ..\gamedefine.cpp
 
 release/gameobject.o: ../gameobject.cpp ../gameobject.h
@@ -3618,10 +3711,19 @@ release/main.o: ../main.cpp ../gamedefine.h \
 		../../../../../QT/5.14.2/mingw73_64/include/QtWidgets/qabstractbutton.h \
 		../../../../../QT/5.14.2/mingw73_64/include/QtGui/qicon.h \
 		../../../../../QT/5.14.2/mingw73_64/include/QtGui/QPainter \
+		../User.h \
+		../MedalType.h \
+		../LevelRecord.h \
+		../../../../../QT/5.14.2/mingw73_64/include/QtCore/QCryptographicHash \
+		../../../../../QT/5.14.2/mingw73_64/include/QtCore/qcryptographichash.h \
 		../Setting.h \
 		../Gameplay.h \
 		../../../../../QT/5.14.2/mingw73_64/include/QtCore/QVector \
 		../../../../../QT/5.14.2/mingw73_64/include/QtCore/QPoint \
+		../../../../../QT/5.14.2/mingw73_64/include/QtCore/QTimer \
+		../../../../../QT/5.14.2/mingw73_64/include/QtCore/qtimer.h \
+		../../../../../QT/5.14.2/mingw73_64/include/QtCore/qbasictimer.h \
+		../UserFileManager.h \
 		../../../../../QT/5.14.2/mingw73_64/include/QtWidgets/QApplication \
 		../../../../../QT/5.14.2/mingw73_64/include/QtWidgets/qapplication.h \
 		../../../../../QT/5.14.2/mingw73_64/include/QtCore/qcoreapplication.h \
