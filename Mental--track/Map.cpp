@@ -259,7 +259,11 @@ void Map::setupLevelButtons()
     {
       for(int j=0;j<i;j++)
         {
-         if(m_currentUser->isLevelPassed(3*i*i-3*i+1+j))
+          if((3*i*i-3*i+1+j)==27)
+          {
+            getButton(27)->setIcon(QIcon(":/img/Debug/image/flame.fw.png"));
+          }
+          else if(m_currentUser->isLevelPassed(3*i*i-3*i+1+j))
            {
              getButton(3*i*i-3*i+1+j)->setIcon(QIcon(":/img/Debug/image/flame.fw.png"));
            }
