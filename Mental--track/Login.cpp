@@ -32,7 +32,8 @@ void Login::on_pushButton_play_clicked()
         QString username = ui->lineEdit_User->text();
         QString password = ui->lineEdit_Pass->text();
 
-        if(username.isEmpty() || password.isEmpty()) {
+        if(username.isEmpty() || password.isEmpty())
+        {
             QMessageBox::warning(this, "警告", "用户名和密码不能为空");
             return;
         }

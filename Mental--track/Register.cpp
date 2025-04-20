@@ -61,7 +61,8 @@ void Register::on_pushButton_play_clicked()
     }
 
     User* newUser = registerNewUser(username, password);
-        if(newUser) {
+        if(newUser)
+        {
             QMessageBox::information(this, "成功", "注册成功！");
 
             // 获取Mode窗口并设置当前用户
@@ -70,7 +71,8 @@ void Register::on_pushButton_play_clicked()
 
             this->hide();
             modeWindow->show();
-        } else {
+        } else
+        {
             QMessageBox::critical(this, "错误", "用户名已存在或注册失败");
         }
 
@@ -118,14 +120,15 @@ User* Register::registerNewUser(const QString& username, const QString& password
     }
 
     // 检查用户名是否已存在
-    for(const auto& user : users) {
+    for(const auto& user : users)
+    {
         if(user.getUsername() == username.toStdString()) {
             return nullptr;
         }
     }
 
     // 创建新用户
-    User* newUser = new User(username.toStdString(), password.toStdString());
+    User* newUser = User::createNewUser(username.toStdString(), password.toStdString());
     users.push_back(*newUser);
 
     // 保存所有用户

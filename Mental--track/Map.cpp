@@ -203,7 +203,7 @@ connect(pushButton_backMode, &QPushButton::clicked, [=](){
            if (layer == 0)
            {
                HexagonButton *btn = new HexagonButton(this);
-               btn->setIcon(QIcon(":/img/Debug/image/Diamond.fw.png"));
+               btn->setIcon(QIcon(":/img/Debug/image/Diamond_lock.fw.png"));
                btn->move(centerX - hexRadius, centerY - hexRadius);
                // 存储到容器
                m_buttons.append(btn);
@@ -259,14 +259,10 @@ void Map::setupLevelButtons()
     {
       for(int j=0;j<i;j++)
         {
-          if((3*i*i-3*i+1+j)==27)
+          if((3*i*i-3*i+1+j)==37)
           {
-            getButton(27)->setIcon(QIcon(":/img/Debug/image/flame.fw.png"));
+            getButton(37)->setIcon(QIcon(":/img/Debug/image/flame.fw.png"));
           }
-          else if(m_currentUser->isLevelPassed(3*i*i-3*i+1+j))
-           {
-             getButton(3*i*i-3*i+1+j)->setIcon(QIcon(":/img/Debug/image/flame.fw.png"));
-           }
           else
            {
              getButton(3*i*i-3*i+1+j)->setIcon(QIcon(":/img/Debug/image/flame_lock.fw.png"));
@@ -278,9 +274,9 @@ void Map::setupLevelButtons()
       {
          for(int j=0;j<i;j++)
          {
-             if(m_currentUser->isLevelPassed(3*i*i-3*i+1+j+i))
+             if((3*i*i-3*i+1+j+i)==41)
              {
-                getButton(3*i*i-3*i+1+j+i)->setIcon(QIcon(":/img/Debug/image/lightning.fw.png"));
+                 getButton(3*i*i-3*i+1+j+i)->setIcon(QIcon(":/img/Debug/image/lightning.fw.png"));
              }
              else
              {
@@ -294,9 +290,9 @@ void Map::setupLevelButtons()
       {
         for(int j=0;j<i;j++)
          {
-            if(m_currentUser->isLevelPassed(3*i*i-3*i+1+j+2*i))
+            if((3*i*i-3*i+1+j+2*i)==45)
             {
-               getButton(3*i*i-3*i+1+j+2*i)->setIcon(QIcon(":/img/Debug/image/shadow.fw.png"));
+                getButton(3*i*i-3*i+1+j+2*i)->setIcon(QIcon(":/img/Debug/image/shadow.fw.png"));
             }
             else
             {
@@ -313,12 +309,11 @@ void Map::setupLevelButtons()
       {
         for(int j=0;j<i;j++)
          {
-
-          if(m_currentUser->isLevelPassed(3*i*i-3*i+1+j+3*i))
-          {
-             getButton(3*i*i-3*i+1+j+3*i)->setIcon(QIcon(":/img/Debug/image/ice.fw.png"));
+         if((3*i*i-3*i+1+j+3*i)==49)
+         {
+            getButton(3*i*i-3*i+1+j+3*i)->setIcon(QIcon(":/img/Debug/image/ice.fw.png"));
           }
-            else
+          else
           {
              getButton(3*i*i-3*i+1+j+3*i)->setIcon(QIcon(":/img/Debug/image/ice_lock.fw.png"));
           }
@@ -332,10 +327,10 @@ void Map::setupLevelButtons()
      {
       for(int j=0;j<i;j++)
        {
-          if(m_currentUser->isLevelPassed(3*i*i-3*i+1+j+4*i))
+          if((3*i*i-3*i+1+j+4*i)==53)
           {
-              getButton(3*i*i-3*i+1+j+4*i)->setIcon(QIcon(":/img/Debug/image/nature.fw.png"));
-          }
+             getButton(3*i*i-3*i+1+j+4*i)->setIcon(QIcon(":/img/Debug/image/nature.fw.png"));
+           }
           else
           {
               getButton(3*i*i-3*i+1+j+4*i)->setIcon(QIcon(":/img/Debug/image/nature_lock.fw.png"));
@@ -349,138 +344,233 @@ void Map::setupLevelButtons()
      {
        for(int j=0;j<i;j++)
         {
-           if(m_currentUser->isLevelPassed(3*i*i-3*i+1+j+5*i))
+           if((3*i*i-3*i+1+j+5*i)==57)
            {
-              getButton(3*i*i-3*i+1+j+5*i)->setIcon(QIcon(":/img/Debug/image/devine.fw.png"));
-           }
+              getButton(3*i*i-3*i+1+j+5*i)->setIcon(QIcon(":/img/Debug/image/divine.fw.png"));
+            }
            else
            {
-              getButton(3*i*i-3*i+1+j+5*i)->setIcon(QIcon(":/img/Debug/image/devine_lock.fw.png"));
+              getButton(3*i*i-3*i+1+j+5*i)->setIcon(QIcon(":/img/Debug/image/divine_lock.fw.png"));
            }
         }
      }
 
 
-     // 为不同按钮指定不同关卡
-
-     //设置映射表
-     QMap<int, QString> levelMap = {
-         {0, ":/leveldata/Debug/levels/level1/level1.txt"},
-         {1, ":/leveldata/Debug/levels/level1/level1.txt"},
-         {2, ":/leveldata/Debug/levels/level1/level1.txt"},
-         {3, ":/leveldata/Debug/levels/level1/level1.txt"},
-         {4, ":/leveldata/Debug/levels/level1/level1.txt"},
-         {5, ":/leveldata/Debug/levels/level1/level1.txt"},
-         {6, ":/leveldata/Debug/levels/level1/level1.txt"},
-         {7, ":/leveldata/Debug/levels/level1/level1.txt"},
-         {8, ":/leveldata/Debug/levels/level1/level1.txt"},
-         {9, ":/leveldata/Debug/levels/level1/level1.txt"},
-         {10, ":/leveldata/Debug/levels/level1/level1.txt"},
-         {11, ":/leveldata/Debug/levels/level1/level1.txt"},
-         {12, ":/leveldata/Debug/levels/level1/level1.txt"},
-         {13, ":/leveldata/Debug/levels/level1/level1.txt"},
-         {14, ":/leveldata/Debug/levels/level1/level1.txt"},
-         {15, ":/leveldata/Debug/levels/level1/level1.txt"},
-         {16, ":/leveldata/Debug/levels/level1/level1.txt"},
-         {17, ":/leveldata/Debug/levels/level1/level1.txt"},
-         {18, ":/leveldata/Debug/levels/level1/level1.txt"},
-         {19, ":/leveldata/Debug/levels/level1/level1.txt"},
-         {20, ":/leveldata/Debug/levels/level1/level1.txt"},
-         {21, ":/leveldata/Debug/levels/level1/level1.txt"},
-         {22, ":/leveldata/Debug/levels/level1/level1.txt"},
-         {23, ":/leveldata/Debug/levels/level1/level1.txt"},
-         {24, ":/leveldata/Debug/levels/level1/level1.txt"},
-         {25, ":/leveldata/Debug/levels/level1/level1.txt"},
-         {26, ":/leveldata/Debug/levels/level1/level1.txt"},
-         {27, ":/leveldata/Debug/levels/level1/level1.txt"},
-         {28, ":/leveldata/Debug/levels/level1/level1.txt"},
-         {29, ":/leveldata/Debug/levels/level1/level1.txt"},
-         {30, ":/leveldata/Debug/levels/level1/level1.txt"},
-         {31, ":/leveldata/Debug/levels/level1/level1.txt"},
-         {32, ":/leveldata/Debug/levels/level1/level1.txt"},
-         {33, ":/leveldata/Debug/levels/level1/level1.txt"},
-         {34, ":/leveldata/Debug/levels/level1/level1.txt"},
-         {35, ":/leveldata/Debug/levels/level1/level1.txt"},
-         {36, ":/leveldata/Debug/levels/level1/level1.txt"},
-         {37, ":/leveldata/Debug/levels/level1/level1.txt"},
-         {38, ":/leveldata/Debug/levels/level1/level1.txt"},
-         {39, ":/leveldata/Debug/levels/level1/level1.txt"},
-         {40, ":/leveldata/Debug/levels/level1/level1.txt"},
-         {41, ":/leveldata/Debug/levels/level1/level1.txt"},
-         {42, ":/leveldata/Debug/levels/level1/level1.txt"},
-         {43, ":/leveldata/Debug/levels/level1/level1.txt"},
-         {44, ":/leveldata/Debug/levels/level1/level1.txt"},
-         {45, ":/leveldata/Debug/levels/level1/level1.txt"},
-         {46, ":/leveldata/Debug/levels/level1/level1.txt"},
-         {47, ":/leveldata/Debug/levels/level1/level1.txt"},
-         {48, ":/leveldata/Debug/levels/level1/level1.txt"},
-         {49, ":/leveldata/Debug/levels/level1/level1.txt"},
-         {50, ":/leveldata/Debug/levels/level1/level1.txt"},
-         {51, ":/leveldata/Debug/levels/level1/level1.txt"},
-         {52, ":/leveldata/Debug/levels/level1/level1.txt"},
-         {53, ":/leveldata/Debug/levels/level1/level1.txt"},
-         {54, ":/leveldata/Debug/levels/level1/level1.txt"},
-         {55, ":/leveldata/Debug/levels/level1/level1.txt"},
-         {56, ":/leveldata/Debug/levels/level1/level1.txt"},
-         {57, ":/leveldata/Debug/levels/level1/level1.txt"},
-         {58, ":/leveldata/Debug/levels/level1/level1.txt"},
-         {59, ":/leveldata/Debug/levels/level1/level1.txt"},
-         {60, ":/leveldata/Debug/levels/level1/level1.txt"},
 
 
-     };
 
 
      //设置点击逻辑
-
      //连接带编号的信号槽
      for(int i=0;i<61;i++)
      {
-         connect(m_buttons[i], &HexagonButton::clicked, [=]()
+
+         if(i==37||i==41||i==45||i==49||i==53||i==57)
          {
-             if(levelMap.contains(i))
-             {
-                 // 如果已有窗口则先关闭
-                 if(m_currentGameplay)
-                 {
-                     m_currentGameplay->close();
-                 }
+             gamebtn(i);
 
-                 m_currentGameplay = new Gameplay(levelMap[i], i, m_currentUser);
-                 m_currentGameplay->setAttribute(Qt::WA_DeleteOnClose, true);
+         }
 
-//                 // 关键修改1：设置为独立窗口
-//                 m_currentGameplay->setWindowFlags(Qt::Window);
+         if
+         (
+          ((37<=i&&i<=39)||(41<=i&&i<=43)||(45<=i&&i<=47)||(49<=i&&i<=51)||(53<=i&&i<=55)||(57<=i&&i<=59)||
+           (19<=i&&i<=20)||(22<=i&&i<=23)||(25<=i&&i<=26)||(28<=i&&i<=29)||(31<=i&&i<=32)||(34<=i&&i<=35)||
+            i==7||i==9||i==11||i==13||i==15||i==17)&&m_currentUser->isLevelPassed(i)
+         )
+         {
+            gamebtn(i+1);
+            if((37<=i&&i<=39)||(19<=i&&i<=20)||i==7)
+            {
+                getButton(i+1)->setIcon(QIcon(":/img/Debug/image/flame.fw.png"));
+            }
+            else if((41<=i&&i<=43)||(22<=i&&i<=23)||i==9)
+            {
+                getButton(i+1)->setIcon(QIcon(":/img/Debug/image/lightning.fw.png"));
+            }
+            else if((45<=i&&i<=47)||(25<=i&&i<=26)||i==11)
+            {
+                getButton(i+1)->setIcon(QIcon(":/img/Debug/image/shadow.fw.png"));
+            }
+            else if((49<=i&&i<=51)||(28<=i&&i<=29)||i==13)
+            {
+                getButton(i+1)->setIcon(QIcon(":/img/Debug/image/ice.fw.png"));
+            }
+            else if((53<=i&&i<=55)||(31<=i&&i<=32)||i==15)
+            {
+                getButton(i+1)->setIcon(QIcon(":/img/Debug/image/nature.fw.png"));
+            }
+            else if((57<=i&&i<=59)||(34<=i&&i<=35)||i==17)
+            {
+                getButton(i+1)->setIcon(QIcon(":/img/Debug/image/divine.fw.png"));
+            }
+         }
 
-//                // 关键修改2：断开与父窗口的隐藏关联
-//                m_currentGameplay->setParent(nullptr, Qt::Window);
+         if(i==40&&m_currentUser->isLevelPassed(i))
+         {
+            gamebtn(19);
+            getButton(19)->setIcon(QIcon(":/img/Debug/image/flame.fw.png"));
+         }
+         else if(i==44&&m_currentUser->isLevelPassed(i))
+         {
+            gamebtn(22);
+            getButton(22)->setIcon(QIcon(":/img/Debug/image/lightning.fw.png"));
+         }
 
+         if(i==48&&m_currentUser->isLevelPassed(i))
+         {
+            gamebtn(25);
+            getButton(25)->setIcon(QIcon(":/img/Debug/image/shadow.fw.png"));
+         }
 
-                // 修改这里：直接连接信号到Map的显示函数
-                 connect(m_currentGameplay, &Gameplay::returnToMapRequested, this, [this]()
-                 {
-                    this->refreshUserData();
-                    this->show();
-                    this->activateWindow(); // 确保窗口获得焦点
-                    });
+         if(i==52&&m_currentUser->isLevelPassed(i))
+         {
+            gamebtn(28);
+            getButton(28)->setIcon(QIcon(":/img/Debug/image/ice.fw.png"));
+         }
 
-                 this->hide();
-                 m_currentGameplay->show();
-             }
-             else
-             {
-                 QMessageBox::critical(nullptr, "错误", "未找到映射！");
-             }
-         });
+         if(i==56&&m_currentUser->isLevelPassed(i))
+         {
+            gamebtn(31);
+            getButton(31)->setIcon(QIcon(":/img/Debug/image/nature.fw.png"));
+         }
+
+         if(i==60&&m_currentUser->isLevelPassed(i))
+         {
+            gamebtn(34);
+            getButton(34)->setIcon(QIcon(":/img/Debug/image/divine.fw.png"));
+         }
+
+         if(i==21&&m_currentUser->isLevelPassed(i))
+         {
+            gamebtn(7);
+            getButton(7)->setIcon(QIcon(":/img/Debug/image/flame.fw.png"));
+         }
+
+         if(i==24&&m_currentUser->isLevelPassed(i))
+         {
+            gamebtn(9);
+            getButton(9)->setIcon(QIcon(":/img/Debug/image/lightning.fw.png"));
+         }
+
+         if(i==27&&m_currentUser->isLevelPassed(i))
+         {
+            gamebtn(11);
+            getButton(11)->setIcon(QIcon(":/img/Debug/image/shadow.fw.png"));
+         }
+
+         if(i==30&&m_currentUser->isLevelPassed(i))
+         {
+            gamebtn(13);
+            getButton(13)->setIcon(QIcon(":/img/Debug/image/ice.fw.png"));
+         }
+
+         if(i==33&&m_currentUser->isLevelPassed(i))
+         {
+            gamebtn(15);
+            getButton(15)->setIcon(QIcon(":/img/Debug/image/nature.fw.png"));
+         }
+
+         if(i==36&&m_currentUser->isLevelPassed(i))
+         {
+            gamebtn(17);
+            getButton(17)->setIcon(QIcon(":/img/Debug/image/divine.fw.png"));
+         }
+
+         if(i==8&&m_currentUser->isLevelPassed(i))
+         {
+            gamebtn(1);
+            getButton(1)->setIcon(QIcon(":/img/Debug/image/flame.fw.png"));
+         }
+
+         if(i==10&&m_currentUser->isLevelPassed(i))
+         {
+            gamebtn(2);
+            getButton(2)->setIcon(QIcon(":/img/Debug/image/lightning.fw.png"));
+         }
+
+         if(i==12&&m_currentUser->isLevelPassed(i))
+         {
+            gamebtn(3);
+            getButton(3)->setIcon(QIcon(":/img/Debug/image/shadow.fw.png"));
+         }
+
+         if(i==14&&m_currentUser->isLevelPassed(i))
+         {
+            gamebtn(4);
+            getButton(4)->setIcon(QIcon(":/img/Debug/image/ice.fw.png"));
+         }
+
+         if(i==16&&m_currentUser->isLevelPassed(i))
+         {
+            gamebtn(5);
+            getButton(5)->setIcon(QIcon(":/img/Debug/image/nature.fw.png"));
+         }
+
+         if(i==18&&m_currentUser->isLevelPassed(i))
+         {
+            gamebtn(6);
+            getButton(6)->setIcon(QIcon(":/img/Debug/image/divine.fw.png"));
+         }
+
+         if(m_currentUser->isLevelPassed(1)&&m_currentUser->isLevelPassed(2)&&
+            m_currentUser->isLevelPassed(3)&&m_currentUser->isLevelPassed(4)&&
+           m_currentUser->isLevelPassed(5)&&m_currentUser->isLevelPassed(6))
+         {
+              gamebtn(0);
+              getButton(0)->setIcon(QIcon(":/img/Debug/image/Diamond.fw.png"));
+         }
      }
  }
 
+void Map::gamebtn(int i)
+{
+    // 先断开之前的连接（如果有）
+    disconnect(m_buttons[i], &HexagonButton::clicked, nullptr, nullptr);
 
+    connect(m_buttons[i], &HexagonButton::clicked, [=]()
+    {
+        // 如果已有窗口且未关闭，则直接激活它
+        if(m_currentGameplay && !m_currentGameplay.isNull())
+        {
+            m_currentGameplay->activateWindow();
+            return;
+        }
+
+        // 检查映射是否存在
+          if(!levelMap.contains(i))
+          {
+              QMessageBox::critical(this, "错误", "未找到关卡映射！");
+              return;
+          }
+
+
+            m_currentGameplay = new Gameplay(levelMap[i], i, m_currentUser);
+            m_currentGameplay->setAttribute(Qt::WA_DeleteOnClose, true);
+
+
+
+           // 直接连接信号到Map的显示函数
+            connect(m_currentGameplay, &Gameplay::returnToMapRequested, this, &Map::onGameplayFinished);
+
+            this->hide();
+            m_currentGameplay->show();
+
+    });
+}
 
 void Map::refreshUserData()
 {
     // 不再需要reloadCurrentUser，因为m_currentUser是指针，外部修改会直接反映
     setupLevelButtons(); // 这会根据最新用户数据更新所有按钮图标
+}
+
+void Map::onGameplayFinished()
+{
+    this->refreshUserData();
+    this->show();
+    this->activateWindow();
+
+
 }
 
 

@@ -50,3 +50,8 @@ void Mode::on_pushButton_Battle_clicked()
 {
 
 }
+
+void Mode::on_pushButton_Exit_clicked()
+{
+    exit(0);
+}

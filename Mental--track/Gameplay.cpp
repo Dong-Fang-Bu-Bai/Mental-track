@@ -109,6 +109,7 @@ Gameplay::Gameplay(const QString& levelPath, int levelId, User* currentUser, QWi
                 // 计算用时(秒)
                 float completionTime = static_cast<float>(m_elapsedTime);
 
+
                 // 更新用户数据
                 if(m_currentUser)
                 {

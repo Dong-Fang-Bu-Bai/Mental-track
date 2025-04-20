@@ -2,14 +2,46 @@
 #include <algorithm>
 #include<QString>
 
+// 新增初始化关卡记录的方法
+void User::initializeLevelRecords(int totalLevels)
+{
+    for (int i = 1; i <= totalLevels; ++i)
+    {
+        // 默认创建未通关记录(完成时间0.0f, passed=false)
+        levelRecords.emplace(i, LevelRecord(i, 0.0f, false));
+    }
+}
+
+// 工厂方法 - 创建新用户
+User* User::createNewUser(const std::string& username, const std::string& password, int totalLevels)
+{
+    User *user=new User(username, password);
+    user->initializeLevelRecords(totalLevels);
+    return user;
+}
+
+// 工厂方法 - 从序列化数据加载
+User User::createFromSerialized(std::istream& in)
+{
+    User user;
+    user.deserialize(in);
+    return user;
+}
+
+// 私有构造函数（用于创建新用户）
 User::User(const std::string& username, const std::string& password)
-    : username(username) {
+    : username(username)
+{
     // 密码加盐哈希
     QString salt = "game_salt_2025";
-    passwordHash = QCryptographicHash::hash(
+    passwordHash = QCryptographicHash::hash
+    (
         (salt + QString::fromStdString(password)).toUtf8(),
         QCryptographicHash::Sha256
     ).toHex().toStdString();
+
+
+    // 注意：这里不初始化关卡记录！
 }
 
 // 序列化
@@ -102,7 +134,8 @@ std::string User::getUsername() const {
     return username;
 }
 
-const std::unordered_map<int, LevelRecord>& User::getAllRecords() const {
+const std::unordered_map<int, LevelRecord>& User::getAllRecords() const
+{
     return levelRecords;
 }
 
@@ -113,7 +146,13 @@ const std::vector<MedalType>& User::getMedals() const
 
 
 // 反序列化实现
-void User::deserialize(std::istream& in) {
+void User::deserialize(std::istream& in)
+{
+
+    // 清空现有数据
+    levelRecords.clear();
+    medals.clear();
+
     // 读取用户名
     size_t nameLen;
     in.read(reinterpret_cast<char*>(&nameLen), sizeof(nameLen));

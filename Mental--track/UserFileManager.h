@@ -15,6 +15,7 @@ public:
 
     // 新增：保存单个用户
     static bool saveUser(const User& user, const std::string& filename = "users.dat");
+    bool generateDeveloperReport(const std::string& userDataFile, const std::string& reportFile);
 
 };
 
