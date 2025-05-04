@@ -20,15 +20,13 @@ public:
 private slots:
     void on_pushButton_play_clicked();
 
-    void on_pushButton_play_2_clicked();
 
-    void on_pushButton_play_3_clicked();
 
     void on_pushButton_back_clicked();
 
     void on_pushButton_help_clicked();
 
-    void on_checkBox_stateChanged(int arg1);
+
 
     void on_checkBox_clicked(bool checked);
 

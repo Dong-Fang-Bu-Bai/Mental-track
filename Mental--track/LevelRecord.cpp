@@ -1,8 +1,38 @@
 #include "LevelRecord.h"
 #include <iostream>
+#include<QDebug>
 
 LevelRecord::LevelRecord(int levelId, float completionTime, bool passed)
     : levelId(levelId), completionTime(completionTime), passed(passed) {}
+
+bool LevelRecord::validate() const
+{
+    try {
+        // 验证关卡ID
+        if(levelId <= 0) {
+            qWarning() << "Invalid level ID:" << levelId;
+            return false;
+        }
+
+        // 验证完成时间
+        if(completionTime < 0 || completionTime > 3600) { // 假设最大1小时
+            qWarning() << "Invalid completion time:" << completionTime;
+            return false;
+        }
+
+        // 如果标记为已通关，但时间为0，则无效
+        if(passed && completionTime <= 0) {
+            qWarning() << "Passed level with invalid time:" << completionTime;
+            return false;
+        }
+
+        return true;
+    } catch(...) {
+        qCritical() << "Exception in LevelRecord::validate()";
+        return false;
+    }
+}
+
 
 void LevelRecord::serialize(std::ostream& out) const
 {

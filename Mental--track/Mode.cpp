@@ -43,7 +43,11 @@ void Mode::on_pushButton_Mainplay_clicked()
 
 void Mode::on_pushButton_CreateWork_clicked()
 {
+    this->hide();
 
+    Workshop* workshop = new Workshop(*m_currentUser);
+    workshop->setAttribute(Qt::WA_DeleteOnClose, true);
+    workshop->show();
 }
 
 void Mode::on_pushButton_Battle_clicked()

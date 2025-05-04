@@ -10,6 +10,9 @@ class LevelRecord
     // 构造函数添加passed参数
     LevelRecord(int levelId = 0, float completionTime = 0.0f, bool passed = false);
 
+    // 数据验证方法
+    bool validate() const;
+
     // 更新完成时间
     void updateCompletionTime(float newTime);
 

@@ -18,6 +18,14 @@
         <file>Debug/image/Diamond_lock.fw.png</file>
         <file>Debug/image/divine.fw.png</file>
         <file>Debug/image/divine_lock.fw.png</file>
+        <file>Debug/image/Listbg.fw.png</file>
+        <file>Debug/image/BlazeMaster.fw.png</file>
+        <file>Debug/image/CelestialSage.fw.png</file>
+        <file>Debug/image/EternalLuminary.fw.png</file>
+        <file>Debug/image/FrostLord.fw.png</file>
+        <file>Debug/image/GaiasChampion.fw.png</file>
+        <file>Debug/image/ThunderWielder.fw.png</file>
+        <file>Debug/image/UmbraKing.fw.png</file>
     </qresource>
     <qresource prefix="/audio"/>
     <qresource prefix="/leveldata">

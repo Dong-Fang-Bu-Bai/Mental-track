@@ -29,16 +29,17 @@ Login::~Login()
 
 void Login::on_pushButton_play_clicked()
 {
-        QString username = ui->lineEdit_User->text();
-        QString password = ui->lineEdit_Pass->text();
+//        QString username = ui->lineEdit_User->text();
+//        QString password = ui->lineEdit_Pass->text();
 
-        if(username.isEmpty() || password.isEmpty())
-        {
-            QMessageBox::warning(this, "警告", "用户名和密码不能为空");
-            return;
-        }
+//        if(username.isEmpty() || password.isEmpty())
+//        {
+//            QMessageBox::warning(this, "警告", "用户名和密码不能为空");
+//            return;
+//        }
 
-        User* currentUser = getValidatedUser(username, password);
+        //User* currentUser = getValidatedUser(username, password);
+         User* currentUser = getValidatedUser("Alex", "1234");
         if(currentUser)
         {
             QMessageBox::information(this, "提示", "登录成功！");

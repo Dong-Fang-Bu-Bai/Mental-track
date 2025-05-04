@@ -66,7 +66,8 @@ bool InteractiveGridScene::isAdjacent(const QPoint& p1, const QPoint& p2) const
 void InteractiveGridScene::mousePressEvent(QGraphicsSceneMouseEvent* event)
 {
     // 如果已经达到或超过最大步数，不再响应
-       if(m_userPath.size() >= m_correctPath.size()-1) {
+       if(m_userPath.size() >= m_correctPath.size()-1)
+       {
            return;
        }
 
@@ -174,7 +175,8 @@ void InteractiveGridScene::clearUserPath()
     // 保留起点和终点
     QList<QGraphicsItem*> items = this->items();
     for(QGraphicsItem* item : items) {
-        if(item->data(0) != "locked") {  // 只删除未锁定的项目
+        if(item->data(0) != "locked")
+        {  // 只删除未锁定的项目
             removeItem(item);
             delete item;
         }
@@ -183,4 +185,46 @@ void InteractiveGridScene::clearUserPath()
     m_userPath.clear();
     drawGrid();
     drawStartEndMarkers(); // 重新绘制起点终点
+}
+
+void InteractiveGridScene::undoLastStep()
+{
+    if (m_userPath.isEmpty()) {
+         return;
+     }
+
+     // 移除最后一个点（如果不是起点）
+     if (m_userPath.size() > 1)
+     {
+         m_userPath.removeLast();
+
+         // 简单高效的方法：重新绘制整个网格
+         clearGrid();
+         drawStartEndMarkers();
+
+         // 重新绘制用户路径（除了最后一步）
+         for (int i = 1; i < m_userPath.size(); ++i) {
+             QPoint p = m_userPath[i];
+             if (p != m_start && p != m_end) {
+                 // 创建黄色格子
+                 auto cell = new QGraphicsRectItem(
+                     p.x() * CELL_SIZE, p.y() * CELL_SIZE,
+                     CELL_SIZE, CELL_SIZE);
+                 cell->setBrush(Qt::yellow);
+                 addItem(cell);
+
+                 // 添加步数文本
+                 auto stepText = new QGraphicsSimpleTextItem(QString::number(i+1), cell);
+                 QFont font = stepText->font();
+                 font.setPointSize(18);
+                 stepText->setFont(font);
+
+                 QRectF textRect = stepText->boundingRect();
+                 stepText->setPos(
+                     p.x() * CELL_SIZE + (CELL_SIZE - textRect.width()) / 2,
+                     p.y() * CELL_SIZE + (CELL_SIZE - textRect.height()) / 2
+                 );
+             }
+         }
+     }
 }

@@ -2,7 +2,7 @@ QT       += core gui multimedia
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
-CONFIG += c++11
+CONFIG += c++17
 
 # The following define makes your compiler emit warnings if you use
 # any Qt feature that has been marked deprecated (the exact warnings
@@ -22,9 +22,11 @@ SOURCES += \
     Help.cpp \
     Hexagonbutton.cpp \
     Interactivegridscene.cpp \
+    Leaderboard.cpp \
     LevelRecord.cpp \
     Login.cpp \
     Map.cpp \
+    MedalPopup.cpp \
     MedalType.cpp \
     Mode.cpp \
     Pathcalculator.cpp \
@@ -33,6 +35,8 @@ SOURCES += \
     Start.cpp \
     User.cpp \
     UserFileManager.cpp \
+    Workshop.cpp \
+    Workshopgridscene.cpp \
     gamedefine.cpp \
     gameobject.cpp \
     main.cpp
@@ -44,9 +48,11 @@ HEADERS += \
     Help.h \
     Hexagonbutton.h \
     Interactivegridscene.h \
+    Leaderboard.h \
     LevelRecord.h \
     Login.h \
     Map.h \
+    MedalPopup.h \
     MedalType.h \
     Mode.h \
     Pathcalculator.h \
@@ -55,19 +61,24 @@ HEADERS += \
     Start.h \
     User.h \
     UserFileManager.h \
+    Workshop.h \
+    Workshopgridscene.h \
     gamedefine.h \
     gameobject.h
 
 FORMS += \
     Gameplay.ui \
     Help.ui \
+    Leaderboard.ui \
     Login.ui \
     Map.ui \
+    MedalPopup.ui \
     Mode.ui \
     Register.ui \
     Setting.ui \
     Start.ui \
-    Widget.ui
+    Widget.ui \
+    Workshop.ui
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin

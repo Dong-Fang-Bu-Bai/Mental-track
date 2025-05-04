@@ -6,6 +6,7 @@
 #include <QFont>
 #include <QMessageBox>
 #include<QPushButton>
+#include"Leaderboard.h"
 
 Map::Map(User& user,QWidget *parent) :
     QWidget(parent),ui(new Ui::Map), m_currentUser(&user)// 存储指针
@@ -13,7 +14,8 @@ Map::Map(User& user,QWidget *parent) :
     ui->setupUi(this);
 
 
-    this->setFixedSize(1200,1200);
+   this->setFixedSize(1200,1200);
+    //this->resize(1200,1200);
     this->setWindowTitle("脑力地图--冒险旅程");
 
     //设置背景图片
@@ -40,7 +42,7 @@ Map::Map(User& user,QWidget *parent) :
     // 设置样式表（包含正常/悬浮/点击状态）
     pushButton_backMode->setStyleSheet(
         "QPushButton {"
-        "     background-color: rgba(230,180, 94, 60%);"  // 蓝色背景，80% 透明
+        "     background-color: rgba(230,180, 94, 60%);"
         "   color: Black;"               // 文字颜色
         "   border-radius: 10px;"        // 圆角
         "   padding: 5px;"               // 内边距
@@ -78,7 +80,7 @@ connect(pushButton_backMode, &QPushButton::clicked, [=](){
    // 设置样式表（包含正常/悬浮/点击状态）
    pushButton_Setting->setStyleSheet(
        "QPushButton {"
-       "     background-color: rgba(230,180, 94, 60%);"  // 蓝色背景，80% 透明
+       "     background-color: rgba(230,180, 94, 60%);"
        "   color: Black;"               // 文字颜色
        "   border-radius: 10px;"        // 圆角
        "   padding: 5px;"               // 内边距
@@ -120,7 +122,7 @@ connect(pushButton_backMode, &QPushButton::clicked, [=](){
   // 设置样式表（包含正常/悬浮/点击状态）
   pushButton_Help->setStyleSheet(
       "QPushButton {"
-      "     background-color: rgba(230,180, 94, 60%);"  // 蓝色背景，80% 透明
+      "     background-color: rgba(230,180, 94, 60%);"
       "   color: Black;"               // 文字颜色
       "   border-radius: 10px;"        // 圆角
       "   padding: 5px;"               // 内边距
@@ -143,8 +145,6 @@ connect(pushButton_backMode, &QPushButton::clicked, [=](){
       help->show();
 
   });
-
-
 
 
    // 4.创建文字标签
@@ -174,7 +174,95 @@ connect(pushButton_backMode, &QPushButton::clicked, [=](){
 
       "}"
 
-  );
+    );
+
+  // 5.创建 排行榜 按钮
+
+ QPushButton *pushButton_List=new QPushButton(this);
+
+ // 设置按钮位置和大小 (x, y, width, height)
+ //pushButton_List->setGeometry(750, 1130, 200, 60);
+ pushButton_List->setGeometry(750, 800, 200, 60);
+
+ pushButton_List->setText("排行榜");
+
+ // 设置文字字体和大小
+ pushButton_List->setFont(font);
+
+ // 设置样式表（包含正常/悬浮/点击状态）
+ pushButton_List->setStyleSheet(
+     "QPushButton {"
+     "     background-color: rgba(230,180, 94, 60%);"  // 蓝色背景，80% 透明
+     "   color: Black;"               // 文字颜色
+     "   border-radius: 10px;"        // 圆角
+     "   padding: 5px;"               // 内边距
+     "}"
+     "QPushButton:hover {"
+     "   background-color: rgba(230,180, 94, 70%);"  // 悬浮状态背景色
+     "}"
+     "QPushButton:pressed {"
+     "   background-color: rgba(230,180, 94, 80%);"  // 点击状态背景色
+     "}"
+ );
+
+ connect(pushButton_List, &QPushButton::clicked, [=]()
+ {
+     // 检查是否已存在排行榜窗口
+         if (leaderboard == nullptr) {
+             // 创建排行榜窗口
+             leaderboard = new Leaderboard("users_info.txt", this);
+             leaderboard->setWindowFlags(Qt::Dialog | Qt::WindowStaysOnTopHint);
+             leaderboard->setAttribute(Qt::WA_DeleteOnClose, true);
+
+             // 连接返回信号
+             connect(leaderboard, &Leaderboard::returnToMain, [=]() {
+                 this->show();
+             });
+
+             // 连接关闭信号
+             connect(leaderboard, &Leaderboard::destroyed, [=]() {
+                 this->show();
+                 leaderboard = nullptr; // 重置指针
+             });
+             this->hide();
+             leaderboard->show();
+         } else {
+             leaderboard->activateWindow(); // 如果窗口已存在，则激活它
+         }
+ });
+
+
+ // 6.创建通关状态标签
+
+
+label_Play=new QLabel(this);
+
+// 设置标签位置和大小 (x, y, width, height)
+
+label_Play->setGeometry(900, 0, 300, 65); // 右上角位置
+
+label_Play->setText("成功通关数：");
+
+
+// 设置文字字体和大小
+QFont font1("华文行楷", 18, QFont::Bold);
+label_Play->setFont(font1);
+
+// 设置样式表（包含正常/悬浮/点击状态）
+label_Play->setStyleSheet(
+            "QLabel {"
+            "   color: #FFD700;"  // 金色文字
+            "   background-color: rgba(0,0,0,70%);"
+            "   border-radius: 15px;"
+            "   padding: 10px;"
+            "   border: 2px solid #FFD700;"
+            "}"
+        );
+
+// 初始更新
+updatePassedLevelsLabel();
+
+
 
    }
 
@@ -555,7 +643,7 @@ void Map::gamebtn(int i)
             this->hide();
             m_currentGameplay->show();
 
-    });
+      });
 }
 
 void Map::refreshUserData()
@@ -567,10 +655,38 @@ void Map::refreshUserData()
 void Map::onGameplayFinished()
 {
     this->refreshUserData();
+    this->updatePassedLevelsLabel();
     this->show();
     this->activateWindow();
 
+    UserFileManager manager;
+    manager.generateDeveloperReport("users.dat", "users_info.txt");
 
+    // 检查并显示解锁的勋章
+    if (m_currentUser)
+    {
+        MedalPopup::checkAndShowUnlockedMedals(*m_currentUser, this);
+    }
+
+}
+
+void Map::updatePassedLevelsLabel()
+{
+    if (!m_currentUser) return;
+
+    // 计算已通关的关卡数量
+    int passedCount = 0;
+    for (const auto& [levelId, record] : m_currentUser->getAllRecords())
+    {
+        if (record.isPassed()) {
+            passedCount++;
+        }
+    }
+
+    // 更新标签文本
+    if (label_Play) {
+        label_Play->setText(QString("成功通关数: %1").arg(passedCount));
+    }
 }
 
 

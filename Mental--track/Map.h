@@ -7,6 +7,8 @@
 #include"Gameplay.h"
 #include<QPointer>
 #include<QMap>
+#include<Leaderboard.h>
+#include "MedalPopup.h"
 
 namespace Ui {
 class Map;
@@ -41,7 +43,9 @@ private:
     QPointer<Gameplay> m_currentGameplay; // 自动置空当窗口被删除时
     void gamebtn(int);
     void onGameplayFinished();
-
+    void updatePassedLevelsLabel();  // 新增方法
+    Leaderboard* leaderboard = nullptr;
+    QLabel *label_Play;
     // 为不同按钮指定不同关卡
     //设置映射表
     QMap<int, QString> levelMap

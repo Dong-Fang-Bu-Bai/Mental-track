@@ -17,10 +17,12 @@ Help::Help(QWidget *parent) :
 
     QFile file("Help.txt");
 
-    if (file.open(QIODevice::ReadOnly)) {
+    if (file.open(QIODevice::ReadOnly))
+    {
         ui->textEdit_Help->setText(file.readAll()); // 若文件含HTML标签会被解析
         file.close();
     }
+
     //ui->textEdit_Help->setStyleSheet("background-color:rgba(111, 159, 225 , 200);");
     ui->textEdit_Help->setStyleSheet("background-color:rgba(255, 255, 255 , 0%);");
     ui->textEdit_Help->setReadOnly(true);

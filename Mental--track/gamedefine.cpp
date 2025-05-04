@@ -23,11 +23,6 @@ Register* getGlobalRegisterWindow() {
     return w;
 }
 
-//Help* getGlobalHelpWindow() {
-//    static Help *w = nullptr;  // 全局唯一static
-//    if (!w) w = new Help();
-//    return w;
-//}
 
 Mode* getGlobalModeWindow()
 {

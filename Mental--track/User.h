@@ -5,6 +5,7 @@
 #include <unordered_map>
 #include <vector>
 #include <QCryptographicHash>
+#include<QDebug>
 
 
 class User
@@ -33,6 +34,11 @@ public:
 
 
     // 勋章系统
+    // 获取当前勋章数量
+    int getMedalsCount() const
+    {
+        return medals.size();
+    }
     void addMedal(MedalType medal);
     bool hasMedal(MedalType medal) const;
 
@@ -41,6 +47,89 @@ public:
     const std::unordered_map<int, LevelRecord>& getAllRecords() const;
     const std::vector<MedalType>& getMedals() const;
     const std::string& getPasswordHash() const { return passwordHash; }
+    int getPassedLevelCount() const
+    {
+        int count = 0;
+        for (const auto& [id, record] : levelRecords)
+        {
+            if (record.isPassed()) count++;
+        }
+        return count;
+    }
+
+    void debugPrint() const
+    {
+        qDebug() << "User:" << QString::fromStdString(username);
+        qDebug() << "Passed levels:" << getPassedLevelCount();
+        qDebug() << "Medals count:" << medals.size();
+        for(const auto& [id, record] : levelRecords) {
+            if(record.isPassed()) {
+                qDebug() << "Level" << id << "time:" << record.getCompletionTime();
+            }
+        }
+    }
+
+    // 添加这个方法替代原来的validate()
+       bool isValid() const
+       {
+           // 基础验证
+           if(username.empty()) {
+               qDebug() << "Invalid user: empty username";
+               return false;
+           }
+
+           // 检查是否有有效记录
+           bool hasValidRecords = false;
+           for(const auto& [id, record] : levelRecords) {
+               if(record.isPassed() && record.getCompletionTime() > 0) {
+                   hasValidRecords = true;
+                   break;
+               }
+           }
+
+           if(!hasValidRecords) {
+               qDebug() << "User" << username.c_str() << "has no valid records";
+           }
+
+           return hasValidRecords;
+       }
+
+       // 添加这个方法获取有效关卡数
+           int getValidPassedLevelCount() const {
+               int count = 0;
+               for(const auto& [id, record] : levelRecords)
+               {
+                   if(record.isPassed() && record.getCompletionTime() > 0) {
+                       count++;
+                   }
+               }
+               return count;
+           }
+
+           // 添加内存安全的访问方法
+           std::string getSafeUsername() const {
+               try {
+                   return username;
+               } catch(...) {
+                   return "[corrupted]";
+               }
+           }
+
+           // 安全获取记录
+           const std::unordered_map<int, LevelRecord> getSafeRecords() const
+           {
+               std::unordered_map<int, LevelRecord> safeCopy;
+               try {
+                   for(const auto& [id, record] : levelRecords) {
+                       if(id > 0 && record.validate()) {
+                           safeCopy.insert({id, record});
+                       }
+                   }
+               } catch(...) {
+                   qCritical() << "Error copying records";
+               }
+               return safeCopy;
+           }
 
 private:
     std::string username;

@@ -187,16 +187,3 @@ void User::deserialize(std::istream& in)
        }
 }
 
-
-//// 授予勋章
-//user.addMedal(MedalType::SpeedRunner);
-
-//// 检查勋章
-//if(user.hasMedal(MedalType::FirstBlood)) {
-//    // 处理首胜逻辑
-//}
-
-//// 显示所有勋章
-//for(auto medal : user.getMedals()) {
-//    std::cout << medalToString(medal) << std::endl;
-//}

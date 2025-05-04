@@ -9,6 +9,8 @@
 #include<QPushButton>
 #include "User.h"
 #include"UserFileManager.h"
+#include"Interactivegridscene.h"
+#include"Displaygridscene.h"
 
 namespace Ui {
 class Gameplay;
@@ -32,6 +34,9 @@ signals:
 private slots:
     void updateTimer(); // 计时器更新槽函数
     void onReturnButtonClicked();
+    void onPauseButtonClicked();  // 暂停按钮点击槽函数
+    void resumeGame();           // 恢复游戏函数
+    void restartLevel();  // 新增重新开始函数
 
 private:
     Ui::Gameplay *ui;
@@ -42,6 +47,10 @@ private:
     QTimer *m_timer;     // 计时器
     int m_elapsedTime;   // 已用时间(秒)
     QPushButton *m_returnButton;//返回按钮
+    QWidget* m_pauseOverlay;     // 暂停时的覆盖层
+    bool m_isPaused;             // 游戏是否暂停
+    InteractiveGridScene* interactiveScene;
+    DisplayGridScene *displayScene;
 
     bool loadLevel(const QString& filePath ,
                             QVector<QPoint>& playerPath,

@@ -20,7 +20,10 @@ public:
 
 
     const QVector<QPoint>& userPath() const { return m_userPath; }
-     void clearUserPath();
+
+    void clearUserPath();
+
+    void undoLastStep();
 
 signals:
     void pathPointAdded(int x, int y);
@@ -33,6 +36,7 @@ private:
     void updateLastCellWithStepNumber();
     void drawStartEndMarkers();
     bool isAdjacent(const QPoint& p1, const QPoint& p2) const;
+
 
     QPoint m_start;
     QPoint m_end;
