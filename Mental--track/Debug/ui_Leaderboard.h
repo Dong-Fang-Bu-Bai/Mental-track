@@ -25,6 +25,8 @@ public:
     QPushButton *btnPassedLevels;
     QPushButton *btnBestTimes;
     QPushButton *btnMedals;
+    QPushButton *btnWorkshop;
+    QPushButton *btnBattle;
 
     void setupUi(QWidget *Leaderboard)
     {
@@ -85,6 +87,34 @@ public:
 "QPushButton:hover {\n"
 "    background-color: #e68a00;\n"
 "}"));
+        btnWorkshop = new QPushButton(Leaderboard);
+        btnWorkshop->setObjectName(QString::fromUtf8("btnWorkshop"));
+        btnWorkshop->setGeometry(QRect(700, 0, 200, 70));
+        btnWorkshop->setFont(font);
+        btnWorkshop->setStyleSheet(QString::fromUtf8("QPushButton {\n"
+"    background-color: #ea648e;\n"
+"    color: black;\n"
+"    border: none;\n"
+"    padding: 10px;\n"
+"    border-radius: 5px;\n"
+"}\n"
+"QPushButton:hover {\n"
+"    background-color: #e12660;\n"
+"}"));
+        btnBattle = new QPushButton(Leaderboard);
+        btnBattle->setObjectName(QString::fromUtf8("btnBattle"));
+        btnBattle->setGeometry(QRect(900, 0, 200, 70));
+        btnBattle->setFont(font);
+        btnBattle->setStyleSheet(QString::fromUtf8("QPushButton {\n"
+"    background-color: #ebe624 ;\n"
+"    color: black;\n"
+"    border: none;\n"
+"    padding: 10px;\n"
+"    border-radius: 5px;\n"
+"}\n"
+"QPushButton:hover {\n"
+"    background-color: #dfdb2a ;\n"
+"}"));
 
         retranslateUi(Leaderboard);
 
@@ -97,6 +127,8 @@ public:
         btnPassedLevels->setText(QCoreApplication::translate("Leaderboard", "\351\200\232\345\205\263\345\205\263\345\215\241\346\225\260", nullptr));
         btnBestTimes->setText(QCoreApplication::translate("Leaderboard", "\345\205\263\345\215\241\346\234\200\344\275\263\346\227\266\351\227\264", nullptr));
         btnMedals->setText(QCoreApplication::translate("Leaderboard", "\345\213\213\347\253\240\350\216\267\345\276\227\346\225\260", nullptr));
+        btnWorkshop->setText(QCoreApplication::translate("Leaderboard", "\345\210\233\346\204\217\345\267\245\345\235\212", nullptr));
+        btnBattle->setText(QCoreApplication::translate("Leaderboard", "\344\272\272\346\234\272\345\257\271\346\210\230", nullptr));
     } // retranslateUi
 
 };

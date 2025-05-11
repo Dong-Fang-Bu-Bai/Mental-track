@@ -75,6 +75,15 @@ void User::serialize(std::ostream& out) const
             out.write(reinterpret_cast<const char*>(&medalLen), sizeof(medalLen));
             out.write(medalStr.c_str(), medalLen);
         }
+
+        //写入创建关卡数以及积分数
+        out.write(reinterpret_cast<const char*>(&createdMaps), sizeof(createdMaps));
+        out.write(reinterpret_cast<const char*>(&workshopPoints), sizeof(workshopPoints));
+
+        // 写入人机对战数据
+        out.write(reinterpret_cast<const char*>(&battleWins), sizeof(battleWins));
+        out.write(reinterpret_cast<const char*>(&battleTotal), sizeof(battleTotal));
+        out.write(reinterpret_cast<const char*>(&battlePoints), sizeof(battlePoints));
 }
 
 
@@ -185,5 +194,14 @@ void User::deserialize(std::istream& in)
            in.read(&medalStr[0], medalLen);
            medals.push_back(stringToMedal(medalStr));
        }
+
+       //读取创意工坊数据
+       in.read(reinterpret_cast<char*>(&createdMaps), sizeof(createdMaps));
+       in.read(reinterpret_cast<char*>(&workshopPoints), sizeof(workshopPoints));
+
+       // 读取人机对战数据
+       in.read(reinterpret_cast<char*>(&battleWins), sizeof(battleWins));
+       in.read(reinterpret_cast<char*>(&battleTotal), sizeof(battleTotal));
+       in.read(reinterpret_cast<char*>(&battlePoints), sizeof(battlePoints));
 }
 

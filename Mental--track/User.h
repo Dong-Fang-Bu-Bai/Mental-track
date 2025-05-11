@@ -6,6 +6,7 @@
 #include <vector>
 #include <QCryptographicHash>
 #include<QDebug>
+#include<QString>
 
 
 class User
@@ -107,7 +108,7 @@ public:
            }
 
            // 添加内存安全的访问方法
-           std::string getSafeUsername() const {
+            std::string  getSafeUsername() const {
                try {
                    return username;
                } catch(...) {
@@ -131,11 +132,48 @@ public:
                return safeCopy;
            }
 
+           // 新增方法
+           int getCreatedMaps() const { return createdMaps; }
+           int getWorkshopPoints() const { return workshopPoints; }
+           void incrementCreatedMaps() { createdMaps++; }
+           void addWorkshopPoints(int points) { workshopPoints += points; }
+
+
+
+       // 新增访问方法
+       int getBattleWins() const { return battleWins; }
+       int getBattleTotal() const { return battleTotal; }
+       int getBattlePoints() const { return battlePoints; }
+       float getWinRate() const
+       {
+        return battleTotal > 0 ? (float)battleWins / battleTotal * 100 : 0.0f;
+       }
+
+       // 新增修改方法
+       void addBattleResult(bool isWin, int points)
+       {
+         battleTotal++;
+         if(isWin)
+         {
+           battleWins++;
+           battlePoints += points;
+         }
+
+       }
+
+
 private:
-    std::string username;
+    std::string  username;
     std::string passwordHash; //哈希值
     std::unordered_map<int, LevelRecord> levelRecords;// 同时存储通关状态和时间
     std::vector<MedalType> medals;
+    int createdMaps = 0;  // 创建的地图数
+    int workshopPoints = 0; // 创意工坊积分
+    // 新增人机对战相关属性
+       int battleWins = 0;       // 胜局数
+       int battleTotal = 0;      // 总对局数
+       int battlePoints = 0;     // 对战积分
+
     void initializeLevelRecords(int totalLevels);  // 新增初始化方法
     // 设为私有，强制使用工厂方法创建
     User(const std::string& username, const std::string& password);

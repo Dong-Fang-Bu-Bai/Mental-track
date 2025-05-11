@@ -15,7 +15,8 @@ class Leaderboard;
 enum DisplayMode {
     PassedLevels,
     BestTimes,
-    Medals
+    Medals,
+    workshop // 新增
 };
 
 struct PlayerData
@@ -25,6 +26,13 @@ struct PlayerData
     QMap<int, float> levelTimes; // levelId -> bestTime
     int medalsCount = 0;   // 初始化默认值
     QStringList medalsList;  // 改为存储多个勋章的列表
+    int createdMaps = 0;
+    int workshopPoints = 0;
+
+    // 新增人机对战属性
+    int battleWins = 0;
+    int battleTotal = 0;
+    int battlePoints = 0;
 
     // 添加调试方法
     void debugPrint() const
@@ -32,7 +40,10 @@ struct PlayerData
         qDebug() << "Player:" << username
                  << "| Levels:" << passedLevels
                  << "| Medals:" << medalsCount
-                 << "| Medal List:" << medalsList.join(", ");
+                 << "| Medal List:" << medalsList.join(", ")
+                 << "| Battle Wins:" << battleWins
+                 << "| Battle Total:" << battleTotal
+                 << "| Battle Points:" << battlePoints;
 
 
         for (auto it = levelTimes.begin(); it != levelTimes.end(); ++it)
@@ -57,6 +68,9 @@ private slots:
     void onPassedLevelsClicked();
     void onBestTimesClicked();
     void onMedalsClicked();
+    void onWorkshopClicked();
+    void on_btnWorkshop_clicked();
+    void on_btnBattle_clicked();
 
 private:
     void parseReportFile();

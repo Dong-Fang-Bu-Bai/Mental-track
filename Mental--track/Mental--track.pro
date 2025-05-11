@@ -16,6 +16,9 @@ DEFINES += QT_DEPRECATED_WARNINGS
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
 SOURCES += \
+    BattleGridScene.cpp \
+    BattlePlay.cpp \
+    DifficultyDialog.cpp \
     Displaygridscene.cpp \
     Gameplay.cpp \
     Gridscene.cpp \
@@ -42,6 +45,9 @@ SOURCES += \
     main.cpp
 
 HEADERS += \
+    BattleGridScene.h \
+    BattlePlay.h \
+    DifficultyDialog.h \
     Displaygridscene.h \
     Gameplay.h \
     Gridscene.h \
@@ -67,6 +73,7 @@ HEADERS += \
     gameobject.h
 
 FORMS += \
+    BattlePlay.ui \
     Gameplay.ui \
     Help.ui \
     Leaderboard.ui \

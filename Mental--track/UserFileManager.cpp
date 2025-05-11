@@ -42,34 +42,25 @@ bool UserFileManager::loadUsers(std::vector<User>& users, const std::string& fil
 
 
 bool UserFileManager::saveUser(const User& user, const std::string& filename) {
-    // 先加载所有用户
     std::vector<User> users;
-    if (!loadUsers(users, filename))
-    {
-        // 如果文件不存在，创建新文件
-        users.clear();
-    }
-
-    // 查找并更新用户
-    bool found = false;
-    for (auto& u : users)
-    {
-        if (u.getUsername() == user.getUsername())
-        {
-            u = user;  // 更新用户数据
-            found = true;
-            break;
+        if(!loadUsers(users, filename)) {
+            users.clear();
         }
-    }
 
-    // 如果没找到，添加新用户
-    if (!found)
-    {
-        users.push_back(user);
-    }
+        bool found = false;
+        for(auto& u : users) {
+            if(u.getUsername() == user.getUsername()) {
+                u = user; // 这里会调用User的赋值运算符
+                found = true;
+                break;
+            }
+        }
 
-    // 保存所有用户
-    return saveUsers(users, filename);
+        if(!found) {
+            users.push_back(user);
+        }
+
+        return saveUsers(users, filename);
 }
 
 
@@ -147,6 +138,18 @@ bool UserFileManager::generateDeveloperReport(const std::string& userDataFile,
                     out << "  " << medalToString(medal) << "\n";
                 }
             }
+
+            //显示创意工坊贡献情况
+            out << "创意工坊:\n";
+            out << "  创建地图数: " << user.getCreatedMaps() << "\n";
+            out << "  获得积分: " << user.getWorkshopPoints() << "\n";
+
+            // 添加人机对战数据
+            out << "人机对战:\n";
+            out << "  胜场数: " << user.getBattleWins() << "\n";
+            out << "  总场数: " << user.getBattleTotal() << "\n";
+            out << "  胜率: " << QString::number(user.getWinRate(), 'f', 1).toStdString() << "%\n";
+            out << "  对战积分: " << user.getBattlePoints() << "\n";
 
             out << "----------------------------------------\n\n";
         }

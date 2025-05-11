@@ -4,6 +4,10 @@
 #include <QWidget>
 #include"User.h"
 
+
+// 前向声明
+class Workshop;  // 添加这行
+
 namespace Ui {
 class Mode;
 }

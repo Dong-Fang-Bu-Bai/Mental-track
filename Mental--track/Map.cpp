@@ -80,7 +80,7 @@ connect(pushButton_backMode, &QPushButton::clicked, [=](){
    // 设置样式表（包含正常/悬浮/点击状态）
    pushButton_Setting->setStyleSheet(
        "QPushButton {"
-       "     background-color: rgba(230,180, 94, 60%);"
+       "   background-color: rgba(230,180, 94, 60%);"
        "   color: Black;"               // 文字颜色
        "   border-radius: 10px;"        // 圆角
        "   padding: 5px;"               // 内边距
@@ -122,7 +122,7 @@ connect(pushButton_backMode, &QPushButton::clicked, [=](){
   // 设置样式表（包含正常/悬浮/点击状态）
   pushButton_Help->setStyleSheet(
       "QPushButton {"
-      "     background-color: rgba(230,180, 94, 60%);"
+      "   background-color: rgba(230,180, 94, 60%);"
       "   color: Black;"               // 文字颜色
       "   border-radius: 10px;"        // 圆角
       "   padding: 5px;"               // 内边距
@@ -192,7 +192,7 @@ connect(pushButton_backMode, &QPushButton::clicked, [=](){
  // 设置样式表（包含正常/悬浮/点击状态）
  pushButton_List->setStyleSheet(
      "QPushButton {"
-     "     background-color: rgba(230,180, 94, 60%);"  // 蓝色背景，80% 透明
+     "   background-color: rgba(230,180, 94, 60%);"  // 蓝色背景，80% 透明
      "   color: Black;"               // 文字颜色
      "   border-radius: 10px;"        // 圆角
      "   padding: 5px;"               // 内边距
@@ -207,6 +207,8 @@ connect(pushButton_backMode, &QPushButton::clicked, [=](){
 
  connect(pushButton_List, &QPushButton::clicked, [=]()
  {
+     UserFileManager manager;
+     manager.generateDeveloperReport("users.dat", "users_info.txt");
      // 检查是否已存在排行榜窗口
          if (leaderboard == nullptr) {
              // 创建排行榜窗口

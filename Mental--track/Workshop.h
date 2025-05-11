@@ -3,11 +3,12 @@
 
 #include <QWidget>
 #include"User.h"
-#include"gamedefine.h"
 #include"Workshopgridscene.h"
+#include <QInputDialog>
 
-namespace Ui {
-class Workshop;
+namespace Ui
+{
+    class Workshop;
 }
 
 class Workshop : public QWidget
@@ -18,10 +19,17 @@ public:
     explicit Workshop(User&,QWidget *parent = nullptr);
     ~Workshop();
 
+private slots:
+    void onConfirmClicked();
+    //void onPathCompleted();
+    void onErrorOccurred(const QString& message);
+
+
 private:
     Ui::Workshop *ui;
     User *m_currentUser;// 改为指针
-    Workshopgridscene* workshopgridscene;
+    Workshopgridscene* m_workshopScene;
+    bool m_isPlayerPathDone;
 
 };
 

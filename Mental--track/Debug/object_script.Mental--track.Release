@@ -1,3 +1,6 @@
+release/BattleGridScene.o
+release/BattlePlay.o
+release/DifficultyDialog.o
 release/Displaygridscene.o
 release/Gameplay.o
 release/Gridscene.o
@@ -23,6 +26,9 @@ release/gamedefine.o
 release/gameobject.o
 release/main.o
 release/qrc_src.o
+release/moc_BattleGridScene.o
+release/moc_BattlePlay.o
+release/moc_DifficultyDialog.o
 release/moc_Gameplay.o
 release/moc_Gridscene.o
 release/moc_Help.o

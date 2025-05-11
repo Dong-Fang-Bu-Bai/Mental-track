@@ -23,7 +23,6 @@ Help::Help(QWidget *parent) :
         file.close();
     }
 
-    //ui->textEdit_Help->setStyleSheet("background-color:rgba(111, 159, 225 , 200);");
     ui->textEdit_Help->setStyleSheet("background-color:rgba(255, 255, 255 , 0%);");
     ui->textEdit_Help->setReadOnly(true);
 }

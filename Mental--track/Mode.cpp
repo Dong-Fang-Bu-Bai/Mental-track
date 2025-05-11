@@ -1,6 +1,9 @@
-#include "gamedefine.h"
 #include "Mode.h"
 #include "ui_Mode.h"
+#include"Map.h"
+#include"Workshop.h"
+#include"BattlePlay.h"
+
 
 Mode::Mode(QWidget *parent) :
     QWidget(parent),
@@ -44,15 +47,19 @@ void Mode::on_pushButton_Mainplay_clicked()
 void Mode::on_pushButton_CreateWork_clicked()
 {
     this->hide();
-
-    Workshop* workshop = new Workshop(*m_currentUser);
+    Workshop *workshop = new Workshop(*m_currentUser);
     workshop->setAttribute(Qt::WA_DeleteOnClose, true);
     workshop->show();
+
+
 }
 
 void Mode::on_pushButton_Battle_clicked()
 {
-
+    this->hide();
+    BattlePlay* battlePlay = new BattlePlay(*m_currentUser); // 解引用传递
+    battlePlay->setAttribute(Qt::WA_DeleteOnClose, true);
+    battlePlay->show();
 }
 
 void Mode::on_pushButton_Exit_clicked()

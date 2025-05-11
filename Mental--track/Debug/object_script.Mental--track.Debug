@@ -1,3 +1,6 @@
+debug/BattleGridScene.o
+debug/BattlePlay.o
+debug/DifficultyDialog.o
 debug/Displaygridscene.o
 debug/Gameplay.o
 debug/Gridscene.o
@@ -23,6 +26,9 @@ debug/gamedefine.o
 debug/gameobject.o
 debug/main.o
 debug/qrc_src.o
+debug/moc_BattleGridScene.o
+debug/moc_BattlePlay.o
+debug/moc_DifficultyDialog.o
 debug/moc_Gameplay.o
 debug/moc_Gridscene.o
 debug/moc_Help.o

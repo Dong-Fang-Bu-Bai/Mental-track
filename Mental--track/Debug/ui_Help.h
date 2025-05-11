@@ -45,7 +45,7 @@ public:
         textEdit_Help->setFont(font);
         pushButton_Backstart = new QPushButton(Help);
         pushButton_Backstart->setObjectName(QString::fromUtf8("pushButton_Backstart"));
-        pushButton_Backstart->setGeometry(QRect(500, 1130, 200, 56));
+        pushButton_Backstart->setGeometry(QRect(500, 799, 200, 56));
         QFont font1;
         font1.setFamily(QString::fromUtf8("\346\245\267\344\275\223"));
         font1.setPointSize(14);

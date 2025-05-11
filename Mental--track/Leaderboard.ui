@@ -134,6 +134,68 @@ QPushButton:hover {
     <string>勋章获得数</string>
    </property>
   </widget>
+  <widget class="QPushButton" name="btnWorkshop">
+   <property name="geometry">
+    <rect>
+     <x>700</x>
+     <y>0</y>
+     <width>200</width>
+     <height>70</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <family>华文行楷</family>
+     <pointsize>14</pointsize>
+    </font>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">QPushButton {
+    background-color: #ea648e;
+    color: black;
+    border: none;
+    padding: 10px;
+    border-radius: 5px;
+}
+QPushButton:hover {
+    background-color: #e12660;
+}</string>
+   </property>
+   <property name="text">
+    <string>创意工坊</string>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="btnBattle">
+   <property name="geometry">
+    <rect>
+     <x>900</x>
+     <y>0</y>
+     <width>200</width>
+     <height>70</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <family>华文行楷</family>
+     <pointsize>14</pointsize>
+    </font>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">QPushButton {
+    background-color: #ebe624 ;
+    color: black;
+    border: none;
+    padding: 10px;
+    border-radius: 5px;
+}
+QPushButton:hover {
+    background-color: #dfdb2a ;
+}</string>
+   </property>
+   <property name="text">
+    <string>人机对战</string>
+   </property>
+  </widget>
  </widget>
  <resources/>
  <connections/>

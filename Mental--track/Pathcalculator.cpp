@@ -75,7 +75,8 @@ bool Pathcalculator::setPaths
         return false;
     }
 
-    if(actualPath.last() != opponentPath.last()) {
+    if(actualPath.last() != opponentPath.last())
+    {
         qWarning() << "Paths don't have same end point!";
         return false;
     }

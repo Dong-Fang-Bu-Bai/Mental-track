@@ -141,13 +141,18 @@ void Leaderboard::setTableHeaders(DisplayMode mode)
         ui->tableWidget->setColumnCount(4);
         ui->tableWidget->setHorizontalHeaderLabels({"排名", "玩家名称", "勋章数量", "勋章详情"});
         break;
+    case workshop:
+        ui->tableWidget->setColumnCount(4);
+        ui->tableWidget->setHorizontalHeaderLabels({"排名", "玩家名称", "创建地图数", "获得积分"});
+        break;
     }
 }
 
 void Leaderboard::parseReportFile()
 {
     QFile file(m_reportFile);
-        if (!file.open(QIODevice::ReadOnly | QIODevice::Text)) {
+        if (!file.open(QIODevice::ReadOnly | QIODevice::Text))
+        {
             qWarning() << "无法打开报告文件:" << m_reportFile;
             return;
         }
@@ -259,6 +264,14 @@ void Leaderboard::parseReportFile()
                     // 处理勋章详情内容行（在标题行之后且不为空的行）
                     if (readingMedals && gotMedalTitle && !line.trimmed().isEmpty())
                     {
+                        // 处理创意工坊标题行
+                        if (line.startsWith("创意工坊:"))
+                        {
+                            readingMedals = false;  // 确保不再读取勋章
+                            gotMedalTitle = false;
+                            continue;
+                        }
+
                         // 跳过可能的分隔线
                         if (line.startsWith("---") || line.startsWith("===")) {
                             continue;
@@ -273,9 +286,40 @@ void Leaderboard::parseReportFile()
                         continue;
                     }
 
+                    // 解析创意工坊数据的代码
+                    if (line.startsWith("创建地图数:")) {
+                        QString mapsStr = line.section(':', 1).trimmed();
+                        currentPlayer.createdMaps = mapsStr.toInt();
+                        continue;
+                    }
+
+                    if (line.startsWith("获得积分:"))
+                    {
+                        QString pointsStr = line.section(':', 1).trimmed();
+                        currentPlayer.workshopPoints = pointsStr.toInt();
+                        continue;
+                    }
+
+                  if (line.startsWith("胜场数:"))
+                  {
+                      currentPlayer.battleWins = line.section(':', 1).trimmed().toInt();
+                      continue;
+                   }
+                  if (line.startsWith("总场数:"))
+                  {
+                      currentPlayer.battleTotal = line.section(':', 1).trimmed().toInt();
+                      continue;
+                   }
+                  if (line.startsWith("对战积分:"))
+                  {
+                     currentPlayer.battlePoints = line.section(':', 1).trimmed().toInt();
+                     continue;
+                  }
+
 
             // 处理用户数据结束
-            if (line.startsWith("---") || line.startsWith("===")) {
+            if (line.startsWith("---") || line.startsWith("==="))
+            {
                 readingLevels = false;
                 readingMedals = false;
                 gotMedalTitle = false;
@@ -463,6 +507,54 @@ void Leaderboard::onMedalsClicked() {
     adjustTableColumns();
 }
 
+// 添加新的槽函数
+void Leaderboard::onWorkshopClicked()
+{
+    clearTable();
+    setTableHeaders(workshop);
+
+    // 按积分排序
+    std::sort(m_players.begin(), m_players.end(),
+        [](const PlayerData& a, const PlayerData& b) {
+            return a.workshopPoints > b.workshopPoints;
+        });
+
+    // 填充表格
+    for (int i = 0; i < m_players.size() && i < 100; ++i) {
+        const PlayerData& player = m_players[i];
+
+        // 排名
+        QTableWidgetItem* rankItem = new QTableWidgetItem(QString::number(i + 1));
+        rankItem->setTextAlignment(Qt::AlignCenter);
+        ui->tableWidget->setItem(i, 0, rankItem);
+
+        // 用户名
+        QTableWidgetItem* nameItem = new QTableWidgetItem(player.username);
+        nameItem->setTextAlignment(Qt::AlignCenter);
+        ui->tableWidget->setItem(i, 1, nameItem);
+
+        // 创建地图数
+        QTableWidgetItem* mapsItem = new QTableWidgetItem(QString::number(player.createdMaps));
+        mapsItem->setTextAlignment(Qt::AlignCenter);
+        ui->tableWidget->setItem(i, 2, mapsItem);
+
+        // 积分
+        QTableWidgetItem* pointsItem = new QTableWidgetItem(QString::number(player.workshopPoints));
+        pointsItem->setTextAlignment(Qt::AlignCenter);
+        ui->tableWidget->setItem(i, 3, pointsItem);
+    }
+
+    adjustTableColumns();
+}
+
+void Leaderboard::on_btnWorkshop_clicked()
+{
+    Leaderboard::onWorkshopClicked();
+}
+
+
+
+
 void Leaderboard::initTable()
 {
     ui->tableWidget->setRowCount(100);
@@ -531,4 +623,53 @@ void Leaderboard::adjustTableColumns()
 Leaderboard::~Leaderboard()
 {
     delete ui;
+}
+
+
+
+void Leaderboard::on_btnBattle_clicked()
+{
+    clearTable();
+        ui->tableWidget->setColumnCount(5);
+        ui->tableWidget->setHorizontalHeaderLabels({"排名", "玩家名称", "胜场数", "胜率", "对战积分"});
+
+        // 按对战积分排序
+        std::sort(m_players.begin(), m_players.end(),
+            [](const PlayerData& a, const PlayerData& b) {
+                return a.battlePoints > b.battlePoints;
+            });
+
+        // 填充表格
+        for (int i = 0; i < m_players.size() && i < 100; ++i) {
+            const PlayerData& player = m_players[i];
+
+            // 排名列
+            QTableWidgetItem* rankItem = new QTableWidgetItem(QString::number(i + 1));
+            rankItem->setTextAlignment(Qt::AlignCenter);
+            ui->tableWidget->setItem(i, 0, rankItem);
+
+            // 玩家名称列
+            QTableWidgetItem* nameItem = new QTableWidgetItem(player.username);
+            nameItem->setTextAlignment(Qt::AlignCenter);
+            ui->tableWidget->setItem(i, 1, nameItem);
+
+            // 胜场数列
+            QTableWidgetItem* winsItem = new QTableWidgetItem(QString::number(player.battleWins));
+            winsItem->setTextAlignment(Qt::AlignCenter);
+            ui->tableWidget->setItem(i, 2, winsItem);
+
+            // 胜率列
+            float winRate = player.battleTotal > 0 ?
+                (float)player.battleWins / player.battleTotal * 100 : 0.0f;
+            QTableWidgetItem* rateItem = new QTableWidgetItem(QString::number(winRate, 'f', 1) + "%");
+            rateItem->setTextAlignment(Qt::AlignCenter);
+            ui->tableWidget->setItem(i, 3, rateItem);
+
+            // 积分列
+            QTableWidgetItem* pointsItem = new QTableWidgetItem(QString::number(player.battlePoints));
+            pointsItem->setTextAlignment(Qt::AlignCenter);
+            ui->tableWidget->setItem(i, 4, pointsItem);
+        }
+
+        adjustTableColumns();
 }
