@@ -94,41 +94,6 @@ void BattlePlay::setupUI()
     });
 
 
-
-//    // 创建 返回 按钮
-//     QPushButton *pushButton_backMode=new QPushButton(this);
-//     pushButton_backMode->setGeometry(20, 10, 200, 60);
-//     pushButton_backMode->setText("主菜单");
-
-//     // 设置文字字体和大小
-//     QFont font("华文行楷", 25, QFont::Bold);
-
-//     pushButton_backMode->setFont(font);
-
-//     // 设置样式表（包含正常/悬浮/点击状态）
-//     pushButton_backMode->setStyleSheet(
-//                 "QPushButton {"
-//                 "     background-color: rgba(44, 162, 222 ,60%);"  // 蓝色背景，80% 透明
-//                 "   color: Black;"               // 文字颜色
-//                 "   border-radius: 10px;"        // 圆角
-//                 "   padding: 5px;"               // 内边距
-//                 "}"
-//                 "QPushButton:hover {"
-//                 "   background-color: rgba(44, 162, 222 ,70%);"  // 悬浮状态背景色
-//                 "}"
-//                 "QPushButton:pressed {"
-//                 "   background-color: rgba(44, 162, 222 ,80%);"  // 点击状态背景色
-//                 "}"
-//     );
-
-//  // 连接返回主菜单按钮
-// connect(pushButton_backMode, &QPushButton::clicked, [=]()
-// {
-//     //this->hide();
-//     this->close();
-//     getGlobalModeWindow()->show();
-// });
-
     //4.暂停按钮
     QPushButton*btn_pause=new QPushButton(this);
 
@@ -192,8 +157,8 @@ void BattlePlay::setupUI()
 
     // 创建开始游戏按钮
     QPushButton* btnNewGame = new QPushButton("开始游戏", this);
-    //btnNewGame->setGeometry(500, 1230, 200, 60);
-    btnNewGame->setGeometry(500, 900, 200, 60);
+    btnNewGame->setGeometry(450, 1230, 300, 70);
+    //btnNewGame->setGeometry(500, 900, 200, 60);
 
     btnNewGame->setFont(font);
 
@@ -216,6 +181,7 @@ void BattlePlay::setupUI()
     // 修改setupUI中的开始游戏按钮连接
     connect(btnNewGame, &QPushButton::clicked, this, [this]()
     {
+        AudioManager::instance()->playEffect();
         showDifficultyDialog();
     });
 
@@ -256,7 +222,8 @@ void BattlePlay::showDifficultyDialog()
         centerPos -= QPoint(dialog->width()/2, dialog->height()/2);
         dialog->move(centerPos);
 
-        connect(dialog, &DifficultyDialog::difficultySelected, this, [this](int diff){
+        connect(dialog, &DifficultyDialog::difficultySelected, this, [this](int diff)
+        {
             if(m_battleScene) stopTimer();
             onDifficultySelected(diff);
 
@@ -265,7 +232,8 @@ void BattlePlay::showDifficultyDialog()
             m_timerLabel->raise();
         });
 
-        connect(dialog, &QDialog::finished, this, [this](){
+        connect(dialog, &QDialog::finished, this, [this]()
+        {
             m_view->setGraphicsEffect(nullptr);
 
             // 确保计时器标签可见
@@ -478,9 +446,11 @@ void BattlePlay::onTimerTimeout()
 
 void BattlePlay::onPauseButtonClicked()
 {
+    AudioManager::instance()->playEffect();
 
     // 如果已经暂停，则继续游戏
-        if (m_pauseOverlay && m_pauseOverlay->isVisible()) {
+        if (m_pauseOverlay && m_pauseOverlay->isVisible())
+        {
             resumeGame();
             return;
         }
@@ -545,7 +515,9 @@ void BattlePlay::onPauseButtonClicked()
         exitBtn->setFont(btnFont);
         exitBtn->setGeometry(112, 230, 225, 60);
         exitBtn->setStyleSheet(resumeBtn->styleSheet());
-        connect(exitBtn, &QPushButton::clicked, [this]() {
+        connect(exitBtn, &QPushButton::clicked, [this]()
+        {
+            AudioManager::instance()->playEffect();
             this->close();
             getGlobalModeWindow()->show();
         });
@@ -555,7 +527,9 @@ void BattlePlay::onPauseButtonClicked()
         helpBtn->setFont(btnFont);
         helpBtn->setGeometry(112, 310, 225, 60);
         helpBtn->setStyleSheet(resumeBtn->styleSheet());
-        connect(helpBtn, &QPushButton::clicked, [pauseMenu]() {
+        connect(helpBtn, &QPushButton::clicked, [pauseMenu]()
+        {
+            AudioManager::instance()->playEffect();
             Help* help = new Help(pauseMenu);
             help->setWindowFlags(Qt::Dialog | Qt::WindowStaysOnTopHint);
             help->setAttribute(Qt::WA_DeleteOnClose, true);
@@ -570,6 +544,8 @@ void BattlePlay::onPauseButtonClicked()
 
 void BattlePlay::resumeGame()
 {
+    AudioManager::instance()->playEffect();
+
     // 隐藏暂停覆盖层
         if (m_pauseOverlay) {
             m_pauseOverlay->hide();
@@ -586,6 +562,8 @@ void BattlePlay::resumeGame()
 
 void BattlePlay::restartLevel()
 {
+    AudioManager::instance()->playEffect();
+
     // 关闭暂停菜单
     m_pauseOverlay->hide();
     // 显示难度选择界面

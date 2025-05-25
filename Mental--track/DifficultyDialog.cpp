@@ -4,6 +4,7 @@
 #include "BattleGridScene.h"
 #include <QLabel>
 #include "BattlePlay.h"
+#include"gamedefine.h"
 
 DifficultyDialog::DifficultyDialog(QWidget *parent)
     : QDialog(parent)
@@ -95,7 +96,10 @@ QPushButton* DifficultyDialog::createDifficultyButton(const QString& text, int d
             "}"
         );
 
-        connect(button, &QPushButton::clicked, [this, difficulty]() {
+        connect(button, &QPushButton::clicked, [this, difficulty]()
+        {
+            AudioManager::instance()->playEffect();
+
             emit difficultySelected(difficulty);
 
             // 修改为更安全的类型转换

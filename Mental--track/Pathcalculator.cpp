@@ -104,7 +104,7 @@ bool Pathcalculator::validatePath(const QVector<QPoint>& path, int gridSize)
     {
         int dx = qAbs(path[i].x() - path[i-1].x());
         int dy = qAbs(path[i].y() - path[i-1].y());
-        if(dx + dy != 1)
+        if(dx + dy > 1)
         {
             return false;
         }

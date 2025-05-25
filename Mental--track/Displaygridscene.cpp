@@ -119,7 +119,7 @@ void DisplayGridScene::addMultipleStepNumbers(
                 new QGraphicsSimpleTextItem(QString::number(steps[i]));
 
         QFont font;
-        font.setPointSize(12);
+        font.setPointSize(8);
         textItem->setFont(font);
         textItem->setBrush(QBrush(textColor));
 
@@ -140,7 +140,7 @@ void DisplayGridScene::addMultipleStepNumbers(
        QGraphicsSimpleTextItem* textItem = new QGraphicsSimpleTextItem(QString::number(step));
 
        QFont font;
-       font.setPointSize(12); // 稍小一点的字体
+       font.setPointSize(8); // 稍小一点的字体
        textItem->setFont(font);
        textItem->setBrush(QBrush(textColor));
 

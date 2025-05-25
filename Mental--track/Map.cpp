@@ -56,8 +56,9 @@ Map::Map(User& user,QWidget *parent) :
     );
 
  // 连接带编号的信号槽
-connect(pushButton_backMode, &QPushButton::clicked, [=](){
-
+connect(pushButton_backMode, &QPushButton::clicked, [=]()
+{
+    AudioManager::instance()->playEffect();
     this->hide();
     getGlobalModeWindow()->show();
 });
@@ -72,6 +73,7 @@ connect(pushButton_backMode, &QPushButton::clicked, [=](){
 
    // 设置按钮位置和大小 (x, y, width, height)
    pushButton_Setting->setGeometry(20, 1130, 200, 60);
+   //pushButton_Setting->setGeometry(20, 800, 200, 60);
    pushButton_Setting->setText("设置");
 
    // 设置文字字体和大小
@@ -94,10 +96,11 @@ connect(pushButton_backMode, &QPushButton::clicked, [=](){
    );
 
    // 连接带编号的信号槽
-   connect(pushButton_Setting, &QPushButton::clicked, [=](){
-
+   connect(pushButton_Setting, &QPushButton::clicked, [=]()
+   {
+       AudioManager::instance()->playEffect();
        this->hide();
-       Setting *setting = new Setting(this);  // 关键：传递当前窗口指针
+       Setting *setting = new Setting(this, m_currentUser);  // 关键：传递当前窗口指针
        setting->setWindowFlags(Qt::Dialog | Qt::WindowStaysOnTopHint);  // 强制设为对话框
        setting->setAttribute(Qt::WA_DeleteOnClose, true);
        this->hide();
@@ -114,6 +117,7 @@ connect(pushButton_backMode, &QPushButton::clicked, [=](){
 
   // 设置按钮位置和大小 (x, y, width, height)
   pushButton_Help->setGeometry(980, 1130, 200, 60);
+  //pushButton_Help->setGeometry(980, 800, 200, 60);
   pushButton_Help->setText("帮助");
 
   // 设置文字字体和大小
@@ -136,8 +140,9 @@ connect(pushButton_backMode, &QPushButton::clicked, [=](){
   );
 
   // 连接带编号的信号槽
-  connect(pushButton_Help, &QPushButton::clicked, [=](){
-
+  connect(pushButton_Help, &QPushButton::clicked, [=]()
+  {
+      AudioManager::instance()->playEffect();
       Help *help = new Help(this);  // 关键：传递当前窗口指针
       help->setWindowFlags(Qt::Dialog | Qt::WindowStaysOnTopHint);  // 强制设为对话框
       help->setAttribute(Qt::WA_DeleteOnClose, true);
@@ -181,8 +186,8 @@ connect(pushButton_backMode, &QPushButton::clicked, [=](){
  QPushButton *pushButton_List=new QPushButton(this);
 
  // 设置按钮位置和大小 (x, y, width, height)
- //pushButton_List->setGeometry(750, 1130, 200, 60);
- pushButton_List->setGeometry(750, 800, 200, 60);
+ pushButton_List->setGeometry(750, 1130, 200, 60);
+ //pushButton_List->setGeometry(750, 800, 200, 60);
 
  pushButton_List->setText("排行榜");
 
@@ -207,6 +212,7 @@ connect(pushButton_backMode, &QPushButton::clicked, [=](){
 
  connect(pushButton_List, &QPushButton::clicked, [=]()
  {
+     AudioManager::instance()->playEffect();
      UserFileManager manager;
      manager.generateDeveloperReport("users.dat", "users_info.txt");
      // 检查是否已存在排行榜窗口
@@ -619,6 +625,8 @@ void Map::gamebtn(int i)
 
     connect(m_buttons[i], &HexagonButton::clicked, [=]()
     {
+        AudioManager::instance()->playEffect();
+
         // 如果已有窗口且未关闭，则直接激活它
         if(m_currentGameplay && !m_currentGameplay.isNull())
         {

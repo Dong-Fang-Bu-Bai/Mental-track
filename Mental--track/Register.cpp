@@ -34,12 +34,14 @@ Register::~Register()
 
 void Register::on_pushButton_back_clicked()
 {
+    AudioManager::instance()->playEffect();
     this->hide();
     getGlobalStartWindow()->show();
 }
 
 void Register::on_pushButton_help_clicked()
 {
+    AudioManager::instance()->playEffect();
     Help *help = new Help(this);  // 关键：传递当前窗口指针
     help->setWindowFlags(Qt::Dialog | Qt::WindowStaysOnTopHint);  // 强制设为对话框
     help->setAttribute(Qt::WA_DeleteOnClose, true);
@@ -51,6 +53,7 @@ void Register::on_pushButton_help_clicked()
 // 修改on_pushButton_play_clicked函数
 void Register::on_pushButton_play_clicked()
 {
+    AudioManager::instance()->playEffect();
     QString username = ui->lineEdit_User->text().trimmed();
     QString password = ui->lineEdit_Pass->text().trimmed();
     QString confirm = ui->lineEdit_passconfirm->text().trimmed();
@@ -76,29 +79,14 @@ void Register::on_pushButton_play_clicked()
             QMessageBox::critical(this, "错误", "用户名已存在或注册失败");
         }
 
-//    if(username.isEmpty() || password.isEmpty()) {
-//        QMessageBox::warning(this, "警告", "用户名和密码不能为空");
-//        return;
-//    }
-
-//    if(password != confirm) {
-//        QMessageBox::critical(this, "错误", "两次输入的密码不一致");
-//        return;
-//    }
-
-//    if(saveUserCredentials(username, password)) {
-//        QMessageBox::information(this, "成功", "注册成功！");
-//        this->hide();
-//        getGlobalModeWindow()->show();
-//    } else {
-//        QMessageBox::critical(this, "错误", "用户名已存在或注册失败");
-//    }
 
 
 }
 
-bool Register::validateInput(const QString& username, const QString& password, const QString& confirm) {
-    if(username.isEmpty() || password.isEmpty()) {
+bool Register::validateInput(const QString& username, const QString& password, const QString& confirm)
+{
+    if(username.isEmpty() || password.isEmpty())
+    {
         QMessageBox::warning(this, "警告", "用户名和密码不能为空");
         return false;
     }

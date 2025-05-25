@@ -83,11 +83,11 @@ std::vector<int> MedalPopup::getRequiredLevels(MedalType type)
     switch(type)
     {
         case MedalType::BlazeMaster:    return {1}; // 火焰关卡
-        case MedalType::FrostLord:      return {2}; // 冰霜关卡
-        case MedalType::GaiasChampion:  return {3}; // 自然关卡
-        case MedalType::CelestialSage:  return {4}; // 神圣关卡
-        case MedalType::ThunderWielder: return {5}; // 闪电关卡
-        case MedalType::UmbraKing:      return {6}; // 暗影关卡
+        case MedalType::ThunderWielder: return {2}; // 闪电关卡
+        case MedalType::UmbraKing:      return {3}; // 暗影关卡
+        case MedalType::FrostLord:      return {4}; // 冰霜关卡
+        case MedalType::GaiasChampion:  return {5}; // 自然关卡
+        case MedalType::CelestialSage:  return {6}; // 神圣关卡
         case MedalType::EternalLuminary:return {0};  // 基础+最终关
         default: return {};
     }
@@ -206,8 +206,6 @@ QString MedalPopup::getMedalDescription() const
 void MedalPopup::onConfirmClicked()
 {
     accept();
-
-
     close();
 
 

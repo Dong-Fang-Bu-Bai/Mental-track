@@ -4,7 +4,7 @@
 #include "Gridscene.h"
 #include <QVector>
 #include <QPoint>
-#include <QTimer>
+#include "AIStrategies.h"
 
 
 
@@ -56,6 +56,8 @@ private:
     void makeStrategicAIMove();
     void makeRandomAIMove();
     QPoint findBestMove(const QVector<QPoint>& possibleMoves);
+    // AI策略接口
+    std::unique_ptr<IAIStrategy> m_aiStrategy;
 
 
     //游戏逻辑方法

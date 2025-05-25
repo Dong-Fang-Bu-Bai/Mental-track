@@ -4,10 +4,11 @@
 #include<QGraphicsSceneMouseEvent>
 #include<QGraphicsRectItem>
 #include<QDebug>
-
+#include"gamedefine.h"
 
 BattleGridScene::BattleGridScene(int gridSize, QObject* parent)
-    : Gridscene(gridSize, parent), m_state(GameOver), m_difficulty(Easy)
+    : Gridscene(gridSize, parent), m_state(GameOver), m_difficulty(Easy),
+      m_aiStrategy(nullptr)
 {
 
     drawGrid(); // 确保初始绘制网格
@@ -43,7 +44,19 @@ void BattleGridScene::startNewGame(Difficulty difficulty)
 
     m_difficulty = difficulty;
 
-
+    // 根据难度设置AI策略
+       switch(difficulty)
+       {
+       case Easy:
+           m_aiStrategy = std::make_unique<RandomStrategy>();
+           break;
+       case Medium:
+           m_aiStrategy = std::make_unique<IntermediateStrategy>();
+           break;
+       case Hard:
+           m_aiStrategy = std::make_unique<AdvancedStrategy>();
+           break;
+       }
 
     // 直接清除路径并重置状态
     qDebug() << "Clearing old items";
@@ -97,6 +110,8 @@ void BattleGridScene::mousePressEvent(QGraphicsSceneMouseEvent* event)
 
     if(isValidMove(clickPos))
     {
+        AudioManager::instance()->playEffect();
+
         m_playerPath.append(clickPos);
         updateGridDisplay();
 
@@ -114,14 +129,40 @@ void BattleGridScene::mousePressEvent(QGraphicsSceneMouseEvent* event)
 
 void BattleGridScene::makeAIMove()
 {
-    if(m_state != AITurn) return; // 确保只在AI回合处理
+    if(m_state != AITurn) return;
 
-    switch(m_difficulty)
-    {
-           case Easy: makeRandomAIMove(); break;
-           case Medium:
-           case Hard: makeStrategicAIMove(); break;
-    }
+        QPoint lastPos = m_aiPath.isEmpty() ? m_aiStartPos : m_aiPath.last();
+        QVector<QPoint> possibleMoves;
+
+        // 获取所有有效移动
+        const QPoint directions[4] = {QPoint(0,1), QPoint(1,0), QPoint(0,-1), QPoint(-1,0)};
+        for(const QPoint& dir : directions) {
+            QPoint newPos = lastPos + dir;
+            if(isValidMove(newPos))
+                possibleMoves.append(newPos);
+        }
+
+        if(possibleMoves.isEmpty()) {
+            stopGame();
+            emit gameOver(true);
+            return;
+        }
+
+        // 使用策略计算最佳移动
+        QPoint selectedMove = m_aiStrategy->calculateMove(
+            lastPos, possibleMoves, m_playerPath, m_aiPath);
+
+        m_aiPath.append(selectedMove);
+        updateGridDisplay();
+
+        if(checkBoundaryViolation()) {
+            stopGame();
+            emit gameOver(true);
+            return;
+        }
+
+        m_state = PlayerTurn;
+        emit stateChanged();
 
 
 }
@@ -167,112 +208,122 @@ void BattleGridScene::makeRandomAIMove()
 
 void BattleGridScene::makeStrategicAIMove()
 {
-    QPoint lastPos = m_aiPath.isEmpty() ? m_aiStartPos : m_aiPath.last();
-    QVector<QPoint> possibleMoves;
+//    QPoint lastPos = m_aiPath.isEmpty() ? m_aiStartPos : m_aiPath.last();
+//    QVector<QPoint> possibleMoves;
 
-    const QPoint directions[4] = {QPoint(0,1), QPoint(1,0), QPoint(0,-1), QPoint(-1,0)};
-    for(const QPoint& dir : directions) {
-        QPoint newPos = lastPos + dir;
-        if(isValidMove(newPos))
-            possibleMoves.append(newPos);
-    }
+//    const QPoint directions[4] = {QPoint(0,1), QPoint(1,0), QPoint(0,-1), QPoint(-1,0)};
+//    for(const QPoint& dir : directions) {
+//        QPoint newPos = lastPos + dir;
+//        if(isValidMove(newPos))
+//            possibleMoves.append(newPos);
+//    }
 
-    if(possibleMoves.isEmpty()) {
-        emit gameOver(true);
-        return;
-    }
+//    if(possibleMoves.isEmpty()) {
+//        emit gameOver(true);
+//        return;
+//    }
 
-    QPoint selectedMove = findBestMove(possibleMoves);
-    m_aiPath.append(selectedMove);
-    updateGridDisplay();
+//    QPoint selectedMove = findBestMove(possibleMoves);
+//    m_aiPath.append(selectedMove);
+//    updateGridDisplay();
 
-    if(checkBoundaryViolation()) {
-        emit gameOver(true);
-        return;
-    }
+//    if(checkBoundaryViolation()) {
+//        emit gameOver(true);
+//        return;
+//    }
 
 
-    m_state = PlayerTurn;
-    emit stateChanged(); // 通知状态变化
+//    m_state = PlayerTurn;
+//    emit stateChanged(); // 通知状态变化
+
+     makeAIMove(); // 现在统一使用策略模式
 
 }
 
 QPoint BattleGridScene::findBestMove(const QVector<QPoint>& possibleMoves)
 {
-    // 声明方向数组
-    const QPoint directions[4] = {QPoint(0,1), QPoint(1,0), QPoint(0,-1), QPoint(-1,0)};
+//    // 声明方向数组
+//    const QPoint directions[4] = {QPoint(0,1), QPoint(1,0), QPoint(0,-1), QPoint(-1,0)};
 
-    // 中级难度：优先向中心移动
-    if(m_difficulty == Medium)
-    {
-        QPoint center(8, 8);
-        QPoint bestMove;
-        int minDistance = INT_MAX;
+//    // 中级难度：优先向中心移动
+//    if(m_difficulty == Medium)
+//    {
+//        QPoint center(8, 8);
+//        QPoint bestMove;
+//        int minDistance = INT_MAX;
 
-        for(const QPoint& move : possibleMoves)
-        {
-            int distance = qAbs(move.x() - center.x()) + qAbs(move.y() - center.y());
-            if(distance < minDistance)
-            {
-                minDistance = distance;
-                bestMove = move;
-            }
-        }
-        return bestMove;
-    }
-    // 高级难度：更复杂的策略
-    else
-    {
-        // 1. 优先向中心移动
-        QPoint center(8, 8);
-        QVector<QPoint> centerMoves;
-        int minDistance = INT_MAX;
+//        for(const QPoint& move : possibleMoves)
+//        {
+//            int distance = qAbs(move.x() - center.x()) + qAbs(move.y() - center.y());
+//            if(distance < minDistance)
+//            {
+//                minDistance = distance;
+//                bestMove = move;
+//            }
+//        }
+//        return bestMove;
+//    }
+//    // 高级难度：更复杂的策略
+//    else
+//    {
+//        // 1. 优先向中心移动
+//        QPoint center(8, 8);
+//        QVector<QPoint> centerMoves;
+//        int minDistance = INT_MAX;
 
-        for(const QPoint& move : possibleMoves)
-        {
-            int distance = qAbs(move.x() - center.x()) + qAbs(move.y() - center.y());
-            if(distance < minDistance)
-            {
-                minDistance = distance;
-                centerMoves.clear();
-                centerMoves.append(move);
-            }
-            else if(distance == minDistance)
-            {
-                centerMoves.append(move);
-            }
-        }
+//        for(const QPoint& move : possibleMoves)
+//        {
+//            int distance = qAbs(move.x() - center.x()) + qAbs(move.y() - center.y());
+//            if(distance < minDistance)
+//            {
+//                minDistance = distance;
+//                centerMoves.clear();
+//                centerMoves.append(move);
+//            }
+//            else if(distance == minDistance)
+//            {
+//                centerMoves.append(move);
+//            }
+//        }
 
-        // 2. 在最优中心移动中，选择能限制玩家移动的
-        if(!m_playerPath.isEmpty())
-        {
-            QPoint playerPos = m_playerPath.last();
-            QPoint bestMove;
-            int maxPlayerDistance = -1;
+//        // 2. 在最优中心移动中，选择能限制玩家移动的
+//        if(!m_playerPath.isEmpty())
+//        {
+//            QPoint playerPos = m_playerPath.last();
+//            QPoint bestMove;
+//            int maxPlayerDistance = -1;
 
-            for(const QPoint& move : centerMoves)
-            {
-                // 计算这个移动后，玩家可能的移动方向数量
-                int playerDirections = 0;
-                for(const QPoint& dir : directions)
-                {
-                    QPoint newPos = playerPos + dir;
-                    if(isValidMove(newPos) && newPos != move)
-                        playerDirections++;
-                }
+//            for(const QPoint& move : centerMoves)
+//            {
+//                // 计算这个移动后，玩家可能的移动方向数量
+//                int playerDirections = 0;
+//                for(const QPoint& dir : directions)
+//                {
+//                    QPoint newPos = playerPos + dir;
+//                    if(isValidMove(newPos) && newPos != move)
+//                        playerDirections++;
+//                }
 
-                if(playerDirections > maxPlayerDistance)
-                {
-                    maxPlayerDistance = playerDirections;
-                    bestMove = move;
-                }
-            }
-            return bestMove;
-        }
+//                if(playerDirections > maxPlayerDistance)
+//                {
+//                    maxPlayerDistance = playerDirections;
+//                    bestMove = move;
+//                }
+//            }
+//            return bestMove;
+//        }
 
-        // 默认返回第一个中心移动
-        return centerMoves.first();
-    }
+//        // 默认返回第一个中心移动
+//        return centerMoves.first();
+//    }
+    return m_aiStrategy->calculateMove
+            (
+            m_aiPath.isEmpty() ? m_aiStartPos : m_aiPath.last(),
+            possibleMoves,
+            m_playerPath,
+            m_aiPath
+            );
+
 }
 
 
@@ -480,11 +531,11 @@ void BattleGridScene::addPathCell(const QPoint& pos, bool isStart, int step)
 
     if(isStart)
     {
-        addTextItem(pos, "玩家", QPointF(CELL_SIZE/4 -10, CELL_SIZE/4 +5), 17, Qt::white);
+        addTextItem(pos, "玩家", QPointF(CELL_SIZE/4 -13, CELL_SIZE/4 +5), 14, Qt::white);
     }
     else
     {
-        addTextItem(pos, QString::number(step), QPointF(CELL_SIZE/3, CELL_SIZE/3), 17, Qt::white);
+        addTextItem(pos, QString::number(step), QPointF(CELL_SIZE/3, CELL_SIZE/3), 14, Qt::white);
     }
 }
 
@@ -503,11 +554,11 @@ void BattleGridScene::addAICell(const QPoint& pos, bool isStart, int step)
 
     if(isStart)
     {
-        addTextItem(pos, "电脑", QPointF(CELL_SIZE/4 -10, CELL_SIZE/4 +5), 17, Qt::white);
+        addTextItem(pos, "电脑", QPointF(CELL_SIZE/4 -13, CELL_SIZE/4 +5), 14, Qt::white);
     }
     else
     {
-        addTextItem(pos, QString::number(step), QPointF(CELL_SIZE/3, CELL_SIZE/3), 17, QColor(255, 255, 200));
+        addTextItem(pos, QString::number(step), QPointF(CELL_SIZE/3, CELL_SIZE/3), 14, QColor(255, 255, 200));
     }
 }
 

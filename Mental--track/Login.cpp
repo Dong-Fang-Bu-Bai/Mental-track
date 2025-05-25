@@ -29,17 +29,18 @@ Login::~Login()
 
 void Login::on_pushButton_play_clicked()
 {
-//        QString username = ui->lineEdit_User->text();
-//        QString password = ui->lineEdit_Pass->text();
+    AudioManager::instance()->playEffect();
+        QString username = ui->lineEdit_User->text();
+        QString password = ui->lineEdit_Pass->text();
 
-//        if(username.isEmpty() || password.isEmpty())
-//        {
-//            QMessageBox::warning(this, "警告", "用户名和密码不能为空");
-//            return;
-//        }
+        if(username.isEmpty() || password.isEmpty())
+        {
+            QMessageBox::warning(this, "警告", "用户名和密码不能为空");
+            return;
+        }
 
-        //User* currentUser = getValidatedUser(username, password);
-         User* currentUser = getValidatedUser("Alex", "1234");
+        User* currentUser = getValidatedUser(username, password);
+        // User* currentUser = getValidatedUser("Alex", "1234");
         if(currentUser)
         {
             QMessageBox::information(this, "提示", "登录成功！");
@@ -65,7 +66,7 @@ void Login::on_pushButton_play_clicked()
 void Login::on_pushButton_back_clicked()
 {
 
-
+    AudioManager::instance()->playEffect();
     this->hide();
     getGlobalStartWindow()->show();
 }
@@ -73,7 +74,7 @@ void Login::on_pushButton_back_clicked()
 void Login::on_pushButton_help_clicked()
 {
 
-
+    AudioManager::instance()->playEffect();
     Help *help = new Help(this);  // 关键：传递当前窗口指针
     help->setWindowFlags(Qt::Dialog | Qt::WindowStaysOnTopHint);  // 强制设为对话框
     help->setAttribute(Qt::WA_DeleteOnClose, true);

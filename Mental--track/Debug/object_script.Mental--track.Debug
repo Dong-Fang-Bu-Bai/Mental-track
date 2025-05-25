@@ -1,3 +1,5 @@
+debug/AIStrategies.o
+debug/AudioManager.o
 debug/BattleGridScene.o
 debug/BattlePlay.o
 debug/DifficultyDialog.o
@@ -23,9 +25,9 @@ debug/UserFileManager.o
 debug/Workshop.o
 debug/Workshopgridscene.o
 debug/gamedefine.o
-debug/gameobject.o
 debug/main.o
 debug/qrc_src.o
+debug/moc_AudioManager.o
 debug/moc_BattleGridScene.o
 debug/moc_BattlePlay.o
 debug/moc_DifficultyDialog.o

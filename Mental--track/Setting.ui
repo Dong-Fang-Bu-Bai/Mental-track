@@ -16,8 +16,8 @@
   <widget class="QPushButton" name="pushButton_Back">
    <property name="geometry">
     <rect>
-     <x>240</x>
-     <y>1140</y>
+     <x>500</x>
+     <y>800</y>
      <width>200</width>
      <height>56</height>
     </rect>
@@ -48,6 +48,80 @@ QPushButton:hover {
    </property>
    <property name="text">
     <string>返回</string>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="pushButton_Change">
+   <property name="geometry">
+    <rect>
+     <x>230</x>
+     <y>800</y>
+     <width>200</width>
+     <height>56</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <family>楷体</family>
+     <pointsize>14</pointsize>
+     <weight>75</weight>
+     <italic>false</italic>
+     <bold>true</bold>
+     <underline>false</underline>
+     <strikeout>false</strikeout>
+     <kerning>true</kerning>
+    </font>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">/* 默认状态 */
+QPushButton {
+    background-color: rgba(255,255, 255, 40%);
+    color: black;
+}
+
+/* 鼠标悬停 */
+QPushButton:hover {
+    background-color:rgba(0,150, 255, 40%)
+}</string>
+   </property>
+   <property name="text">
+    <string>密码修改</string>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="pushButton_Delete">
+   <property name="geometry">
+    <rect>
+     <x>770</x>
+     <y>800</y>
+     <width>200</width>
+     <height>56</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <family>楷体</family>
+     <pointsize>14</pointsize>
+     <weight>75</weight>
+     <italic>false</italic>
+     <bold>true</bold>
+     <underline>false</underline>
+     <strikeout>false</strikeout>
+     <kerning>true</kerning>
+    </font>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">/* 默认状态 */
+QPushButton {
+    background-color: rgba(255,255, 255, 40%);
+    color: black;
+}
+
+/* 鼠标悬停 */
+QPushButton:hover {
+    background-color:rgba(0,150, 255, 40%)
+}</string>
+   </property>
+   <property name="text">
+    <string>注销账号</string>
    </property>
   </widget>
  </widget>

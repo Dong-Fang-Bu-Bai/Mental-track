@@ -4,6 +4,8 @@ greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
 CONFIG += c++17
 
+
+
 # The following define makes your compiler emit warnings if you use
 # any Qt feature that has been marked deprecated (the exact warnings
 # depend on your compiler). Please consult the documentation of the
@@ -16,6 +18,8 @@ DEFINES += QT_DEPRECATED_WARNINGS
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
 SOURCES += \
+    AIStrategies.cpp \
+    AudioManager.cpp \
     BattleGridScene.cpp \
     BattlePlay.cpp \
     DifficultyDialog.cpp \
@@ -41,10 +45,12 @@ SOURCES += \
     Workshop.cpp \
     Workshopgridscene.cpp \
     gamedefine.cpp \
-    gameobject.cpp \
     main.cpp
 
 HEADERS += \
+    AIStrategies.h \
+    AudioConfig.h \
+    AudioManager.h \
     BattleGridScene.h \
     BattlePlay.h \
     DifficultyDialog.h \
@@ -69,8 +75,7 @@ HEADERS += \
     UserFileManager.h \
     Workshop.h \
     Workshopgridscene.h \
-    gamedefine.h \
-    gameobject.h
+    gamedefine.h
 
 FORMS += \
     BattlePlay.ui \

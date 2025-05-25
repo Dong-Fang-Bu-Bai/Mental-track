@@ -1,6 +1,3 @@
-[Difficulty]
-Beginner
-
 [Player]
 12,6
 12,7
@@ -12,5 +9,4 @@ Beginner
 10,6
 9,6
 9,7
-10,7
 10,7

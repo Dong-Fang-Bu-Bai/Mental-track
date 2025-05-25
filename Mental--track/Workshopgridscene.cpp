@@ -4,6 +4,7 @@
 #include <string>
 #include<direct.h>
 #include <errno.h>
+#include"gamedefine.h"
 
 Workshopgridscene::Workshopgridscene(int gridSize, QObject *parent)
     : Gridscene(gridSize, parent),m_currentMode(PlayerPath)
@@ -20,46 +21,52 @@ void Workshopgridscene::setEditMode(EditMode mode)
 
 void Workshopgridscene::mousePressEvent(QGraphicsSceneMouseEvent* event)
 {
-    QPoint currentPos(
+    QPoint currentPos
+    (
         static_cast<int>(event->scenePos().x()) / CELL_SIZE,
         static_cast<int>(event->scenePos().y()) / CELL_SIZE
     );
 
     // Boundary check
     if (currentPos.x() < 0 || currentPos.y() < 0 ||
-        currentPos.x() >= m_gridSize || currentPos.y() >= m_gridSize) {
+        currentPos.x() >= m_gridSize || currentPos.y() >= m_gridSize)
+    {
         return;
     }
 
     // Check if cell is locked (player path in enemy mode)
     QList<QGraphicsItem*> items = this->items(event->scenePos());
-    for (QGraphicsItem* item : items) {
-        if (item->data(0) == "locked") {
+    for (QGraphicsItem* item : items)
+    {
+        if (item->data(0) == "locked")
+        {
             return;
         }
     }
 
-    if (m_currentMode == PlayerPath) {
+    if (m_currentMode == PlayerPath)
+    {
         // First click starts the path
-        if (m_playerPath.isEmpty()) {
+        if (m_playerPath.isEmpty())
+        {
             m_playerPath.append(currentPos);
             drawPathCell(currentPos, 1, QColor(135, 206, 250));
             return;
         }
 
         // Subsequent clicks must be adjacent
-        if (!isAdjacent(currentPos, m_playerPath.last())) {
+        if (!isAdjacent(currentPos, m_playerPath.last()))
+        {
             return;
         }
 
         // Add to path
+
+        AudioManager::instance()->playEffect();
+
         m_playerPath.append(currentPos);
         drawPathCell(currentPos, m_playerPath.size(), QColor(135, 206, 250));
 
-//        // If path is long enough, emit signal
-//        if (m_playerPath.size() >= 3) {
-//            emit pathCompleted();
-//        }
     }
     else if (m_currentMode == EnemyPath)
     {
@@ -67,6 +74,7 @@ void Workshopgridscene::mousePressEvent(QGraphicsSceneMouseEvent* event)
         // First click starts the path
         if (m_enemyPath.isEmpty())
         {
+            AudioManager::instance()->playEffect();
             m_enemyPath.append(currentPos);
             drawPathCell(currentPos, 1, Qt::yellow);
             return;
@@ -79,6 +87,9 @@ void Workshopgridscene::mousePressEvent(QGraphicsSceneMouseEvent* event)
         }
 
         // Add to path
+
+        AudioManager::instance()->playEffect();
+
         m_enemyPath.append(currentPos);
         drawPathCell(currentPos, m_enemyPath.size(), Qt::yellow);
 
@@ -209,7 +220,7 @@ bool Workshopgridscene::saveToFile(const std::string& fileName, const  std::stri
         for (const QPoint& p : m_enemyPath) {
             file << p.x() << "," << p.y() << "\n";
         }
-        file << m_playerPath.last().x() << "," << m_playerPath.last().y() << "\n";
+
 
         file.close();
         return true;

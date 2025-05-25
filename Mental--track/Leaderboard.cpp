@@ -5,6 +5,7 @@
 #include <QTimer>
 #include <QDebug>
 #include<QLabel>
+#include"gamedefine.h"
 
 Leaderboard::Leaderboard(const QString& reportFile, QWidget *parent) :
     QWidget(parent),
@@ -43,7 +44,10 @@ Leaderboard::Leaderboard(const QString& reportFile, QWidget *parent) :
         "}"
     );
 
-    connect(backButton, &QPushButton::clicked, [=](){
+    connect(backButton, &QPushButton::clicked, [=]()
+    {
+        AudioManager::instance()->playEffect();
+
         emit returnToMain();  // 发射返回信号
         this->close();        // 关闭排行榜
     });
@@ -128,7 +132,8 @@ void Leaderboard::setTableHeaders(DisplayMode mode)
 {
     m_currentDisplayMode = mode;
 
-    switch(mode) {
+    switch(mode)
+    {
     case PassedLevels:
         ui->tableWidget->setColumnCount(3);
         ui->tableWidget->setHorizontalHeaderLabels({"排名", "玩家名称", "通关关卡数"});
@@ -345,6 +350,7 @@ void Leaderboard::parseReportFile()
 
 void Leaderboard::onPassedLevelsClicked()
 {
+    AudioManager::instance()->playEffect();
     clearTable();
     ui->tableWidget->setColumnCount(3);
     ui->tableWidget->setHorizontalHeaderLabels({"排名", "玩家名称", "通关关卡数"});
@@ -386,6 +392,7 @@ void Leaderboard::onPassedLevelsClicked()
 
 void Leaderboard::onBestTimesClicked()
 {
+    AudioManager::instance()->playEffect();
     clearTable();
        ui->tableWidget->setColumnCount(4);
        ui->tableWidget->setHorizontalHeaderLabels({"关卡ID", "最短时间", "最佳玩家", "所有记录"});
@@ -451,7 +458,9 @@ void Leaderboard::onBestTimesClicked()
           adjustTableColumns();
 }
 
-void Leaderboard::onMedalsClicked() {
+void Leaderboard::onMedalsClicked()
+{
+    AudioManager::instance()->playEffect();
     clearTable();
     ui->tableWidget->setColumnCount(4);
     ui->tableWidget->setHorizontalHeaderLabels({"排名", "玩家名称", "勋章数量", "勋章详情"});
@@ -549,6 +558,7 @@ void Leaderboard::onWorkshopClicked()
 
 void Leaderboard::on_btnWorkshop_clicked()
 {
+    AudioManager::instance()->playEffect();
     Leaderboard::onWorkshopClicked();
 }
 
@@ -629,9 +639,10 @@ Leaderboard::~Leaderboard()
 
 void Leaderboard::on_btnBattle_clicked()
 {
+    AudioManager::instance()->playEffect();
     clearTable();
-        ui->tableWidget->setColumnCount(5);
-        ui->tableWidget->setHorizontalHeaderLabels({"排名", "玩家名称", "胜场数", "胜率", "对战积分"});
+    ui->tableWidget->setColumnCount(5);
+    ui->tableWidget->setHorizontalHeaderLabels({"排名", "玩家名称", "胜场数", "胜率", "对战积分"});
 
         // 按对战积分排序
         std::sort(m_players.begin(), m_players.end(),

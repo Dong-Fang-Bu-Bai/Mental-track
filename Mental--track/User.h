@@ -12,7 +12,6 @@
 class User
 {
 public:
-    //User(const std::string& username = "", const std::string& password = "",int totalLevels = 61);
 
     // 创建新用户（会初始化关卡记录）
         static User* createNewUser(const std::string& username, const std::string& password, int totalLevels = 61);

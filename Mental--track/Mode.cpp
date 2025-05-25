@@ -3,6 +3,7 @@
 #include"Map.h"
 #include"Workshop.h"
 #include"BattlePlay.h"
+#include"gamedefine.h"
 
 
 Mode::Mode(QWidget *parent) :
@@ -36,8 +37,9 @@ void Mode::setCurrentUser(User* user)
 
 void Mode::on_pushButton_Mainplay_clicked()
 {
-    this->hide();
+    AudioManager::instance()->playEffect();
 
+    this->hide();
     Map* map = new Map(*m_currentUser);
     map->setAttribute(Qt::WA_DeleteOnClose, true);
     map->show();
@@ -46,6 +48,8 @@ void Mode::on_pushButton_Mainplay_clicked()
 
 void Mode::on_pushButton_CreateWork_clicked()
 {
+    AudioManager::instance()->playEffect();
+
     this->hide();
     Workshop *workshop = new Workshop(*m_currentUser);
     workshop->setAttribute(Qt::WA_DeleteOnClose, true);
@@ -56,6 +60,8 @@ void Mode::on_pushButton_CreateWork_clicked()
 
 void Mode::on_pushButton_Battle_clicked()
 {
+    AudioManager::instance()->playEffect();
+
     this->hide();
     BattlePlay* battlePlay = new BattlePlay(*m_currentUser); // 解引用传递
     battlePlay->setAttribute(Qt::WA_DeleteOnClose, true);
@@ -64,5 +70,7 @@ void Mode::on_pushButton_Battle_clicked()
 
 void Mode::on_pushButton_Exit_clicked()
 {
+    AudioManager::instance()->playEffect();
+
     exit(0);
 }

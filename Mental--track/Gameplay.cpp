@@ -94,8 +94,8 @@ Gameplay::Gameplay(const QString& levelPath, int levelId, User* currentUser, QWi
         QPushButton*btn_check=new QPushButton(this);
         // 设置文字字体和大小
         QFont font("华文行楷", 25, QFont::Bold);
-        //btn_check->setGeometry(1100,1230,200,70);
-        btn_check->setGeometry(1100,800,200,70);
+        btn_check->setGeometry(1100,1230,200,70);
+        //btn_check->setGeometry(1100,800,200,70);
         btn_check->setText("提交");
         btn_check->setFont(font);
 
@@ -118,7 +118,7 @@ Gameplay::Gameplay(const QString& levelPath, int levelId, User* currentUser, QWi
         //设置点击逻辑
         connect(btn_check,&QPushButton::clicked,[=]()
         {
-
+            AudioManager::instance()->playEffect();
 
             if( interactiveScene->verifyUserPath())
             {
@@ -192,6 +192,7 @@ Gameplay::Gameplay(const QString& levelPath, int levelId, User* currentUser, QWi
         // 在Gameplay.cpp中修改后退按钮连接逻辑
         connect(btn_back, &QPushButton::clicked, [=]()
         {
+            AudioManager::instance()->playEffect();
             // 调用场景的后退方法
             interactiveScene->undoLastStep();
 
@@ -230,6 +231,7 @@ Gameplay::Gameplay(const QString& levelPath, int levelId, User* currentUser, QWi
         // 修改清空按钮连接逻辑
         connect(btn_clear, &QPushButton::clicked, [=]()
         {
+            AudioManager::instance()->playEffect();
             interactiveScene->clearUserPath();
             qDebug() << "路径已清空";
         });
@@ -298,23 +300,30 @@ bool Gameplay::loadLevel(const QString& filePath,
                         QVector<QPoint>& enemyPath)
 {
     playerPath.clear();
-    enemyPath.clear();
+       enemyPath.clear();
 
-    QFile file(filePath);
-    if (!file.open(QIODevice::ReadOnly)) {
-        qWarning() << "Cannot open:" << filePath << "Error:" << file.errorString();
-        return false;
-    }
+       QFile file(filePath);
+       if (!file.open(QIODevice::ReadOnly)) {
+           qWarning() << "Cannot open:" << filePath << "Error:" << file.errorString();
+           return false;
+       }
 
-    QTextStream in(&file);
-
-        in.setCodec("UTF-8"); // 旧版Qt用法
-
+       QTextStream in(&file);
+   #if QT_VERSION < QT_VERSION_CHECK(6, 0, 0)
+       in.setCodec("UTF-8"); // 旧版Qt用法
+   #else
+       in.setEncoding(QStringConverter::Utf8); // Qt6+用法
+   #endif
 
        enum Section { None, Player, Enemy };
        Section current = None;
 
+       int lineNumber = 0;
+       bool hasPlayerSection = false;
+       bool hasEnemySection = false;
+
        while (!in.atEnd()) {
+           lineNumber++;
            QString line = in.readLine().trimmed();
 
            // 跳过空行和纯注释行
@@ -325,50 +334,77 @@ bool Gameplay::loadLevel(const QString& filePath,
            // 处理章节标记
            if (line == "[Player]") {
                current = Player;
+               hasPlayerSection = true;
                continue;
            } else if (line == "[Enemy]") {
                current = Enemy;
+               hasEnemySection = true;
+               continue;
+           }
+
+           // 检查是否在有效的章节中
+           if (current == None)
+           {
+               qWarning() << "Line" << lineNumber << ": Coordinate found outside of any section";
                continue;
            }
 
            // 解析坐标行（支持"x,y"或"x,y #注释"格式）
            QString coordStr = line.split("#")[0].trimmed(); // 移除右侧注释
-           QStringList coords = coordStr.split(",");
+           QStringList coords = coordStr.split(",", Qt::SkipEmptyParts);
 
-           if (coords.size() == 2) {
-               bool okX, okY;
-               int x = coords[0].trimmed().toInt(&okX);
-               int y = coords[1].trimmed().toInt(&okY);
+           if (coords.size() != 2) {
+               qWarning() << "Line" << lineNumber << ": Invalid coordinate format:" << line;
+               continue;
+           }
 
-               if (okX && okY) {
-                   QPoint pt(x, y);
-                   if (current == Player) {
-                       playerPath.append(pt);
-                   } else if (current == Enemy) {
-                       enemyPath.append(pt);
-                   }
-               }
+           bool okX, okY;
+           int x = coords[0].trimmed().toInt(&okX);
+           int y = coords[1].trimmed().toInt(&okY);
+
+           if (!okX || !okY) {
+               qWarning() << "Line" << lineNumber << ": Invalid coordinate values:" << line;
+               continue;
+           }
+
+           QPoint pt(x, y);
+           if (current == Player) {
+               playerPath.append(pt);
+           } else if (current == Enemy) {
+               enemyPath.append(pt);
            }
        }
+
+       file.close();
 
        // 调试输出
        qDebug() << "Player path:" << playerPath;
        qDebug() << "Enemy path:" << enemyPath;
+
+       // 检查是否有必要的章节
+       if (!hasPlayerSection || !hasEnemySection) {
+           qWarning() << "Missing required sections in level file";
+           return false;
+       }
 
        return !playerPath.isEmpty() && !enemyPath.isEmpty();
 }
 
 void Gameplay::onReturnButtonClicked()
 {
+    AudioManager::instance()->playEffect();
     emit returnToMapRequested();// 先发射信号
     this->close(); // 然后关闭窗口
 }
 
 void Gameplay::onPauseButtonClicked()
 {
-    if (m_isPaused) {
+    AudioManager::instance()->playEffect();
+    if (m_isPaused)
+    {
         resumeGame();
-    } else {
+    } else
+    {
         // 暂停游戏
         m_isPaused = true;
         m_timer->stop();  // 停止计时器
@@ -481,6 +517,7 @@ void Gameplay::onPauseButtonClicked()
 
                connect(m_HelpButton, &QPushButton::clicked, [=]()
                {
+                   AudioManager::instance()->playEffect();
                    Help *help = new Help(pauseMenu);  // 关键：传递当前窗口指针
                    help->setWindowFlags(Qt::Dialog | Qt::WindowStaysOnTopHint);  // 强制设为对话框
                    help->setAttribute(Qt::WA_DeleteOnClose, true);
@@ -499,6 +536,8 @@ void Gameplay::onPauseButtonClicked()
 
 void Gameplay::resumeGame()
 {
+    AudioManager::instance()->playEffect();
+
     if (m_isPaused)
     {
         m_isPaused = false;
@@ -519,6 +558,8 @@ void Gameplay::resumeGame()
 
 void Gameplay::restartLevel()
 {
+    AudioManager::instance()->playEffect();
+
     // 1. 停止计时器
      m_timer->stop();
 

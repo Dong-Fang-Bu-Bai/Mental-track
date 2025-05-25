@@ -1,5 +1,5 @@
 #include "Interactivegridscene.h"
-
+#include"gamedefine.h"
 
 InteractiveGridScene::InteractiveGridScene(int gridSize, QObject *parent)
     : Gridscene(gridSize, parent)
@@ -71,7 +71,8 @@ void InteractiveGridScene::mousePressEvent(QGraphicsSceneMouseEvent* event)
            return;
        }
 
-    QPoint currentPos(
+    QPoint currentPos
+    (
         static_cast<int>(event->scenePos().x()) / CELL_SIZE,
         static_cast<int>(event->scenePos().y()) / CELL_SIZE
     );
@@ -89,8 +90,10 @@ void InteractiveGridScene::mousePressEvent(QGraphicsSceneMouseEvent* event)
     }
 
     // 第一次点击必须从起点相邻位置开始
-    if(m_userPath.isEmpty()) {
-        if(!isAdjacent(currentPos, m_start)) {
+    if(m_userPath.isEmpty())
+    {
+        if(!isAdjacent(currentPos, m_start))
+        {
             qDebug() << "第一次点击必须从起点相邻位置开始";
             return;
         }
@@ -98,7 +101,8 @@ void InteractiveGridScene::mousePressEvent(QGraphicsSceneMouseEvent* event)
     }
 
     // 后续点击必须与上一位置相邻
-    if(!m_userPath.isEmpty() && !isAdjacent(currentPos, m_userPath.last())) {
+    if(!m_userPath.isEmpty() && !isAdjacent(currentPos, m_userPath.last()))
+    {
         qDebug() << "每次只能移动到相邻格子";
         return;
     }
@@ -106,6 +110,7 @@ void InteractiveGridScene::mousePressEvent(QGraphicsSceneMouseEvent* event)
     // 添加到路径（如果当前位置不在路径中）
         if(m_userPath.isEmpty() || currentPos != m_userPath.last())
         {
+            AudioManager::instance()->playEffect();
             m_userPath.append(currentPos);
             updateLastCellWithStepNumber(); // 修改为带步数的更新方法
             emit pathPointAdded(currentPos.x(), currentPos.y());

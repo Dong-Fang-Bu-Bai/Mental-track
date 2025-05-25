@@ -34,6 +34,7 @@ Help::~Help()
 
 void Help::on_pushButton_Backstart_clicked()
 {
+    AudioManager::instance()->playEffect();
     this->parentWidget()->show();  // 显示来源窗口
     this->close();                 // 关闭帮助窗口
 }

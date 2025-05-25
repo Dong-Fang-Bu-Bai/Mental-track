@@ -10,8 +10,8 @@
 class UserFileManager
 {
 public:
-    static bool saveUsers(const std::vector<User>& users, const std::string& filename= "user.dat");
-    static bool loadUsers(std::vector<User>& users, const std::string& filename = "user.dat");
+    static bool saveUsers(const std::vector<User>& users, const std::string& filename= "users.dat");
+    static bool loadUsers(std::vector<User>& users, const std::string& filename = "users.dat");
 
     // 新增：保存单个用户
     static bool saveUser(const User& user, const std::string& filename = "users.dat");

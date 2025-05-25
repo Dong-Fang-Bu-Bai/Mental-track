@@ -1,3 +1,5 @@
+release/AIStrategies.o
+release/AudioManager.o
 release/BattleGridScene.o
 release/BattlePlay.o
 release/DifficultyDialog.o
@@ -23,9 +25,9 @@ release/UserFileManager.o
 release/Workshop.o
 release/Workshopgridscene.o
 release/gamedefine.o
-release/gameobject.o
 release/main.o
 release/qrc_src.o
+release/moc_AudioManager.o
 release/moc_BattleGridScene.o
 release/moc_BattlePlay.o
 release/moc_DifficultyDialog.o

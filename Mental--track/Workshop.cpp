@@ -23,7 +23,7 @@ Workshop::Workshop(User& user,QWidget *parent) :
      label_Background->setScaledContents(true);
 
 
-     // 创建 返回 按钮
+     // 创建 返回主菜单 按钮
       QPushButton *pushButton_backMode=new QPushButton(this);
       pushButton_backMode->setGeometry(20, 10, 200, 60);
       pushButton_backMode->setText("主菜单");
@@ -50,7 +50,9 @@ Workshop::Workshop(User& user,QWidget *parent) :
       );
 
    // 连接带编号的信号槽
-  connect(pushButton_backMode, &QPushButton::clicked, [=](){
+  connect(pushButton_backMode, &QPushButton::clicked, [=]()
+  {
+      AudioManager::instance()->playEffect();
       this->hide();
       getGlobalModeWindow()->show();
   });
@@ -79,8 +81,8 @@ Workshop::Workshop(User& user,QWidget *parent) :
   //创建确认按钮
   QPushButton*btn_confirm=new QPushButton(this);
   // 设置文字字体和大小
-  //btn_confirm->setGeometry(500,1230,200,70);
-  btn_confirm->setGeometry(500,850,200,70);
+  btn_confirm->setGeometry(500,1230,200,70);
+  //btn_confirm->setGeometry(500,850,200,70);
   btn_confirm->setText("确认");
   btn_confirm->setFont(font);
 
@@ -106,8 +108,8 @@ Workshop::Workshop(User& user,QWidget *parent) :
   //创建后退按钮
   QPushButton*btn_back=new QPushButton(this);
   // 设置文字字体和大小
-  //btn_back->setGeometry(250,1230,200,70);
-  btn_back->setGeometry(250,850,200,70);
+  btn_back->setGeometry(250,1230,200,70);
+  //btn_back->setGeometry(250,850,200,70);
   btn_back->setText("后退");
   btn_back->setFont(font);
 
@@ -130,15 +132,20 @@ Workshop::Workshop(User& user,QWidget *parent) :
   //设置点击逻辑
   connect(btn_back, &QPushButton::clicked, [=]()
   {
+      AudioManager::instance()->playEffect();
       if (m_isPlayerPathDone) {
-          if (m_workshopScene->getEnemyPath().isEmpty()) {
+          if (m_workshopScene->getEnemyPath().isEmpty())
+          {
               // 敌人路径已空，切换回玩家路径编辑
               m_isPlayerPathDone = false;
               m_workshopScene->setEditMode(Workshopgridscene::PlayerPath);
-          } else {
+          } else
+          {
               m_workshopScene->undoLastStep();
           }
-      } else {
+      }
+      else
+      {
           m_workshopScene->undoLastStep();
       }
   });
@@ -149,8 +156,8 @@ Workshop::Workshop(User& user,QWidget *parent) :
   //创建清空按钮
   QPushButton*btn_clear=new QPushButton(this);
   // 设置文字字体和大小
-  //btn_clear->setGeometry(750,1230,200,70);
-  btn_clear->setGeometry(750,850,200,70);
+  btn_clear->setGeometry(750,1230,200,70);
+  //btn_clear->setGeometry(750,850,200,70);
   btn_clear->setText("清空");
   btn_clear->setFont(font);
 
@@ -171,7 +178,9 @@ Workshop::Workshop(User& user,QWidget *parent) :
   );
 
   //设置点击逻辑
-  connect(btn_clear, &QPushButton::clicked, [=](){
+  connect(btn_clear, &QPushButton::clicked, [=]()
+  {
+      AudioManager::instance()->playEffect();
       m_workshopScene->clearPaths();
       m_isPlayerPathDone = false;
   });
@@ -181,6 +190,8 @@ Workshop::Workshop(User& user,QWidget *parent) :
 
 void Workshop::onConfirmClicked()
 {
+    AudioManager::instance()->playEffect();
+
     if (!m_isPlayerPathDone)
     {
         // First confirm - switch to enemy path editing

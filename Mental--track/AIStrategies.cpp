@@ -1,0 +1,139 @@
+#include "AIStrategies.h"
+#include <QRandomGenerator>
+
+// 随机策略（简单难度）
+QPoint RandomStrategy::calculateMove(const QPoint&,
+                                   const QVector<QPoint>& possibleMoves,
+                                   const QVector<QPoint>&,
+                                   const QVector<QPoint>&) {
+    return possibleMoves[QRandomGenerator::global()->bounded(possibleMoves.size())];
+}
+
+// 中级策略
+QPoint IntermediateStrategy::calculateMove(const QPoint& currentPos,
+                                         const QVector<QPoint>& possibleMoves,
+                                         const QVector<QPoint>& playerPath,
+                                         const QVector<QPoint>&) {
+    const QPoint center(8, 8);
+    QPoint bestMove;
+    int minDistance = INT_MAX;
+
+    // 1. 优先选择最靠近中心的移动
+    for (const QPoint& move : possibleMoves) {
+        int distance = abs(move.x() - center.x()) + abs(move.y() - center.y());
+        if (distance < minDistance) {
+            minDistance = distance;
+            bestMove = move;
+        }
+    }
+
+    // 2. 如果玩家接近，增加防御性
+    if (!playerPath.isEmpty()) {
+        QPoint playerPos = playerPath.last();
+        int playerDistance = abs(playerPos.x() - center.x()) + abs(playerPos.y() - center.y());
+
+        if (playerDistance < minDistance + 2) { // 玩家更接近中心
+            // 尝试阻挡玩家路径
+            for (const QPoint& move : possibleMoves) {
+                for (const QPoint& dir : {QPoint(0,1), QPoint(1,0), QPoint(0,-1), QPoint(-1,0)}) {
+                    if (playerPos + dir == move) {
+                        return move; // 优先阻挡玩家
+                    }
+                }
+            }
+        }
+    }
+
+    return bestMove;
+}
+
+// 高级策略
+QPoint AdvancedStrategy::calculateMove(const QPoint& currentPos,
+                                     const QVector<QPoint>& possibleMoves,
+                                     const QVector<QPoint>& playerPath,
+                                     const QVector<QPoint>& aiPath) {
+    // 1. 预测玩家未来3步移动
+    QVector<QPoint> predictedPlayerPath;
+    if (!playerPath.isEmpty()) {
+        predictedPlayerPath = predictPlayerMoves(playerPath.last(), 3);
+    }
+
+    // 2. 评估每个可能的移动
+    QPoint bestMove;
+    int maxScore = INT_MIN;
+
+    for (const QPoint& move : possibleMoves) {
+        int score = evaluatePosition(move);
+
+        // 如果这个移动能阻挡预测的玩家路径，增加分数
+        for (const QPoint& predPos : predictedPlayerPath) {
+            if (move == predPos) {
+                score += 50;
+                break;
+            }
+        }
+
+        // 如果这个移动能限制玩家选择，增加分数
+        if (!playerPath.isEmpty()) {
+            QPoint playerPos = playerPath.last();
+            int blockedDirections = 0;
+            for (const QPoint& dir : {QPoint(0,1), QPoint(1,0), QPoint(0,-1), QPoint(-1,0)}) {
+                if (playerPos + dir == move ||
+                   (move == playerPos + dir * 2 && !aiPath.contains(playerPos + dir))) {
+                    blockedDirections++;
+                }
+            }
+            score += blockedDirections * 20;
+        }
+
+        if (score > maxScore) {
+            maxScore = score;
+            bestMove = move;
+        }
+    }
+
+    return bestMove;
+}
+
+int AdvancedStrategy::evaluatePosition(const QPoint& pos) const {
+    const QPoint center(8, 8);
+    // 基础分数：距离中心越近分数越高
+    int score = 100 - (abs(pos.x() - center.x()) + abs(pos.y() - center.y())) * 10;
+
+    // 边缘惩罚
+    if (pos.x() == 0 || pos.x() == 16 || pos.y() == 0 || pos.y() == 16) {
+        score -= 30;
+    }
+
+    return score;
+}
+
+QVector<QPoint> AdvancedStrategy::predictPlayerMoves(const QPoint& playerPos, int depth) const {
+    QVector<QPoint> predicted;
+    if (depth <= 0) return predicted;
+
+    // 简单预测：玩家会向中心移动
+    QPoint current = playerPos;
+    for (int i = 0; i < depth; ++i) {
+        QPoint bestMove;
+        int minDistance = INT_MAX;
+
+        for (const QPoint& dir : {QPoint(0,1), QPoint(1,0), QPoint(0,-1), QPoint(-1,0)}) {
+            QPoint next = current + dir;
+            int distance = abs(next.x() - 8) + abs(next.y() - 8);
+            if (distance < minDistance) {
+                minDistance = distance;
+                bestMove = next;
+            }
+        }
+
+        if (minDistance != INT_MAX) {
+            predicted.append(bestMove);
+            current = bestMove;
+        } else {
+            break;
+        }
+    }
+
+    return predicted;
+}
