@@ -29,7 +29,7 @@ Login* getGlobalLoginWindow();
 
 Register* getGlobalRegisterWindow();
 
-//Help* getGlobalHelpWindow(); 不将帮助窗口设置为静态，改为随叫随到
+//Help* getGlobalHelpWindow(); 不将 帮助 窗口设置为静态，改为随叫随到
 
 Mode* getGlobalModeWindow();
 

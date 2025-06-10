@@ -84,6 +84,11 @@ void User::serialize(std::ostream& out) const
         out.write(reinterpret_cast<const char*>(&battleWins), sizeof(battleWins));
         out.write(reinterpret_cast<const char*>(&battleTotal), sizeof(battleTotal));
         out.write(reinterpret_cast<const char*>(&battlePoints), sizeof(battlePoints));
+
+        // 写入谁与争锋数据
+        out.write(reinterpret_cast<const char*>(&pvpWins), sizeof(pvpWins));
+        out.write(reinterpret_cast<const char*>(&pvpTotal), sizeof(pvpTotal));
+        out.write(reinterpret_cast<const char*>(&pvpPoints), sizeof(pvpPoints));
 }
 
 
@@ -203,5 +208,11 @@ void User::deserialize(std::istream& in)
        in.read(reinterpret_cast<char*>(&battleWins), sizeof(battleWins));
        in.read(reinterpret_cast<char*>(&battleTotal), sizeof(battleTotal));
        in.read(reinterpret_cast<char*>(&battlePoints), sizeof(battlePoints));
+
+
+       // 读取谁与争锋数据
+       in.read(reinterpret_cast<char*>(&pvpWins), sizeof(pvpWins));
+       in.read(reinterpret_cast<char*>(&pvpTotal), sizeof(pvpTotal));
+       in.read(reinterpret_cast<char*>(&pvpPoints), sizeof(pvpPoints));
 }
 

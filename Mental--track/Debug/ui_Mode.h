@@ -26,6 +26,7 @@ public:
     QPushButton *pushButton_CreateWork;
     QPushButton *pushButton_Battle;
     QPushButton *pushButton_Exit;
+    QPushButton *pushButton_OnlineBattle;
 
     void setupUi(QWidget *Mode)
     {
@@ -64,7 +65,7 @@ public:
 "}"));
         pushButton_CreateWork = new QPushButton(Mode);
         pushButton_CreateWork->setObjectName(QString::fromUtf8("pushButton_CreateWork"));
-        pushButton_CreateWork->setGeometry(QRect(450, 560, 300, 91));
+        pushButton_CreateWork->setGeometry(QRect(450, 460, 300, 91));
         pushButton_CreateWork->setFont(font1);
         pushButton_CreateWork->setStyleSheet(QString::fromUtf8("/* \351\273\230\350\256\244\347\212\266\346\200\201 */\n"
 "QPushButton {\n"
@@ -78,7 +79,7 @@ public:
 "}"));
         pushButton_Battle = new QPushButton(Mode);
         pushButton_Battle->setObjectName(QString::fromUtf8("pushButton_Battle"));
-        pushButton_Battle->setGeometry(QRect(450, 870, 300, 91));
+        pushButton_Battle->setGeometry(QRect(450, 670, 300, 91));
         pushButton_Battle->setFont(font1);
         pushButton_Battle->setStyleSheet(QString::fromUtf8("/* \351\273\230\350\256\244\347\212\266\346\200\201 */\n"
 "QPushButton {\n"
@@ -104,6 +105,20 @@ public:
 "QPushButton:hover {\n"
 "    background-color:rgba(230,180, 94, 100%)\n"
 "}"));
+        pushButton_OnlineBattle = new QPushButton(Mode);
+        pushButton_OnlineBattle->setObjectName(QString::fromUtf8("pushButton_OnlineBattle"));
+        pushButton_OnlineBattle->setGeometry(QRect(450, 880, 300, 91));
+        pushButton_OnlineBattle->setFont(font1);
+        pushButton_OnlineBattle->setStyleSheet(QString::fromUtf8("/* \351\273\230\350\256\244\347\212\266\346\200\201 */\n"
+"QPushButton {\n"
+"    background-color: rgba(255,255, 255, 40%);\n"
+"    color: black;\n"
+"}\n"
+"\n"
+"/* \351\274\240\346\240\207\346\202\254\345\201\234 */\n"
+"QPushButton:hover {\n"
+"    background-color:rgba(230,180, 94, 100%)\n"
+"}"));
 
         retranslateUi(Mode);
 
@@ -119,6 +134,7 @@ public:
         pushButton_CreateWork->setText(QCoreApplication::translate("Mode", "\345\210\233\346\204\217\345\267\245\345\235\212", nullptr));
         pushButton_Battle->setText(QCoreApplication::translate("Mode", "\344\272\272\346\234\272\345\257\271\346\210\230", nullptr));
         pushButton_Exit->setText(QCoreApplication::translate("Mode", "\351\200\200\345\207\272", nullptr));
+        pushButton_OnlineBattle->setText(QCoreApplication::translate("Mode", "\350\260\201\344\270\216\344\272\211\351\224\213", nullptr));
     } // retranslateUi
 
 };

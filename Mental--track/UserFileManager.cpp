@@ -3,6 +3,11 @@
 #include <iomanip>
 #include <ctime>
 #include<QDebug>
+#include <QFile>
+#include <QFileInfo>
+#include <QDateTime>
+#include <QCryptographicHash>
+
 
 bool UserFileManager::saveUsers(const std::vector<User>& users, const std::string& filename)
 {
@@ -41,26 +46,94 @@ bool UserFileManager::loadUsers(std::vector<User>& users, const std::string& fil
 }
 
 
-bool UserFileManager::saveUser(const User& user, const std::string& filename) {
-    std::vector<User> users;
-        if(!loadUsers(users, filename)) {
-            users.clear();
-        }
+bool UserFileManager::saveUser(const User& user, const std::string& filename)
+{
+//    std::vector<User> users;
+//        if(!loadUsers(users, filename)) {
+//            users.clear();
+//        }
 
-        bool found = false;
-        for(auto& u : users) {
-            if(u.getUsername() == user.getUsername()) {
-                u = user; // 这里会调用User的赋值运算符
-                found = true;
-                break;
+//        bool found = false;
+//        for(auto& u : users) {
+//            if(u.getUsername() == user.getUsername()) {
+//                u = user; // 这里会调用User的赋值运算符
+//                found = true;
+//                break;
+//            }
+//        }
+
+//        if(!found) {
+//            users.push_back(user);
+//        }
+
+//        return saveUsers(users, filename);
+
+    // 创建临时文件名
+        QString tempFile = QString::fromStdString(filename) + ".tmp";
+
+        // 1. 先保存到临时文件
+        {
+            std::ofstream out(tempFile.toStdString(), std::ios::binary);
+            if (!out) return false;
+
+            // 加载现有用户
+            std::vector<User> users;
+            if(!loadUsers(users, filename)) {
+                users.clear();
+            }
+
+            // 更新或添加用户
+            bool found = false;
+            for(auto& u : users) {
+                if(u.getUsername() == user.getUsername()) {
+                    u = user;
+                    found = true;
+                    break;
+                }
+            }
+
+            if(!found) {
+                users.push_back(user);
+            }
+
+            // 保存所有用户
+            size_t userCount = users.size();
+            out.write(reinterpret_cast<const char*>(&userCount), sizeof(userCount));
+            for (const auto& u : users) {
+                u.serialize(out);
+            }
+
+            if(!out.good()) {
+                QFile::remove(tempFile);
+                return false;
             }
         }
 
-        if(!found) {
-            users.push_back(user);
+        // 2. 备份原文件
+        QString backupFile = QString::fromStdString(filename) + ".bak";
+        if(QFile::exists(QString::fromStdString(filename))) {
+            if(!QFile::rename(QString::fromStdString(filename), backupFile)) {
+                QFile::remove(tempFile);
+                return false;
+            }
         }
 
-        return saveUsers(users, filename);
+        // 3. 重命名临时文件
+        if(!QFile::rename(tempFile, QString::fromStdString(filename)))
+        {
+            // 恢复备份
+            if(QFile::exists(backupFile)) {
+                QFile::rename(backupFile, QString::fromStdString(filename));
+            }
+            return false;
+        }
+
+        // 4. 删除备份
+        if(QFile::exists(backupFile)) {
+            QFile::remove(backupFile);
+        }
+
+        return true;
 }
 
 
@@ -150,6 +223,13 @@ bool UserFileManager::generateDeveloperReport(const std::string& userDataFile,
             out << "  总场数: " << user.getBattleTotal() << "\n";
             out << "  胜率: " << QString::number(user.getWinRate(), 'f', 1).toStdString() << "%\n";
             out << "  对战积分: " << user.getBattlePoints() << "\n";
+
+            // 新增谁与争锋(PvP)模式数据
+            out << "谁与争锋(PvP):\n";
+            out << "  对局数: " << user.getPvPTotal() << "\n";
+            out << "  胜局数: " << user.getPvPWins() << "\n";
+            out << "  胜率: " << QString::number(user.getPvPWinRate(), 'f', 1).toStdString() << "%\n";
+            out << "  在线积分: " << user.getPvPPoints() << "\n";
 
             out << "----------------------------------------\n\n";
         }

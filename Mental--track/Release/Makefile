@@ -248,6 +248,7 @@ Makefile: ../Mental--track.pro ../../../../QT/5.14.2/mingw73_64/mkspecs/win32-g+
 		../../../../QT/5.14.2/mingw73_64/mkspecs/features/qt_config.prf \
 		../../../../QT/5.14.2/mingw73_64/mkspecs/win32-g++/qmake.conf \
 		../../../../QT/5.14.2/mingw73_64/mkspecs/features/spec_post.prf \
+		.qmake.stash \
 		../../../../QT/5.14.2/mingw73_64/mkspecs/features/exclusive_builds.prf \
 		../../../../QT/5.14.2/mingw73_64/mkspecs/features/toolchain.prf \
 		../../../../QT/5.14.2/mingw73_64/mkspecs/features/default_pre.prf \
@@ -278,7 +279,6 @@ Makefile: ../Mental--track.pro ../../../../QT/5.14.2/mingw73_64/mkspecs/win32-g+
 		../../../../QT/5.14.2/mingw73_64/lib/Qt5Network.prl \
 		../../../../QT/5.14.2/mingw73_64/lib/Qt5Core.prl \
 		../../../../QT/5.14.2/mingw73_64/lib/qtmain.prl \
-		.qmake.stash \
 		../../../../QT/5.14.2/mingw73_64/mkspecs/features/build_pass.prf \
 		../src.qrc
 	$(QMAKE) -o Makefile ..\Mental--track.pro -spec win32-g++ "CONFIG+=qtquickcompiler"
@@ -460,6 +460,7 @@ Makefile: ../Mental--track.pro ../../../../QT/5.14.2/mingw73_64/mkspecs/win32-g+
 ../../../../QT/5.14.2/mingw73_64/mkspecs/features/qt_config.prf:
 ../../../../QT/5.14.2/mingw73_64/mkspecs/win32-g++/qmake.conf:
 ../../../../QT/5.14.2/mingw73_64/mkspecs/features/spec_post.prf:
+.qmake.stash:
 ../../../../QT/5.14.2/mingw73_64/mkspecs/features/exclusive_builds.prf:
 ../../../../QT/5.14.2/mingw73_64/mkspecs/features/toolchain.prf:
 ../../../../QT/5.14.2/mingw73_64/mkspecs/features/default_pre.prf:
@@ -490,7 +491,6 @@ Makefile: ../Mental--track.pro ../../../../QT/5.14.2/mingw73_64/mkspecs/win32-g+
 ../../../../QT/5.14.2/mingw73_64/lib/Qt5Network.prl:
 ../../../../QT/5.14.2/mingw73_64/lib/Qt5Core.prl:
 ../../../../QT/5.14.2/mingw73_64/lib/qtmain.prl:
-.qmake.stash:
 ../../../../QT/5.14.2/mingw73_64/mkspecs/features/build_pass.prf:
 ../src.qrc:
 qmake: FORCE

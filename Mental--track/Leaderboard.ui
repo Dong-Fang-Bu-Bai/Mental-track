@@ -46,7 +46,7 @@
     <rect>
      <x>100</x>
      <y>0</y>
-     <width>200</width>
+     <width>167</width>
      <height>70</height>
     </rect>
    </property>
@@ -75,9 +75,9 @@ QPushButton:hover {
   <widget class="QPushButton" name="btnBestTimes">
    <property name="geometry">
     <rect>
-     <x>300</x>
+     <x>267</x>
      <y>0</y>
-     <width>200</width>
+     <width>167</width>
      <height>70</height>
     </rect>
    </property>
@@ -106,9 +106,9 @@ QPushButton:hover {
   <widget class="QPushButton" name="btnMedals">
    <property name="geometry">
     <rect>
-     <x>500</x>
+     <x>434</x>
      <y>0</y>
-     <width>200</width>
+     <width>167</width>
      <height>70</height>
     </rect>
    </property>
@@ -137,9 +137,9 @@ QPushButton:hover {
   <widget class="QPushButton" name="btnWorkshop">
    <property name="geometry">
     <rect>
-     <x>700</x>
+     <x>601</x>
      <y>0</y>
-     <width>200</width>
+     <width>167</width>
      <height>70</height>
     </rect>
    </property>
@@ -168,9 +168,9 @@ QPushButton:hover {
   <widget class="QPushButton" name="btnBattle">
    <property name="geometry">
     <rect>
-     <x>900</x>
+     <x>768</x>
      <y>0</y>
-     <width>200</width>
+     <width>167</width>
      <height>70</height>
     </rect>
    </property>
@@ -194,6 +194,37 @@ QPushButton:hover {
    </property>
    <property name="text">
     <string>人机对战</string>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="OnlineBattle">
+   <property name="geometry">
+    <rect>
+     <x>935</x>
+     <y>0</y>
+     <width>167</width>
+     <height>70</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <family>华文行楷</family>
+     <pointsize>14</pointsize>
+    </font>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">QPushButton {
+    background-color: #a549d9 ;
+    color: black;
+    border: none;
+    padding: 10px;
+    border-radius: 5px;
+}
+QPushButton:hover {
+    background-color: #900fd5 ;
+}</string>
+   </property>
+   <property name="text">
+    <string>谁与争锋</string>
    </property>
   </widget>
  </widget>

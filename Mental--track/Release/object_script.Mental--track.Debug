@@ -16,6 +16,9 @@ debug/Map.o
 debug/MedalPopup.o
 debug/MedalType.o
 debug/Mode.o
+debug/PVPGridScene.o
+debug/PVPNetworkManager.o
+debug/PVPPlay.o
 debug/Pathcalculator.o
 debug/Register.o
 debug/Setting.o
@@ -40,6 +43,9 @@ debug/moc_Login.o
 debug/moc_Map.o
 debug/moc_MedalPopup.o
 debug/moc_Mode.o
+debug/moc_PVPGridScene.o
+debug/moc_PVPNetworkManager.o
+debug/moc_PVPPlay.o
 debug/moc_Register.o
 debug/moc_Setting.o
 debug/moc_Start.o

@@ -1,4 +1,4 @@
-QT       += core gui multimedia
+QT       += core gui multimedia network
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
@@ -22,6 +22,7 @@ SOURCES += \
     AudioManager.cpp \
     BattleGridScene.cpp \
     BattlePlay.cpp \
+    CustomDialog.cpp \
     DifficultyDialog.cpp \
     Displaygridscene.cpp \
     Gameplay.cpp \
@@ -36,6 +37,9 @@ SOURCES += \
     MedalPopup.cpp \
     MedalType.cpp \
     Mode.cpp \
+    PVPGridScene.cpp \
+    PVPNetworkManager.cpp \
+    PVPPlay.cpp \
     Pathcalculator.cpp \
     Register.cpp \
     Setting.cpp \
@@ -53,6 +57,7 @@ HEADERS += \
     AudioManager.h \
     BattleGridScene.h \
     BattlePlay.h \
+    CustomDialog.h \
     DifficultyDialog.h \
     Displaygridscene.h \
     Gameplay.h \
@@ -67,6 +72,9 @@ HEADERS += \
     MedalPopup.h \
     MedalType.h \
     Mode.h \
+    PVPGridScene.h \
+    PVPNetworkManager.h \
+    PVPPlay.h \
     Pathcalculator.h \
     Register.h \
     Setting.h \

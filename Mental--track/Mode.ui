@@ -89,7 +89,7 @@ QPushButton:hover {
    <property name="geometry">
     <rect>
      <x>450</x>
-     <y>560</y>
+     <y>460</y>
      <width>300</width>
      <height>91</height>
     </rect>
@@ -120,7 +120,7 @@ QPushButton:hover {
    <property name="geometry">
     <rect>
      <x>450</x>
-     <y>870</y>
+     <y>670</y>
      <width>300</width>
      <height>91</height>
     </rect>
@@ -176,6 +176,37 @@ QPushButton:hover {
    </property>
    <property name="text">
     <string>退出</string>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="pushButton_OnlineBattle">
+   <property name="geometry">
+    <rect>
+     <x>450</x>
+     <y>880</y>
+     <width>300</width>
+     <height>91</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <family>华文新魏</family>
+     <pointsize>35</pointsize>
+    </font>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">/* 默认状态 */
+QPushButton {
+    background-color: rgba(255,255, 255, 40%);
+    color: black;
+}
+
+/* 鼠标悬停 */
+QPushButton:hover {
+    background-color:rgba(230,180, 94, 100%)
+}</string>
+   </property>
+   <property name="text">
+    <string>谁与争锋</string>
    </property>
   </widget>
  </widget>

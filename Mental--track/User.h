@@ -94,7 +94,7 @@ public:
            return hasValidRecords;
        }
 
-       // 添加这个方法获取有效关卡数
+       //获取有效关卡数
            int getValidPassedLevelCount() const {
                int count = 0;
                for(const auto& [id, record] : levelRecords)
@@ -131,12 +131,11 @@ public:
                return safeCopy;
            }
 
-           // 新增方法
-           int getCreatedMaps() const { return createdMaps; }
-           int getWorkshopPoints() const { return workshopPoints; }
-           void incrementCreatedMaps() { createdMaps++; }
-           void addWorkshopPoints(int points) { workshopPoints += points; }
-
+       // 新增方法
+       int getCreatedMaps() const { return createdMaps; }
+       int getWorkshopPoints() const { return workshopPoints; }
+       void incrementCreatedMaps() { createdMaps++; }
+       void addWorkshopPoints(int points) { workshopPoints += points; }
 
 
        // 新增访问方法
@@ -160,6 +159,22 @@ public:
 
        }
 
+       // PvP相关方法
+          int getPvPWins() const { return pvpWins; }
+          int getPvPTotal() const { return pvpTotal; }
+          int getPvPPoints() const { return pvpPoints; }
+          float getPvPWinRate() const {
+              return pvpTotal > 0 ? (float)pvpWins / pvpTotal * 100 : 0.0f;
+          }
+          void addPvPResult(bool isWin, int points)
+          {
+              pvpTotal++;
+              if(isWin) {
+                  pvpWins++;
+                  pvpPoints += points;
+              }
+          }
+
 
 private:
     std::string  username;
@@ -168,10 +183,15 @@ private:
     std::vector<MedalType> medals;
     int createdMaps = 0;  // 创建的地图数
     int workshopPoints = 0; // 创意工坊积分
-    // 新增人机对战相关属性
-       int battleWins = 0;       // 胜局数
-       int battleTotal = 0;      // 总对局数
-       int battlePoints = 0;     // 对战积分
+    //人机对战相关属性
+    int battleWins = 0;       // 胜局数
+    int battleTotal = 0;      // 总对局数
+    int battlePoints = 0;     // 对战积分
+
+    // 谁与争锋模式相关属性
+    int pvpWins = 0;       // PvP胜局数
+    int pvpTotal = 0;      // PvP总对局数
+    int pvpPoints = 0;     // PvP积分
 
     void initializeLevelRecords(int totalLevels);  // 新增初始化方法
     // 设为私有，强制使用工厂方法创建

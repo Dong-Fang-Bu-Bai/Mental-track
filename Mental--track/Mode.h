@@ -6,9 +6,12 @@
 
 
 // 前向声明
-class Workshop;  // 添加这行
+//class Workshop;
 
-namespace Ui {
+//class PVPPlay;
+
+namespace Ui
+{
 class Mode;
 }
 
@@ -17,7 +20,7 @@ class Mode : public QWidget
     Q_OBJECT
 
 public:
-    void setCurrentUser(User* user); // 新增方法
+    void setCurrentUser(User* user);
     explicit Mode(QWidget *parent = nullptr);
     ~Mode();
 
@@ -29,6 +32,8 @@ private slots:
     void on_pushButton_Battle_clicked();
 
     void on_pushButton_Exit_clicked();
+
+    void on_pushButton_OnlineBattle_clicked();
 
 private:
     Ui::Mode *ui;

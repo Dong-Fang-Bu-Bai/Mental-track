@@ -2,6 +2,7 @@ release/AIStrategies.o
 release/AudioManager.o
 release/BattleGridScene.o
 release/BattlePlay.o
+release/CustomDialog.o
 release/DifficultyDialog.o
 release/Displaygridscene.o
 release/Gameplay.o
@@ -16,6 +17,9 @@ release/Map.o
 release/MedalPopup.o
 release/MedalType.o
 release/Mode.o
+release/PVPGridScene.o
+release/PVPNetworkManager.o
+release/PVPPlay.o
 release/Pathcalculator.o
 release/Register.o
 release/Setting.o
@@ -30,6 +34,7 @@ release/qrc_src.o
 release/moc_AudioManager.o
 release/moc_BattleGridScene.o
 release/moc_BattlePlay.o
+release/moc_CustomDialog.o
 release/moc_DifficultyDialog.o
 release/moc_Gameplay.o
 release/moc_Gridscene.o
@@ -40,6 +45,9 @@ release/moc_Login.o
 release/moc_Map.o
 release/moc_MedalPopup.o
 release/moc_Mode.o
+release/moc_PVPGridScene.o
+release/moc_PVPNetworkManager.o
+release/moc_PVPPlay.o
 release/moc_Register.o
 release/moc_Setting.o
 release/moc_Start.o

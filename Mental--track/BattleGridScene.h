@@ -44,7 +44,6 @@ signals:
 protected:
     void mousePressEvent(QGraphicsSceneMouseEvent* event) override;
 
-private:
     GameState m_state;
     Difficulty m_difficulty;
     QVector<QPoint> m_playerPath;

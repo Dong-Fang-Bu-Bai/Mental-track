@@ -34,6 +34,14 @@ struct PlayerData
     int battleTotal = 0;
     int battlePoints = 0;
 
+    //新增谁与争锋属性
+    int pvpTotal =0;
+    int pvpWins =0;
+    double pvpWinRate = 0;
+    int pvpPoints =0;
+
+
+
     // 添加调试方法
     void debugPrint() const
     {
@@ -43,7 +51,12 @@ struct PlayerData
                  << "| Medal List:" << medalsList.join(", ")
                  << "| Battle Wins:" << battleWins
                  << "| Battle Total:" << battleTotal
-                 << "| Battle Points:" << battlePoints;
+                 << "| Battle Points:" << battlePoints
+                 << "| pvp Total:" << pvpTotal
+                 << "| pvp Wins:" << pvpWins
+                 << "| pvpWin Rate:" << pvpWinRate
+                << "| pvp Points:" << pvpPoints;
+
 
 
         for (auto it = levelTimes.begin(); it != levelTimes.end(); ++it)
@@ -71,6 +84,8 @@ private slots:
     void onWorkshopClicked();
     void on_btnWorkshop_clicked();
     void on_btnBattle_clicked();
+
+    void on_OnlineBattle_clicked();
 
 private:
     void parseReportFile();

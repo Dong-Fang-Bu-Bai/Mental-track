@@ -321,6 +321,31 @@ void Leaderboard::parseReportFile()
                      continue;
                   }
 
+                  // 解析谁与争锋(PvP)数据
+                          if (line.startsWith("谁与争锋(PvP):")) {
+                              continue;
+                          }
+                          if (line.startsWith("对局数:")) {
+                              currentPlayer.pvpTotal = line.section(':', 1).trimmed().toInt();
+                              continue;
+                          }
+                          if (line.startsWith("胜局数:")) {
+                              currentPlayer.pvpWins = line.section(':', 1).trimmed().toInt();
+                              continue;
+                          }
+                          if (line.startsWith("胜率:")) {
+                              QString rateStr = line.section(':', 1).trimmed();
+                              rateStr.remove('%');
+                              currentPlayer.pvpWinRate = rateStr.toFloat();
+                              continue;
+                          }
+
+                          if (line.startsWith("在线积分:"))
+                          {
+                              currentPlayer.pvpPoints = line.section(':', 1).trimmed().toInt();
+                              continue;
+                          }
+
 
             // 处理用户数据结束
             if (line.startsWith("---") || line.startsWith("==="))
@@ -683,4 +708,73 @@ void Leaderboard::on_btnBattle_clicked()
         }
 
         adjustTableColumns();
+}
+
+void Leaderboard::on_OnlineBattle_clicked()
+{
+    AudioManager::instance()->playEffect();
+
+        // 1. 清空表格并设置表头
+        clearTable();
+        ui->tableWidget->setColumnCount(5);
+        ui->tableWidget->setHorizontalHeaderLabels({
+            "排名",
+            "玩家名称",
+            "对战积分",
+            "胜率",
+            "总对局数"
+        });
+
+        // 2. 按对战积分从高到低排序
+        std::sort(m_players.begin(), m_players.end(),
+            [](const PlayerData& a, const PlayerData& b) {
+                return a.pvpPoints > b.pvpPoints;
+            });
+
+        // 3. 填充表格数据
+        for (int i = 0; i < m_players.size() && i < 100; ++i) {
+            const PlayerData& player = m_players[i];
+
+            // 排名列
+            QTableWidgetItem* rankItem = new QTableWidgetItem(QString::number(i + 1));
+            rankItem->setTextAlignment(Qt::AlignCenter);
+            ui->tableWidget->setItem(i, 0, rankItem);
+
+            // 玩家名称列
+            QTableWidgetItem* nameItem = new QTableWidgetItem(player.username);
+            nameItem->setTextAlignment(Qt::AlignCenter);
+            ui->tableWidget->setItem(i, 1, nameItem);
+
+            // 对战积分列
+            QTableWidgetItem* pointsItem = new QTableWidgetItem(QString::number(player.pvpPoints));
+            pointsItem->setTextAlignment(Qt::AlignCenter);
+            ui->tableWidget->setItem(i, 2, pointsItem);
+
+            // 胜率列 (使用解析出的胜率，避免重复计算)
+            QTableWidgetItem* rateItem = new QTableWidgetItem(
+                QString::number(player.pvpWinRate, 'f', 1) + "%");
+            rateItem->setTextAlignment(Qt::AlignCenter);
+            ui->tableWidget->setItem(i, 3, rateItem);
+
+            // 总对局数列
+            QTableWidgetItem* totalItem = new QTableWidgetItem(QString::number(player.pvpTotal));
+            totalItem->setTextAlignment(Qt::AlignCenter);
+            ui->tableWidget->setItem(i, 4, totalItem);
+        }
+
+        // 4. 调整列宽
+        adjustTableColumns();
+
+//        // 5. 设置样式
+//        ui->tableWidget->setStyleSheet(R"(
+//            QTableWidget {
+//                background-color: rgba(255, 255, 255, 0.7);
+//            }
+//            QHeaderView::section {
+//                background-color: #4682B4;
+//                color: white;
+//                font-weight: bold;
+//            }
+//        )");
+
 }

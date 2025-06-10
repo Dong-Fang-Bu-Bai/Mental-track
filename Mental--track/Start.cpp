@@ -17,7 +17,7 @@ Start::Start(QWidget *parent) :
     ui->Label_Name->setScaledContents(true);  // 关键：启用自动缩放
 
     UserFileManager manager;
-    manager.generateDeveloperReport("users.dat", "users_info.txt");
+   manager.generateDeveloperReport("users.dat", "users_info.txt");
 
 
 }
